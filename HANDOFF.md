@@ -58,53 +58,84 @@ AI 导师名为「**小樱**」（不是"小澜"——小澜是 deepseek_hello.p
 | 技术选型 | 确定 **DeepSeek** 为核心 API 提供商（替代 OpenAI/Anthropic），详见第九节 |
 | 项目迁移 | 从 `C:\Users\a\ai-agent-learning\` 迁移到 `D:\ai agent2\ai-agent-learning\` |
 
+### ✅ 阶段 1 — Day 3·实战（2026-07-12 同一天完成）
+
+| 事项 | 详情 |
+|------|------|
+| AI 对话机 | `ai_chat.py` — 终端多轮对话程序，支持 `/exit` `/clear` `/history` |
+| 学到的语法 | `while True` 循环、`list`（messages 列表）、`input()` 交互、`if/elif/else`、`break`/`continue` |
+| 角色扮演 | 把 system prompt 改成猫娘「小樱喵」，理解 AI 人设机制 |
+| GitHub 仓库 | https://github.com/ymqlsakura/stage-2-ai-chat |
+
 ### ✅ 阶段性回顾
 
 用户主动追问了两个元认知问题：
 1. "你最没把握的事情是什么？" → 讨论了 3 个风险点
 2. "最大的遗漏是什么？" → 暴露了 API 费用和安全盲区
 
+当前项目全景：
+- stage-0: Hello World
+- stage-1: 第一次 API 调用
+- stage-2: AI 对话机 ← 最新
+
 ---
 
 ## 三、当前卡在哪
 
-**没有卡住。** Day 1 和 Day 2 都顺利完成了。剩余待推进事项：
+**没有卡住。** Day 1-3 全部顺利。当前状态：
 
-### 🟢 已解决的隐患
-- ✅ API Key 安全：`.env` 保护已验证，CHECKLIST.md 已创建
-- ✅ 费用意识：DeepSeek 极便宜（¥0.00016/次调用），但仍需关注高峰时段（北京 9-12、14-18 价格翻倍）
-- ✅ Push 自查习惯：`git diff --staged` 已实操
+### 🟢 已解决的议题
+- ✅ API Key 安全：`.env` 保护、CHECKLIST.md、revoke 流程全部实操过
+- ✅ 费用意识：DeepSeek 极便宜（¥0.00016/次），高峰时段（北京 9-12、14-18 价格翻倍）
+- ✅ Push 自查习惯：`git diff --staged` 已实操多次
+- ✅ 终端操作：樱漫清澜已能独立使用 pwd/ls/cd/cp/rm/mkdir/echo
+- ✅ AI 对话机：多轮对话、上下文记忆、命令系统全部实现
 
 ### 🟡 继续关注
-- 用户知道 Debug 概念，但还没实战过（等第一个 bug 出现）
+- 樱漫清澜有时会在终端直接敲中文当命令（比如直接敲"你好"而不是先启动程序）
+- 改代码后需要重新运行才生效（这是规律，记住了）
+- Windows 编码问题已形成肌肉记忆（每个新文件开头都有修复代码）
 - 没有推荐学习社群
-- Windows 编码问题会反复出现（GBK/UTF-8）
 
-### 📌 Day 3 方向
-- VS Code 高效技巧
-- 用 DeepSeek API 做简单命令行对话机（多轮对话）
-- 或者直接开始 Python 基础（变量和数据类型）
+### 📌 真正的下一步（Day 4）
+- 自然的下一站：Python 基础语法（变量、if/elif/else、循环、函数）
+- 或者继续做项目：给 AI 对话机加流式输出（stream=True，逐字显示）
+- 或者开始 Stage 3：Function Calling，让 AI 能上网查资料
 
 ---
 
-## 四、下一步计划（Day 3 — 2026-07-13）
+## 四、下一步计划（Day 4 — 2026-07-13）
 
-### 方向 A：命令行 AI 对话机（推荐 — 巩固 API + 学循环）
-1. 用 DeepSeek API 做一个可以在终端里多轮对话的程序
-2. 学习 `while True` 循环和 `input()` 交互
-3. 实现 `/exit` 退出、`/clear` 清上下文
+### 推荐：Python 基础语法（最合理的方向）
+现在樱漫清澜已经有了 3 个能跑的 Python 项目，但还没系统学过语法。
+Day 4 应该补上这些：
 
-### 方向 B：Python 基础起步
-1. 变量和数据类型（str, int, float, bool）
-2. 条件判断（if/elif/else）
-3. 写几个小练习（年龄计算器、成绩评级）
+1. **变量和数据类型**（30 min）
+   - str / int / float / bool
+   - 用 `type()` 查类型
+   - 练习：写一个年龄计算器
 
-### 方向 C：VS Code 技巧 + 自由探索
-- VS Code 快捷键、多光标、全局搜索
-- 用 pip 装几个有趣的库玩玩
-- 用户自己决定想探索什么
+2. **条件判断 if/elif/else**（30 min）
+   - 比较运算符（`==` `!=` `>` `<` `>=` `<=`）
+   - 练习：成绩评级（A/B/C/D/F）
 
-**建议让樱漫清澜自己选择方向**——对哪个更有感觉就从哪个开始。
+3. **循环 for + while**（30 min）
+   - `for i in range()` 遍历
+   - `while` 回顾（已经学了）
+   - 练习：猜数字游戏
+
+4. **回顾 ai_chat.py 里出现过的语法**（15 min）
+   - 把昨天写的代码逐行认一遍，这次作为"语法课"来看
+
+### 备选：给 AI 对话机加流式输出
+- `stream=True`，逐字显示 AI 回复
+- 比干讲语法更有趣，但需要先有 for 循环基础
+
+### 备选：直接冲 Function Calling
+- 给 AI 配工具（搜索、计算器）
+- 这是 Agent 的核心，但语法基础要跟上才能理解
+
+**建议让樱漫清澜自己选，但如果拿不定主意，走基础语法路线最稳。**
 
 ---
 
@@ -145,6 +176,16 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 - 如果不得不用 VS Code，改完立刻去平台 revoke + regenerate
 - 或者先关掉 AI 助手再编辑
 
+### ⚠️ 坑 6：在终端里直接敲中文当命令
+**现象**：樱漫清澜在终端 `$` 提示符后输入 `你好`，bash 报 `command not found`  
+**原因**：终端只认命令，不认自然语言。如果要跟 AI 聊天，得先 `python ai_chat.py` 启动程序  
+**教训**：先确认终端提示符是 `$`（可以输入命令）还是 `🧑 你：`（在程序内部等输入）
+
+### ⚠️ 坑 7：改了 system prompt 但显示文字没改
+**现象**：改了 `messages` 里 system 的 content，但程序运行时仍显示旧名字  
+**原因**：代码里有两处——`content` 字段（AI 人设）和 `print()` 语句（终端显示）。改了 AI 的人设，没改屏幕上打印的文字  
+**解决方案**：改 system prompt 人设时，同时检查所有 `print(f"🤖 名字：")` 里的名字是否也改了
+
 ---
 
 ## 六、关键文件索引
@@ -157,7 +198,11 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 | deepseek_hello.py | `D:\ai agent2\ai-agent-learning\stage-1-first-api-call\deepseek_hello.py` | 第一次 API 调用 |
 | .gitignore | `D:\ai agent2\ai-agent-learning\stage-0-hello-world\.gitignore` | 已配置好 Python/venv/.env 忽略 |
 | CHECKLIST.md | `D:\ai agent2\ai-agent-learning\stage-0-hello-world\CHECKLIST.md` | Push 前检查清单 |
-| GitHub 仓库 | https://github.com/ymqlsakura/ai-agent-learning | 远程仓库（stage-0） |
+| ai_chat.py | `D:\ai agent2\ai-agent-learning\stage-2-ai-chat\ai_chat.py` | AI 对话机（最新项目） |
+| CHECKLIST.md | `D:\ai agent2\ai-agent-learning\stage-0-hello-world\CHECKLIST.md` | Push 前检查清单 |
+| GitHub 仓库 (stage-0) | https://github.com/ymqlsakura/ai-agent-learning | Hello World |
+| GitHub 仓库 (stage-1) | https://github.com/ymqlsakura/stage-1-first-api-call | 第一次 API 调用 |
+| GitHub 仓库 (stage-2) | https://github.com/ymqlsakura/stage-2-ai-chat | AI 对话机 **← 最新** |
 
 ---
 
@@ -165,7 +210,7 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 > 用户下次进入 Claude Code，在 `D:\ai agent2\` 目录下即可。项目主目录是 `D:\ai agent2\ai-agent-learning\`。可以这样开始：
 >
-> **"欢迎回来，樱漫清澜！我是小樱，你的 AI 编程导师。上次我们完成了 Day 2——第一次 DeepSeek API 调用成功了，命令行也练过了。Day 3 有三个方向可选：A) 做一个命令行 AI 对话机、B) 开始学 Python 基础语法、C) VS Code 技巧自由探索。你今天想走哪个方向？"**
+> **"欢迎回来，樱漫清澜！我是小樱，你的 AI 编程导师。上次我们一天之内搞定了 Day 2 和 Day 3——第一次 DeepSeek API 调用成功了，命令行 10 个命令也练熟了，最重要的是做出了 AI 对话机 `ai_chat.py`，能在终端里跟 AI 多轮聊天。Day 4 推荐开始学 Python 基础语法（变量、条件判断、循环），或者你选一个更有兴趣的方向？"**
 
 ---
 
