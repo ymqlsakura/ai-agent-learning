@@ -10,8 +10,9 @@
 | Serper MCP (scrape) | MCP | 网页内容抓取 | ⭐⭐⭐⭐ 有用——深度研究时用 | 2026-07-25 |
 | Serper API (直接调用) | scripts/daily_intel.py | GitHub Actions 自动搜索 | ⭐⭐⭐⭐⭐ 独立于 Claude Code——不依赖电脑开机 | 2026-07-25 |
 | CronCreate | Claude Code | 定时任务 | ⭐⭐ 已弃用——迁移到 GitHub Actions | — |
-| superpowers:dispatching-parallel-agents | Superpowers | 多 Agent 并行研究 | ⭐⭐⭐⭐⭐ 3 Agent 并行 5min vs 串行 13min。适合多角度搜索。写入 OPC 工作流。 | 2026-07-25 |
+| superpowers:dispatching-parallel-agents | Superpowers | 多 Agent 并行研究 | ⭐⭐⭐⭐⭐ 3 Agent 并行 5min vs 串行 13min（2.3x）。适用：新方向探索、多角度信息搜集、竞品分析。限制：Agent 间不互参考，需人工合成。已写入 OPC 工作流。详见 research-2026-07-25-opc-toolchain.md | 2026-07-25 |
 | GitHub Actions | GitHub | 定时运行脚本 | ⭐⭐⭐⭐⭐ 每日情报扫描主力——免费、独立于电脑 | 2026-07-25 |
+| 三路并行研究（实战） | Agent 工具 | OPC 工具链+生态深度调研 | ⭐⭐⭐⭐⭐ 产出 research-2026-07-25-opc-toolchain.md。含 3 条可执行建议 | 2026-07-25 |
 
 ## 待测试
 
