@@ -49,7 +49,7 @@ INTEL_DIR = REPO_ROOT / "memory" / "intel"
 INDEX_PATH = INTEL_DIR / "INDEX.md"
 
 # DeepSeek API（用于每日摘要——可选，不设则跳过）
-DEEPSEEK_API_URL = "https://api.deepseek.com/v1/chat/completions"
+DEEPSEEK_API_URL = "https://api.deepseek.com/chat/completions"
 DEEPSEEK_MODEL = "deepseek-chat"
 
 # 已知主题标签（用于自动标注）
@@ -300,8 +300,8 @@ def summarize_with_llm(findings: list[dict]) -> str | None:
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": f"今日情报候选（共 {len(findings)} 条）：\n\n{candidates}"},
         ],
-        "temperature": 0.3,
         "max_tokens": 512,
+        "stream": False,
     }).encode("utf-8")
 
     req = urllib.request.Request(
