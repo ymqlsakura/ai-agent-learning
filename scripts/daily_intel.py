@@ -50,7 +50,7 @@ INDEX_PATH = INTEL_DIR / "INDEX.md"
 
 # DeepSeek API（用于每日摘要——可选，不设则跳过）
 DEEPSEEK_API_URL = "https://api.deepseek.com/chat/completions"
-DEEPSEEK_MODEL = "deepseek-v4-flash"
+DEEPSEEK_MODEL = "deepseek-v4-flash"  # 便宜够用——每日摘要 ≤30 次/月
 
 # 已知主题标签（用于自动标注）
 TOPIC_TAGS = {
