@@ -1,3 +1,5 @@
 stage-5-document-assistant/
 __pycache__/
 .env
+session-logs/
+images/
