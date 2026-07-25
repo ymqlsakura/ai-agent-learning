@@ -28,19 +28,20 @@ from pathlib import Path
 # 北京时间 (UTC+8)
 TZ = timezone(timedelta(hours=8))
 
-# 搜索关键词（来自 OPC-CONFIG.md 每日简报关键词）
+# 搜索关键词（时间敏感的主题加 tbs 参数过滤最近一周）
 QUERIES = [
-    # (query, language, region)
-    ("AI industry news latest developments", "en", "us"),
-    ("new AI agent tools frameworks released 2026", "en", "us"),
-    ("solo founder one person business AI tools 2026", "en", "us"),
-    ("Claude Code new features skills 2026", "en", "us"),
-    ("一人公司 AI 创业 新工具 2026", "zh-cn", "cn"),
+    # (query, language, region, tbs)
+    ("AI industry breaking news highlights this week", "en", "us", "qdr:w"),
+    ("new AI agent tools frameworks released 2026", "en", "us", None),
+    ("solo founder one person business AI startup 2026", "en", "us", None),
+    ("Claude Code new features updates 2026", "en", "us", None),
+    ("China AI policy regulation 2026", "en", "us", None),
+    ("一人公司 AI 创业 新工具 2026", "zh-cn", "cn", None),
 ]
 
 # Serper API
 API_URL = "https://google.serper.dev/search"
-MAX_PER_QUERY = 5  # 每个关键词最多取几条
+MAX_PER_QUERY = 3  # 每个关键词最多取几条（查询多，每条少取，保多样性）
 
 # 路径（相对于仓库根目录）
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -74,14 +75,17 @@ TOPIC_TAGS = {
 
 # ── 工具函数 ───────────────────────────────────────────
 
-def search(query: str, gl: str, hl: str) -> list[dict]:
+def search(query: str, gl: str, hl: str, tbs: str | None = None) -> list[dict]:
     """调用 Serper API 搜索，返回 organic results 列表。"""
-    payload = json.dumps({
+    payload_dict: dict = {
         "q": query,
         "gl": gl,
         "hl": hl,
         "num": MAX_PER_QUERY,
-    }).encode("utf-8")
+    }
+    if tbs:
+        payload_dict["tbs"] = tbs
+    payload = json.dumps(payload_dict).encode("utf-8")
 
     req = urllib.request.Request(
         API_URL,
@@ -267,9 +271,9 @@ def main():
 
     # 逐关键词搜索
     all_findings = []
-    for query, hl, gl in QUERIES:
+    for query, hl, gl, tbs in QUERIES:
         print(f"搜索: {query} (gl={gl}, hl={hl})")
-        results = search(query, gl, hl)
+        results = search(query, gl, hl, tbs)
         for r in results:
             title = r.get("title", "")
             snippet = r.get("snippet", "")
