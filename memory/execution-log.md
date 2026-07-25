@@ -11,6 +11,8 @@
 | 2026-07-25 | dispatching-parallel-agents 技能测试 | Phase 2 技能验证 | ✅ 3 Agent 并行搜索完成 | 3 Agent 并行 ~5min vs 串行 ~13min（2.3x 提速）。适合多角度研究。Agent 间不互相参考，需人工合成。|
 | 2026-07-25 | 每日情报迁移到 GitHub Actions | 樱漫清澜"先把自动跑解决了" | ✅ 完成 | CronJob 依赖 Claude Code 进程——关机不跑。GitHub Actions 真正独立于电脑。旧 CronJob 已删除。 |
 | 2026-07-25 | 三路并行研究合成 + 研判 | Phase 2 计划 | ✅ research-2026-07-25-opc-toolchain.md 写入 | 三路 Agent 结果交叉合成比单独读更有价值。评分算法实操：3 条建议 ≥7 分。先汇报再建议——樱漫清澜的偏好。 |
+| 2026-07-25 | 每日情报研判（10 条评分） | BOOT 步骤 1 情报检查 | ✅ daily-2026-07-25.md 已研判 | 6/10 条 ≥7 分。JetBrains 官方框架横评与三路研究结论一致——方法论被独立验证。Claude Code /fork、/goal 值得探索。 |
+| 2026-07-25 | Taskade 注册 | 三路研究建议 1（9 分） | ⚠️ 失效——AI Agent 功能需付费 $10 | 研究简报里"永久免费版很慷慨"不准确——AI Agent 核心功能在付费墙后面。记录：免费信息靠官网文案不可靠，需实际注册验证。 |
 
 ---
 

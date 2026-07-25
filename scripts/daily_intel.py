@@ -48,6 +48,10 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 INTEL_DIR = REPO_ROOT / "memory" / "intel"
 INDEX_PATH = INTEL_DIR / "INDEX.md"
 
+# DeepSeek API（用于每日摘要——可选，不设则跳过）
+DEEPSEEK_API_URL = "https://api.deepseek.com/v1/chat/completions"
+DEEPSEEK_MODEL = "deepseek-chat"
+
 # 已知主题标签（用于自动标注）
 TOPIC_TAGS = {
     "agent": "#AI-agent",
@@ -257,6 +261,79 @@ def update_index(date_str: str, findings: list[dict]):
     INDEX_PATH.write_text("\n".join(output), encoding="utf-8")
 
 
+def summarize_with_llm(findings: list[dict]) -> str | None:
+    """调用 DeepSeek API，从 10 条情报中选 Top 3 + 一句话理由。
+
+    返回 Markdown 格式的摘要文本，失败返回 None。
+    """
+    api_key = os.environ.get("DEEPSEEK_API_KEY", "")
+    if not api_key:
+        print("  (无 DEEPSEEK_API_KEY，跳过摘要)")
+        return None
+
+    # 构造候选列表
+    items = []
+    for i, f in enumerate(findings, 1):
+        tags = " ".join(f.get("tags", []))
+        items.append(
+            f"{i}. [{f['title']}]({f['link']})\n"
+            f"   摘要：{f['snippet']}\n"
+            f"   标签：{tags}\n"
+            f"   来源：{f['link'].split('/')[2] if f['link'] else '—'}"
+        )
+    candidates = "\n\n".join(items)
+
+    system_prompt = (
+        "你是为一人公司（OPC）创业者筛选情报的 AI 分析师。"
+        "关注领域：AI Agent 工具/框架、一人公司创业案例、Claude/Anthropic 更新、中国 AI 政策、零代码开发。"
+        "从候选列表中选出最值得关注的前 3 条，每条附一句话理由（≤30 字），说明为什么对一人公司创业者有用。"
+        "输出格式：\n"
+        "### 🔥 今日 Top 3\n"
+        "1. **[标题]** — 一句话理由\n"
+        "2. **[标题]** — 一句话理由\n"
+        "3. **[标题]** — 一句话理由"
+    )
+
+    payload = json.dumps({
+        "model": DEEPSEEK_MODEL,
+        "messages": [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": f"今日情报候选（共 {len(findings)} 条）：\n\n{candidates}"},
+        ],
+        "temperature": 0.3,
+        "max_tokens": 512,
+    }).encode("utf-8")
+
+    req = urllib.request.Request(
+        DEEPSEEK_API_URL,
+        data=payload,
+        headers={
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
+        },
+    )
+
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+        return data["choices"][0]["message"]["content"]
+    except Exception as e:
+        print(f"  LLM 摘要失败: {e}", file=sys.stderr)
+        return None
+
+
+def write_summary(date_str: str, summary: str) -> Path:
+    """写入每日摘要文件。"""
+    path = INTEL_DIR / f"daily-summary-{date_str}.md"
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(f"# 每日情报精选 — {date_str}\n\n")
+        f.write(f"> 🤖 LLM 自动精选 | 原始简报：[daily-{date_str}.md](daily-{date_str}.md)\n\n")
+        f.write(summary)
+        f.write("\n\n---\n\n")
+        f.write("> ⚠️ AI 自动筛选，未经人工核查。建议阅读原文确认。\n")
+    return path
+
+
 # ── 主流程 ──────────────────────────────────────────────
 
 def main():
@@ -302,6 +379,15 @@ def main():
     # 写入简报
     brief_path = write_brief(date_str, unique)
     print(f"\n简报已写入: {brief_path}")
+
+    # LLM 摘要（可选——需要 DEEPSEEK_API_KEY 环境变量）
+    print(f"\n尝试 LLM 摘要...")
+    summary = summarize_with_llm(unique)
+    if summary:
+        summary_path = write_summary(date_str, summary)
+        print(f"摘要已写入: {summary_path}")
+    else:
+        print("  跳过摘要（无 API key 或调用失败）")
 
     # 更新索引
     update_index(date_str, unique)
