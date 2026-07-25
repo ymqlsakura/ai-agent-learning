@@ -6,6 +6,7 @@
 
 | 日期 | 主题数 | 关键主题 | 是否已研判 |
 |------|--------|---------|-----------|
+| 2026-07-25 | 10 | #AI-agent #Claude #OPC #new-tool | ⏳ 待研判 |
 | 2026-07-25 | 10 | #AI-agent #China-AI #Claude #OPC #new-tool | ⏳ 待研判 |
 | 2026-07-25 | 10 | #AI-agent #Claude #new-tool | ⏳ 待研判 |
 | 2026-07-25 | 5 | 模型军备竞赛 / AI Agent Skills 爆发 / 一人公司工具整合 / Allbirds 转 AI / 中国 AI 监管 | ✅ 已研判 |
