@@ -317,6 +317,10 @@ def summarize_with_llm(findings: list[dict]) -> str | None:
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode("utf-8"))
         return data["choices"][0]["message"]["content"]
+    except urllib.error.HTTPError as e:
+        body = e.read().decode("utf-8", errors="replace")
+        print(f"  LLM HTTP {e.code}: {body[:500]}", file=sys.stderr)
+        return None
     except Exception as e:
         print(f"  LLM 摘要失败: {e}", file=sys.stderr)
         return None
