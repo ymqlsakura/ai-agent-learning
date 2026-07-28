@@ -30,12 +30,28 @@
     "deepseek": {
       "focus": "可行性补充与杠杆率评估",
       "description": "从技术视角评估：这条情报涉及的技术/工具实际可用性如何？对 OPC 管线的长期价值多大？是一次性新闻还是可复用的基础设施？成本和技术门槛评估。"
+    },
+    "grok": {
+      "focus": "技术趋势预判与商业模式可行性",
+      "description": "从跨领域视角评估：这条情报背后的趋势是什么？是否可以与樱漫清澜已有的技能/工具产生组合效应？商业模式是否可行？",
+      "optional": true
+    },
+    "glm": {
+      "focus": "学术方法论与中文内容质量评估",
+      "description": "从学术/教育视角评估：这条情报的信息质量如何？方法论是否严谨？对樱漫清澜的学术写作和论文工具背景有多大参考价值？",
+      "optional": true
     }
   },
   "_meta": {
     "created": "2026-07-28",
+    "supervisor_version": "2.0.0",
     "opc_phase": "Phase 2 — 决策自动化 + 多 Agent 并行研究",
-    "inspired_by": "@nopinduoduo 多 Agent 架构（Codex Sol 主控 + Grok/Kimi/DeepSeek Worker）",
-    "supervisor_version": "1.0.0"
+    "inspired_by": "@nopinduoduo 多 Agent 架构（Supervisor + Grok/Kimi/DeepSeek Worker + 交叉审查 + Token 追踪）",
+    "changelog": "v2.0.0: +交叉审查协议 +争议解决 +Grok Worker(可选) +TokenTracker"
+  },
+  "cross_review": {
+    "enabled": true,
+    "challenge_threshold": 3,
+    "resolution": "majority_vote"
   }
 }

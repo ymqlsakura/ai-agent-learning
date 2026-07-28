@@ -15,7 +15,7 @@ permissions:
 jobs:
   review:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 12
     # 仅在情报扫描成功时运行
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
 
@@ -35,6 +35,8 @@ jobs:
         env:
           KIMI_API_KEY: ${{ secrets.KIMI_API_KEY }}
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          GROK_API_KEY: ${{ secrets.GROK_API_KEY }}
+          GLM_API_KEY: ${{ secrets.GLM_API_KEY }}
         run: |
           DATE=$(python -c "from datetime import datetime, timezone, timedelta; tz=timezone(timedelta(hours=8)); print(datetime.now(tz).strftime('%Y-%m-%d'))")
           python scripts/supervisor.py --goal goals/intel-review.json --date "$DATE"
