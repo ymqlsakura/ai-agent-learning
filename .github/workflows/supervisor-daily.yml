@@ -1,0 +1,53 @@
+name: Daily Intel Review
+
+on:
+  # 在每日情报扫描完成后自动触发
+  workflow_run:
+    workflows: ["Daily Intel Scan"]
+    types:
+      - completed
+  # 手动触发（方便测试）
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    # 仅在情报扫描成功时运行
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      - name: Checkout 仓库
+        uses: actions/checkout@v4
+
+      - name: 拉取最新（获取刚推送的情报）
+        run: git pull
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 运行多 Agent 研判
+        env:
+          KIMI_API_KEY: ${{ secrets.KIMI_API_KEY }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        run: |
+          DATE=$(python -c "from datetime import datetime, timezone, timedelta; tz=timezone(timedelta(hours=8)); print(datetime.now(tz).strftime('%Y-%m-%d'))")
+          python scripts/supervisor.py --goal goals/intel-review.json --date "$DATE"
+
+      - name: 提交并推送研判结果
+        run: |
+          git config user.name "小樱（Supervisor）"
+          git config user.email "actions@ai-agent-learning"
+          git add memory/intel/
+          if git diff --cached --quiet; then
+            echo "研判结果无变更，跳过 commit。"
+          else
+            git commit -m "🤖 多 Agent 研判 $(date +'%Y-%m-%d') [Kimi K3 + DeepSeek]"
+            git push
+            echo "已推送。"
+          fi
