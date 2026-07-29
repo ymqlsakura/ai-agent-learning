@@ -9,8 +9,9 @@
 - 读 STATUS.md。
 - 查 DECISIONS.md 活跃决策。
 - 读 [OPC-CONFIG.md](OPC-CONFIG.md)——OPC 骨架配置（搜索关键词、评分规则、节制规则）。
-- `git pull` 拉取最新 Intel 简报（GitHub Actions 每天 9:07 自动推送）。
+- `git pull` 拉取最新 Intel 简报（GitHub Actions 每天 ~12:00 自动推送）。
 - 检查 `memory/intel/` 是否有未读的每日简报。有 → 分析 → 主动提建议。
+- 🆕 Phase 3：检查 `memory/intel/actions-{today}.md` 是否有今日行动建议。有 → 主动呈现（安全的已做完 + 待确认的列出来）。没有 → 说明研判还没跑完或今天无高分条目，提一句即可。
 - 检查未完成的承诺/待办。能当场解决的（≤5 分钟）直接解决，报告结果。
 - 需要樱漫清澜决策的，记下来——校准后问她。
 

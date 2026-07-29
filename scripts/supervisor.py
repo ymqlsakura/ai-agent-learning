@@ -331,7 +331,7 @@ def parse_intel_items(date_str: str) -> list[dict]:
         r'- 关键词: `(.+?)`\n'
         r'(?:- 标签: (.+?)\n)?'
         r'- 来源: (.+?)\n'
-        r'- 研判: ⏳ 待小樱评分',
+        r'- 研判: (⏳ 待小樱评分|✅ 已评分)',
         re.DOTALL,
     )
 
@@ -343,6 +343,7 @@ def parse_intel_items(date_str: str) -> list[dict]:
         query = match.group(5)
         tags_str = match.group(6) or ""
         source = match.group(7)
+        status = "pending" if "⏳" in match.group(8) else "scored"
 
         # 解析标签
         tags = [t.strip() for t in tags_str.split() if t.strip().startswith("#")]
@@ -355,7 +356,16 @@ def parse_intel_items(date_str: str) -> list[dict]:
             "query": query,
             "tags": tags,
             "source": source,
+            "status": status,
         })
+
+    # 区分「无条目」vs「已全部研判」——避免静默返回空列表
+    if not items:
+        # 检查文件是否包含已研判标记（有评分表但研判状态已更新）
+        if "✅ 已评分" in text or "研判区" in text:
+            print(f"📋 简报 {date_str} 已全部研判，无需重复处理。", file=sys.stderr)
+        else:
+            print(f"⚠️ 简报 {date_str} 中未找到匹配的情报条目（检查格式）。", file=sys.stderr)
 
     return items
 
@@ -896,11 +906,20 @@ def supervisor_run(goal_file: Path, date_str: str, dry_run: bool = False, verbos
     print(f"🛑 停止条件: {goal.get('stop_if', [])}")
 
     # 2. 加载情报条目
-    items = parse_intel_items(date_str)
-    if not items:
-        print(f"\n⚠️ 未找到情报条目，终止。")
+    all_items = parse_intel_items(date_str)
+    if not all_items:
+        print(f"\n⚠️ 未找到可处理的情报条目，终止。")
         return {"error": "no_items", "date": date_str}
-    print(f"\n📰 已加载 {len(items)} 条情报")
+
+    # 只处理待研判条目（已评分的跳过）
+    items = [it for it in all_items if it.get("status") == "pending"]
+    skipped = len(all_items) - len(items)
+    if skipped > 0:
+        print(f"\n⏭️ 跳过 {skipped} 条已评分条目")
+    if not items:
+        print(f"📋 简报 {date_str} 已全部研判，无需重复处理。")
+        return {"error": "all_scored", "date": date_str}
+    print(f"\n📰 已加载 {len(items)} 条待研判情报（共 {len(all_items)} 条）")
 
     # 3. 确定活跃 Worker
     active_workers = []
@@ -1165,6 +1184,20 @@ def supervisor_run(goal_file: Path, date_str: str, dry_run: bool = False, verbos
     }
     final = finalize_scores(merged, items, goal, all_results, tracker, cr_stats)
     print(f"  ✅ {len(final['scores'])} 条评分完成")
+
+    # 🆕 Phase 3：行动建议生成——取 ≥7 分条目
+    items_by_num = {it["num"]: it for it in items}
+    high_for_actions = [
+        {
+            **s,
+            "link": items_by_num.get(s["num"], {}).get("link", ""),
+            "snippet": items_by_num.get(s["num"], {}).get("snippet", ""),
+        }
+        for s in final["scores"]
+        if isinstance(s.get("total"), int) and s["total"] >= 7
+    ]
+    actions = generate_actions(high_for_actions, final["conclusion"], goal, dry_run)
+    final["actions"] = actions
 
     # 8. 写 Token 日志
     total_rounds = sum(1 for r in range(1, MAX_ROUNDS + 1)
@@ -1495,6 +1528,142 @@ def write_back_brief(date_str: str, result: dict):
     print(f"  📝 研判结果已写入: {brief_path}")
 
 
+# ── 行动建议生成 ────────────────────────────────────────
+
+def generate_actions(
+    high_items: list[dict],
+    conclusion: str,
+    goal: dict,
+    dry_run: bool = False,
+) -> list[dict]:
+    """取 ≥7 分条目，调用 GLM-4-Flash 生成可执行行动建议。
+
+    每个行动包含：建议描述、为什么现在、失效条件、安全级别。
+    GLM-4-Flash 不可用时优雅降级——返回空列表。
+    """
+    if not high_items:
+        return []
+
+    worker_info = WORKERS.get("glm", {})
+    api_key = os.environ.get(worker_info.get("env_key", ""), "")
+    if not api_key:
+        print(f"  ⚠ GLM_API_KEY 未设置——跳过行动建议生成", file=sys.stderr)
+        return []
+
+    # 构建 prompt
+    items_text = "\n\n".join(
+        f"### 情报 #{it['num']}：{it['title']}\n"
+        f"链接：{it.get('link', '—')}\n"
+        f"摘要：{it.get('snippet', '—')}\n"
+        f"评分：相关性={it.get('relevance','—')} 可行性={it.get('feasibility','—')} "
+        f"杠杆率={it.get('leverage','—')} 总分={it.get('total','—')}\n"
+        f"Worker 建议：{it.get('action', '—')}"
+        for it in high_items
+    )
+
+    system_prompt = (
+        "你是樱漫清澜的 AI 行动顾问。你的任务是把情报研判结果转化为可执行的行动建议。\n\n"
+        "规则：\n"
+        "1. 每条行动必须具体——「做什么」+「怎么做」+「预计耗时」\n"
+        "2. 每条行动必须附带一个失效条件——「如果 X 发生，说明判断错误，应停止/转向」\n"
+        "3. 标注安全级别：🟢 安全（只读/分析/建议，零副作用）| 🟡 需确认（写文件/改配置/git 操作）\n"
+        "4. 每条行动标注「为什么现在」——为什么这个时机适合做这件事\n"
+        "5. 最多 3 条行动建议，按优先级排序\n\n"
+        "输出格式：纯 JSON 数组，每个元素包含 action_title, what, how, estimated_time, "
+        "why_now, safety_level (green/yellow), failure_condition 字段。"
+    )
+
+    user_prompt = (
+        f"以下是今日情报研判中 ≥7 分的高优先级条目（共 {len(high_items)} 条）：\n\n"
+        f"{items_text}\n\n"
+        f"研判结论：\n{conclusion}\n\n"
+        "请基于以上信息生成 1-3 条可执行行动建议，输出纯 JSON 数组。"
+    )
+
+    print(f"\n── 行动建议生成（GLM-4-Flash）──")
+    if dry_run:
+        print(f"  [DRY RUN] 跳过 API 调用")
+        return []
+
+    result = llm_call(
+        base_url=worker_info["base_url"],
+        api_key=api_key,
+        model=worker_info["model"],
+        system_prompt=system_prompt,
+        user_prompt=user_prompt,
+        temperature=0.3,
+        max_tokens=2048,
+    )
+
+    if result is None:
+        print(f"  ✗ GLM-4-Flash 调用失败——跳过行动建议生成", file=sys.stderr)
+        return []
+
+    # 解析 JSON
+    response_text = result["text"]
+    try:
+        start = response_text.find("[")
+        end = response_text.rfind("]")
+        if start != -1 and end != -1 and end > start:
+            actions = json.loads(response_text[start:end + 1])
+            if isinstance(actions, list):
+                print(f"  ✅ 生成 {len(actions)} 条行动建议")
+                return actions
+    except json.JSONDecodeError:
+        pass
+
+    print(f"  ⚠ 无法解析行动建议 JSON——返回空", file=sys.stderr)
+    return []
+
+
+def write_actions_file(date_str: str, actions: list[dict], high_items: list[dict]):
+    """将行动建议写入 memory/intel/actions-{date}.md。"""
+    if not actions:
+        return
+
+    actions_path = INTEL_DIR / f"actions-{date_str}.md"
+
+    lines = [
+        f"# 行动建议 — {date_str}",
+        "",
+        "> 🤖 基于今日情报研判自动生成 | Phase 3 行动层",
+        "",
+        "## ✅ 已自动完成",
+        "",
+        "- 情报抓取（Serper API，5 个搜索词）",
+        "- 4 Worker 并行研判（Kimi K3 + DeepSeek V4 Flash + GLM-4-Flash）",
+        "- 交叉审查 + 双层硬约束过滤",
+        "- 研判结果写回报刊",
+        "",
+        "## ⏳ 待确认行动",
+        "",
+    ]
+
+    for i, a in enumerate(actions, 1):
+        safety_emoji = "🟢" if a.get("safety_level") == "green" else "🟡"
+        lines.extend([
+            f"### 行动 {i}：{a.get('action_title', '未命名')}",
+            "",
+            f"**做什么**：{a.get('what', '—')}",
+            f"**怎么做**：{a.get('how', '—')}",
+            f"**预计耗时**：{a.get('estimated_time', '—')}",
+            f"**为什么现在**：{a.get('why_now', '—')}",
+            f"**安全级别**：{safety_emoji} {'安全——只读/分析' if a.get('safety_level') == 'green' else '需确认——涉及写操作'}",
+            f"**失效条件**：{a.get('failure_condition', '—')}",
+            "",
+        ])
+
+    if high_items:
+        lines.append("## 📊 关联情报")
+        lines.append("")
+        for it in high_items:
+            lines.append(f"- [#{it['num']} {it['title']}]({it.get('link', '#')}) — 总分 {it.get('total', '—')}")
+        lines.append("")
+
+    actions_path.write_text("\n".join(lines), encoding="utf-8")
+    print(f"  📝 行动建议已写入: {actions_path}")
+
+
 # ── CLI ──────────────────────────────────────────────────
 
 def main():
@@ -1543,6 +1712,16 @@ def main():
 
     if args.output in ("brief", "both") and not args.dry_run:
         write_back_brief(args.date, result)
+        # 🆕 Phase 3：行动建议写入
+        actions = result.get("actions", [])
+        if actions:
+            scores = result.get("scores", [])
+            high_items = [
+                {**s, "link": "", "snippet": ""}
+                for s in scores
+                if isinstance(s.get("total"), int) and s["total"] >= 7
+            ]
+            write_actions_file(args.date, actions, high_items)
 
     # 打印摘要
     scores = result.get("scores", [])

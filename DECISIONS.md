@@ -39,6 +39,8 @@
 | 2026-07-28 | Git SOCKS 代理 | Git 走系统代理 `socks5://127.0.0.1:40008`（从注册表 `ProxyServer` 键值提取）。 | "为什么我就可以打开，你却不行？" / "我该怎么做" | `git config --global http.proxy socks5://127.0.0.1:40008`。永久配置。端口变更时需更新。 | 每次 `git push` |
 | 2026-07-29 | v2.1 双层硬约束 | 不依赖 Worker 自觉——评分硬约束在两层同时生效：(1) R2 交叉审查 prompt 新增 Part B 合规审计（强制逐条核验 ≥7 上限/供应商降权/梯度）；(2) `apply_hard_constraints()` 代码级硬过滤，在 `finalize_scores()` 中执行。所有降级操作在 action 字段标注原因。 | "做"（本轮对 v2.0.0 破线问题的回复） | supervisor.py v2.1：`build_cross_review_prompt()` 新增 Part B + `apply_hard_constraints()` 函数。VENDOR_DOMAINS 定义 9 个供应商域名。 | 每次研判运行时 |
 | 2026-07-29 | Phase 2 完成收束 | 全链路验证通过（daily-intel → workflow_run → supervisor-daily），评分质量达标，成本 $0.0086/次。Phase 3 必须先定义边界再动手——"行动自动执行具体是什么"待樱漫清澜回答。 | （小樱判断——Phase 2 原定目标全部完成，应主动收束进入下一阶段） | Phase 2 状态标记为完成。HANDOFF/STATUS/memory 全线同步。 | Phase 3 边界定义后 |
+| 2026-07-29 | 坑 49 闭合 | 正则解析器只匹配「⏳ 待小樱评分」→ 已研判文件静默返回空列表。修复：正则容错两种状态（⏳/✅）+ 调用处区分「无条目」「已全部研判」「有待研判」三种情况。 | （小樱判断——已知 bug，≤5 分钟能修，Phase 3 前清旧债） | parse_intel_items() 正则匹配两种状态 + 新增 status 字段。调用处过滤已评分条目 + 明确报错。 | 每次研判运行时 |
+| 🆕 2026-07-29 | Phase 3 A+B 模式 | 行动层闭环：「A」建议清单自动生成 + 「B」安全的事自动做完。安全的=读/分析/建议生成（零副作用）。需确认的=写代码/改配置/git 操作。 | "a加b" | Action Pass 上线——GLM-4-Flash 取 ≥7 分条目生成 1-3 条可执行建议 → `actions-{date}.md`。BOOT.md 启动序列新增 action 文件检查。supervisor v2.2。 | 每次研判运行 + 每次会话启动 |
 
 ## 已完成的决定（历史存档）
 
