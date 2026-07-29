@@ -37,6 +37,8 @@
 | 2026-07-28 | 评分硬约束 | ≥7 分 ≤3 条、来源权重（独立媒体>社区>供应商，供应商默认降 1 分杠杆率）、至少 3 条 ≤3 分。 | （小樱基于 3 轮对比数据判断："不够好"→调 prompt） | build_worker_prompt() 三条硬约束写入 system_prompt。3 轮调优验证：6 条虚高→2 条精准。 | 每次 Worker API 调用 |
 | 2026-07-28 | Kimi K3 API 接入 | platform.moonshot.cn 注册+充值 ¥10。API 端点 `api.moonshot.cn/v1`，model `kimi-k3`，temperature 强制=1。 | "注册好了" / "https://api.moonshot.cn" | WORKERS["kimi"] 配置完成。KIMI_API_KEY 已加入 GitHub Secrets。temperature 硬编码→worker config 自适应。 | 每次调用 Kimi K3 |
 | 2026-07-28 | Git SOCKS 代理 | Git 走系统代理 `socks5://127.0.0.1:40008`（从注册表 `ProxyServer` 键值提取）。 | "为什么我就可以打开，你却不行？" / "我该怎么做" | `git config --global http.proxy socks5://127.0.0.1:40008`。永久配置。端口变更时需更新。 | 每次 `git push` |
+| 2026-07-29 | v2.1 双层硬约束 | 不依赖 Worker 自觉——评分硬约束在两层同时生效：(1) R2 交叉审查 prompt 新增 Part B 合规审计（强制逐条核验 ≥7 上限/供应商降权/梯度）；(2) `apply_hard_constraints()` 代码级硬过滤，在 `finalize_scores()` 中执行。所有降级操作在 action 字段标注原因。 | "做"（本轮对 v2.0.0 破线问题的回复） | supervisor.py v2.1：`build_cross_review_prompt()` 新增 Part B + `apply_hard_constraints()` 函数。VENDOR_DOMAINS 定义 9 个供应商域名。 | 每次研判运行时 |
+| 2026-07-29 | Phase 2 完成收束 | 全链路验证通过（daily-intel → workflow_run → supervisor-daily），评分质量达标，成本 $0.0086/次。Phase 3 必须先定义边界再动手——"行动自动执行具体是什么"待樱漫清澜回答。 | （小樱判断——Phase 2 原定目标全部完成，应主动收束进入下一阶段） | Phase 2 状态标记为完成。HANDOFF/STATUS/memory 全线同步。 | Phase 3 边界定义后 |
 
 ## 已完成的决定（历史存档）
 

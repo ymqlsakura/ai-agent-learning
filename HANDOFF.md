@@ -9,10 +9,10 @@
 
 | 字段 | 内容 |
 |------|------|
-| **🎯 下一动作** | **🆕 v2.0.0 首次实战验证（今天 2026-07-29 9:07）。** supervisor.py v2.0.0 完整复刻 @nopinduoduo 架构部署完成——4 Worker（Kimi K3 + DeepSeek V4 Flash + GLM-4-Flash + Grok 可选）、交叉审查协议、争议解决、TokenTracker。代码已推送，GLM_API_KEY 已入 GitHub Secrets。**等待今天 9:07 首次真实触发**：交叉审查 prompt 能否在三个模型上正常产出 JSON？GLM-4-Flash OpenAI 兼容性是否有隐藏坑？评分质量是否比 v1 更好？ |
-| **⚠️ 上次未完成** | 本轮全链路完成：v2.0.0 完整复刻 @nopinduoduo 架构（cross-review + dispute resolution + TokenTracker）+ GLM-4-Flash Worker 接入（智谱，永久免费）+ Grok Worker（可选）+ GitHub Secrets 配置（GLM_API_KEY）。无遗留任务。唯一待验证：今天 9:07 首次真实 API 触发。 |
-| **📋 上次决定** | (1) 完整复刻 @nopinduoduo 多 Agent 架构：交叉审查协议（Worker 互相挑战/提问/调整评分）+ 争议解决（多数投票）。(2) GLM-4-Flash 作为第 3 Worker（永久免费、OpenAI 兼容、清华系学术视角），替代 Grok（香港不在 Anthropic 支持地区）。(3) 4 Worker 架构：Kimi K3（中文市场）+ DeepSeek V4 Flash（技术评估）+ GLM-4-Flash（学术方法论）+ Grok（可选、趋势预判）。任何 Worker 缺 API Key 自动降级。 |
-| **🔄 收敛状态** | 核心悖论：✅。论文工具：✅。闸门：✅。行为校准：✅。交接系统：✅。🆕 **OPC Phase 2：✅ v2.0.0 完整复刻 @nopinduoduo 架构**——4 Worker（Kimi K3 + DeepSeek V4 Flash + GLM-4-Flash + Grok 可选）+ 交叉审查协议 + 争议解决 + TokenTracker。supervisor.py 1415 行纯 stdlib。原蓝图 10/11 覆盖。**⏳ 等待首次实战验证（今天 9:07）**。Phase 3（全链路闭环）待 v2.0.0 稳定后启动。 |
+| **🎯 下一动作** | ✅ **Phase 2 完成。** 全链路验证通过（2026-07-29）。v2.1 双层硬约束上线（prompt 合规审计 + apply_hard_constraints 代码安全网）——评分质量达标：≥7 ≤3 条、供应商降权生效、强制梯度生效。交叉审查解决率 100%（4/4）。成本 $0.0086/次。**下一步：Phase 3——定义"行动自动执行"的边界。** 不要直接写代码——先和樱漫清澜讨论 Phase 3 的范围。 |
+| **⚠️ 上次未完成** | 无。本轮全部完成：v2.0.0 首次实战验证→发现评分破线→v2.1 双层硬约束修复→全链路投产。Phase 2 收束。唯一未闭合：Phase 3 边界待定义。 |
+| **📋 上次决定** | (1) v2.0.0 首次实战评分破线→不依赖 Worker 自觉，采用双层防护：R2 prompt 新增 Part B 合规审计（强制逐条核验三项硬约束）+ `apply_hard_constraints()` 代码级硬过滤（≥7 上限/供应商降权/强制梯度）。(2) 手动 workflow_dispatch 即时触发替代等 cron 延迟（~3h）。(3) Phase 2 完成收束，Phase 3 必须先定义边界再动手——核心问题"行动自动执行具体是什么"待樱漫清澜回答。 |
+| **🔄 收敛状态** | 核心悖论：✅。论文工具：✅。闸门：✅。行为校准：✅。交接系统：✅。**OPC Phase 2：✅ 完成（2026-07-29）**——supervisor.py v2.1（~1570 行），4 Worker + 交叉审查 + 争议解决 + TokenTracker + 双层硬约束（prompt 合规审计 + apply_hard_constraints 代码安全网）。全链路自动化投产（daily-intel → workflow_run → supervisor-daily）。成本 $0.0086/次。坑 51 闭合。坑 49/50/52 活跃。Phase 3 待边界定义。 |
 | **🧠 行为校准** | 🆕 硬边界已接受（2026-07-23 第 44 轮）。触发公式：「框架呢」或「五步法和两个问题呢」或「直接推演」→ 同会话立即用框架重写，零延迟。唯一被 43 轮反复验证有效的机制。不再尝试文档预加载、闸门自查、守门模型——四个层面已穷尽。CALIBRATE.md 存为历史参考，不再每个新会话执行。 |
 
 ### ⛔ 核心禁则（每次必查）
@@ -32,8 +32,8 @@
 ---
 
 > 创建时间：2026-07-11
-> 最后更新：2026-07-29（v2.0.0 完整复刻 @nopinduoduo 架构 + GLM-4-Flash Worker。交叉审查+争议解决+TokenTracker。4 Worker 并行。代码已推送，GLM_API_KEY 已入 Secrets。等待今天 9:07 首次实战验证。）
-> 最后审计：2026-07-29（HANDOFF/DECISIONS/STATUS 三文件更新）
+> 最后更新：2026-07-29（Phase 2 完成。v2.1 双层硬约束上线。全链路投产：daily-intel → workflow_run → supervisor-daily。成本 $0.0086/次。Phase 3 待边界定义。）
+> 最后审计：2026-07-29（HANDOFF/DECISIONS/STATUS 三文件更新 + memory/ 同步）
 > 压缩计数：2（第 41 轮瘦身不计入压缩——是大手术）
 
 ---
@@ -75,8 +75,8 @@
 | 闸门收束 | 43 | 7/23 | Plan B 验证失败——4 轮实验闭合。行为纠偏从「事前预加载」切换到「一句话触发」。Plan C 存档。交接系统精简。 |
 | 硬边界接受 | 44 | 7/23 | 第 3 次复现"读 HANDOFF→不带框架"模式。四个层面穷尽→接受硬边界。樱漫清澜决定：「既然设定是这样我也不想改了，找新方向」。触发机制确认：三个字「框架呢」。全系统收束。 |
 | OPC 骨架 | — | 7/25 | 🆕 五层架构设计+部署（感知/记忆/决策/执行/协调）。每日情报 CronJob 上线。Intel 库+执行日志+技能注册表+OPC-CONFIG 创建。小樱模式切换：被动→主动。BOOT.md 更新。 |
-| **OPC Phase 2** | — | **7/28** | 🤖 **多 Agent 研判系统上线**。supervisor.py（~750 行，纯 stdlib）——复刻 @nopinduoduo 架构。Kimi K3 + DeepSeek 双 Worker 并行评分+交叉验证。评分硬约束（≤3条≥7、来源权重、强制梯度）。3 轮 prompt 调优：6 条虚高→2 条精准。supervisor-daily.yml：情报扫描后自动研判。Git SOCKS 代理配置（127.0.0.1:40008）。KIMI_API_KEY 已入 GitHub Secrets。 |
-| **v2.0.0 完整复刻** | — | **7/29** | 🏗️ **supervisor.py v2.0.0**（1415 行）。交叉审查协议（R2）+ 争议解决（R3）+ TokenTracker + GLM-4-Flash Worker（智谱，永久免费）+ Grok Worker（可选）。原蓝图 10/11 覆盖。代码已推送，GLM_API_KEY 已入 GitHub Secrets。**⏳ 等待今天 9:07 首次实战验证**。 |
+| **OPC Phase 2** | — | **7/28-29** | 🤖 **多 Agent 研判系统上线→完成。** supervisor.py v2.1（~1570 行）——4 Worker（Kimi K3 + DeepSeek V4 Flash + GLM-4-Flash + Grok 可选）+ 交叉审查 + 争议解决 + 双层硬约束。v2.0.0 首次实战验证（7/29 10:08）→ 评分破线 → v2.1 修复（prompt 合规审计 + 代码安全网）→ 全链路投产。成本 $0.0086/次。✅ Phase 2 完成。 |
+| **v2.0.0 完整复刻** | — | **7/29** | 🏗️ **已升级至 v2.1**——见上。 |
 
 ---
 
@@ -138,18 +138,15 @@ ai-agent-learning/
 - ✅ 每日情报 CronJob（每天 9:07）
 - ✅ Intel 库 / 执行日志 / 技能注册表 / OPC-CONFIG
 
-**Phase 2（✅ 已完成——2026-07-28 / ⏳ 等待首次验证——2026-07-29 9:07）**：决策自动化 + 多 Agent 并行研究。
-- ✅ supervisor.py v2.0.0：4 Worker（Kimi K3 + DeepSeek V4 Flash + GLM-4-Flash + Grok 可选）并行研判
-- ✅ 交叉审查协议（R2 Worker 互相挑战/提问/调整评分）+ 争议解决（R3 多数投票）
-- ✅ TokenTracker（per-run 费用日志：memory/intel/token-log-{date}.json）
-- ✅ GLM-4-Flash 接入（智谱 open.bigmodel.cn，永久免费，OpenAI 兼容）
-- ✅ Grok Worker（可选，gated by GROK_API_KEY）
-- ✅ goals/intel-review.json：cross_review 配置 + 4 Worker 定义
-- ✅ supervisor-daily.yml：timeout 12min + 4 个 API Key env vars
-- ⏳ 验证：**今天（2026-07-29）9:07 首次真实触发**——交叉审查 prompt 在三个模型上能否正常产出 JSON？GLM-4-Flash 是否有隐藏坑？
+**Phase 2（✅ 完成——2026-07-29）**：决策自动化 + 多 Agent 并行研究。
+- ✅ supervisor.py v2.1（~1570 行）：4 Worker + 交叉审查 + 争议解决 + TokenTracker + 双层硬约束
+- ✅ 全链路验证通过（2026-07-29）：daily-intel → workflow_run 触发 supervisor-daily
+- ✅ 评分质量达标：≥7 ≤3 条、供应商降权生效、强制梯度生效
+- ✅ 交叉审查解决率 100%（4/4）
+- ✅ 成本基线：$0.0086/次
 
-**Phase 3（下一步）**：全链路闭环——情报→决策→执行全自动。
-- 情报自动扫描 ✅ → 研判自动评分 ✅ → 行动自动执行 ⏳
+**Phase 3（下一步）**：全链路闭环——情报→决策→**执行**全自动。
+- 情报自动扫描 ✅ → 研判自动评分 ✅ → 行动自动执行 ⏳（**边界未定义**——先讨论再动手）
 
 详见 [OPC-CONFIG.md](OPC-CONFIG.md)。
 
@@ -229,9 +226,11 @@ ai-agent-learning/
 </details>
 
 <details>
-<summary>🆕 v2.0.0 时代（2026-07-29）——坑 51</summary>
+<summary>🆕 v2.0.0 时代（2026-07-29）——坑 51 ✅ 已闭合</summary>
 
-**坑 51**：GLM-4-Flash 有频率限制（5-10 次/分钟）——虽然永久免费，但交叉审查+争议解决可能在短时间内多次调用 GLM API，触发限流后返回 429 错误。另外 GitHub Actions `workflow_run` 触发有一个隐藏条件：如果 `daily-intel.yml` 扫描失败（如 Serper 配额用尽），`supervisor-daily.yml` 不会触发——情报和研判可能双双静默失败，没有告警机制。
+**坑 51**：GLM-4-Flash 有频率限制（5-10 次/分钟）——虽然永久免费，但交叉审查+争议解决可能在短时间内多次调用 GLM API，触发限流后返回 429 错误。另外 GitHub Actions `workflow_run` 触发有一个隐藏条件：如果 `daily-intel.yml` 扫描失败（如 Serper 配额用尽），`supervisor-daily.yml` 不会触发——情报和研判可能双双静默失败，没有告警机制。→ ✅ 已闭合：2026-07-29 首次触发成功（workflow_dispatch → daily-intel 成功 → supervisor-daily 自动触发并完成）。GLM 6 次调用未触发 429。
+
+**🆕 坑 52（2026-07-29）**：Serper 同一搜索词在不同运行中返回不同文章——评分不可直接对比。需接受此波动或固定更具体的搜索词。
 
 </details>
 
@@ -251,15 +250,18 @@ ai-agent-learning/
 
 **11/11 已闭合。** 仅 **#6 零用户验证** ⏸️ 暂缓——朋友论文季至少半年后。
 
-🆕 **Phase 2 新增 4 项未闭合**：
+🆕 **Phase 2 完成——问题更新**：
 
 | # | 问题 | 状态 |
 |---|------|------|
-| 12 | **v2.0.0 首次实战验证**——交叉审查 prompt + GLM API 兼容性 + TokenTracker | ⏳ **今天 9:07 首次触发** |
-| 13 | 正则解析器只匹配「⏳ 待小樱评分」 | ⚠️ 文件一旦研判就无法重复解析 |
-| 14 | Git SOCKS 代理端口 40008 非标准 | ⚠️ VPN 客户端换了端口就失效 |
-| 15 | GitHub Actions workflow_run 静默失败——daily-intel 失败时 supervisor 不触发 | ⚠️ 无告警机制 |
-| 16 | GLM-4-Flash 频率限制 5-10/min——交叉审查多轮调用可能触发 429 | ⚠️ 待今天首次实战验证 |
+| 12 | ~~v2.0.0 首次实战验证~~ | ✅ **闭合（2026-07-29）**：全链路通过，v2.1 修复评分质量 |
+| 13 | 正则解析器只匹配「⏳ 待小樱评分」 | ⚠️ 已确认——文件一旦研判就无法重复解析 |
+| 14 | Git SOCKS 代理端口 40008 非标准 | ⚠️ VPN 客户端换了端口就失效（本会话复现） |
+| 15 | ~~GitHub Actions workflow_run 静默失败~~ | ✅ **闭合（2026-07-29）**：workflow_dispatch → supervisor-daily 成功触发 |
+| 16 | GLM-4-Flash 频率限制 5-10/min | ⚠️ 本次 6 次调用未触发 429——待长期观察 |
+| 17 | **Phase 3 边界未定义**——"行动自动执行"具体是什么？ | 🆕 **待樱漫清澜定义** |
+
+**新增 坑 52**：Serper 同一搜索词在不同运行中返回不同文章——评分不可直接对比。接受波动或固定搜索词。
 
 ---
 
