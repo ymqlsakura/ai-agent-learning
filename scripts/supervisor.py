@@ -42,6 +42,21 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 GOALS_DIR = REPO_ROOT / "goals"
 INTEL_DIR = REPO_ROOT / "memory" / "intel"
 
+# 供应商域名——这些来源在评分时杠杆率默认降 1 分
+# （独立媒体 > 社区讨论 > 供应商自述）
+VENDOR_DOMAINS = {
+    "blog.jetbrains.com",
+    "www.langchain.com",
+    "www.taskade.com",
+    "code.claude.com",
+    "developers.google.com",
+    "openai.com",
+    "platform.openai.com",
+    "anthropic.com",
+    "aws.amazon.com",
+    "azure.microsoft.com",
+}
+
 # Worker API 配置
 WORKERS = {
     "kimi": {
@@ -266,6 +281,16 @@ def llm_call(
         return None
 
 
+def save_verbose_log(verbose_dir: Path | None, filename: str, content: str):
+    """保存 Worker 原始输出。verbose_dir 为 None 时跳过。"""
+    if verbose_dir is None:
+        return
+    verbose_dir.mkdir(parents=True, exist_ok=True)
+    path = verbose_dir / filename
+    path.write_text(content, encoding="utf-8")
+    print(f"  📄 原始输出已保存: {path}")
+
+
 def now_str() -> str:
     """当前北京时间字符串。"""
     return datetime.now(TZ).strftime("%Y-%m-%d %H:%M")
@@ -417,6 +442,7 @@ def dispatch_worker(
     goal: dict,
     dry_run: bool = False,
     tracker: TokenTracker | None = None,
+    verbose_dir: Path | None = None,
 ) -> dict | None:
     """向一个 Worker 派发任务，返回其评分结果。"""
 
@@ -470,6 +496,9 @@ def dispatch_worker(
     # 解析 Worker 返回的 JSON
     scores = parse_worker_scores(response_text, worker_id)
     print(f"     ✓ {worker_id} 返回 {len(scores)} 条评分")
+
+    # 保存原始输出
+    save_verbose_log(verbose_dir, f"R1-{worker_id}.txt", response_text)
 
     return {
         "worker": worker_id,
@@ -621,14 +650,23 @@ def build_cross_review_prompt(
     prompt_parts.extend([
         "### 你的任务",
         "",
+        "你同时扮演两个角色：同行评审 + 合规审计员。",
+        "",
+        "**Part A — 同行评审**：",
         "1. **挑战**：如果你认为某位同行的评分有误，发起挑战。说明哪个条目、哪个维度、应该是多少分、为什么。",
         "2. **提问**：如果你想深入了解某位同行的推理过程，向他提问。",
         "3. **调整**：如果同行的推理说服了你，你可以调整自己的评分。",
         "",
+        "**Part B — 🚨 硬约束合规审计（强制性，必须逐条核验）**：",
+        "4. **≥7 分上限检查**：合并所有 Worker 的评分后，≥7 分（total ≥ 7）的条目是否超过 3 条？如果超过，你必须指出应该降级到 6 分的具体条目（挑最弱的），并给出理由。这是硬性上限，必须执行。",
+        "5. **供应商来源降权检查**：下列来源属于供应商自述，杠杆率应降 1 分：blog.jetbrains.com、www.langchain.com、www.taskade.com、code.claude.com、openai.com、anthropic.com、aws.amazon.com、azure.microsoft.com、developers.google.com。逐条检查——这些来源的条目是否已被降权？如果没有，你必须发起挑战（target_worker=相关 worker，field=\"leverage\"，new_score=原值-1）。",
+        "6. **梯度检查**：10 条评分中，是否至少有 3 条总分 ≤ 3 分？如果没有，必须指出哪些条目应该降分以确保区分度。",
+        "",
         "重要原则：",
+        "- Part B（合规审计）是强制性的——即使同行评分完全一致，也必须逐条核验上述三项",
         "- 挑战要基于证据和逻辑，不要为不同意而不同意",
         "- 如果你的同行确实看到了你忽略的盲点，承认并调整——这不是示弱",
-        "- 如果同行的评分和你一致（差异 <3 分），不需要为挑战而挑战",
+        "- 如果同行的评分和你一致（差异 <3 分），Part A 可以跳过挑战，但 Part B 不可跳过",
         "",
         "输出 JSON 格式（只输出 JSON，不要其他文字）：",
         "```json",
@@ -641,11 +679,17 @@ def build_cross_review_prompt(
         "  ],",
         '  "adjusted_scores": [',
         '    {"item_num": 2, "relevance": 2, "feasibility": 1, "leverage": 2, "total": 5, "confidence": "medium", "reasoning": "同行的来源权重分析让我重新评估"}',
-        "  ]",
+        "  ],",
+        '  "compliance_report": {',
+        '    "ge7_count": "≥7 分条目数（填数字）",',
+        '    "ge7_exceeds": "true/false——是否超过 3 条上限",',
+        '    "supplier_violations": ["条目 #N 来源 X 未降权", "（如无违规则空数组）"],',
+        '    "gradient_ok": "true/false——是否至少 3 条 ≤3 分"',
+        "  }",
         "}",
         "```",
         "",
-        "如果没有任何挑战/提问/调整，返回空数组。",
+        "如果没有任何挑战/提问/调整，对应数组留空。compliance_report 必须填写——即使没有违规也要明确报告。",
     ])
 
     return "\n".join(prompt_parts)
@@ -829,8 +873,10 @@ def build_dispute_prompt(
 
 # ── Supervisor 核心逻辑 ────────────────────────────────
 
-def supervisor_run(goal_file: Path, date_str: str, dry_run: bool = False) -> dict:
+def supervisor_run(goal_file: Path, date_str: str, dry_run: bool = False, verbose: bool = False) -> dict:
     """Supervisor 主循环。"""
+
+    verbose_dir = INTEL_DIR / "verbose" / date_str if verbose else None
 
     print(f"\n{'='*60}")
     print(f"Supervisor 启动 — {now_str()}")
@@ -838,6 +884,8 @@ def supervisor_run(goal_file: Path, date_str: str, dry_run: bool = False) -> dic
     print(f"日期: {date_str}")
     if dry_run:
         print(f"[DRY RUN 模式——不实际调用 API]")
+    if verbose:
+        print(f"[VERBOSE 模式——原始输出保存到 {verbose_dir}]")
     print(f"{'='*60}\n")
 
     # 1. 加载 goal
@@ -877,7 +925,7 @@ def supervisor_run(goal_file: Path, date_str: str, dry_run: bool = False) -> dic
     with ThreadPoolExecutor(max_workers=len(active_workers)) as executor:
         futures = {}
         for wid in active_workers:
-            future = executor.submit(dispatch_worker, wid, items, goal, dry_run, tracker)
+            future = executor.submit(dispatch_worker, wid, items, goal, dry_run, tracker, verbose_dir)
             futures[future] = wid
 
         for future in as_completed(futures):
@@ -947,6 +995,7 @@ def supervisor_run(goal_file: Path, date_str: str, dry_run: bool = False) -> dic
                         print(f"  ✓ {wid}: {len(parsed.get('challenges', []))} 挑战, "
                               f"{len(parsed.get('questions', []))} 提问, "
                               f"{len(parsed.get('adjusted_scores', []))} 调整")
+                        save_verbose_log(verbose_dir, f"R2-{wid}-cross-review.txt", result["text"])
                 except Exception as e:
                     print(f"  ✗ {wid} 交叉审查异常: {e}", file=sys.stderr)
 
@@ -1059,6 +1108,7 @@ def supervisor_run(goal_file: Path, date_str: str, dry_run: bool = False) -> dic
                                                 break
                             print(f"  ✓ {wid}: 回答了 {len(dr_data.get('answers', []))} 个问题, "
                                   f"{len(dr_data.get('adjusted_scores', []))} 调整")
+                            save_verbose_log(verbose_dir, f"R3-{wid}-dispute.txt", result["text"])
                         except (json.JSONDecodeError, KeyError):
                             print(f"  ⚠ {wid}: 争议解决响应无法解析")
                 except Exception as e:
@@ -1092,7 +1142,7 @@ def supervisor_run(goal_file: Path, date_str: str, dry_run: bool = False) -> dic
         with ThreadPoolExecutor(max_workers=len(active_workers)) as executor:
             futures = {}
             for wid in active_workers:
-                future = executor.submit(dispatch_worker, wid, gap_items, goal, dry_run, tracker)
+                future = executor.submit(dispatch_worker, wid, gap_items, goal, dry_run, tracker, verbose_dir)
                 futures[future] = wid
 
             for future in as_completed(futures):
@@ -1208,6 +1258,89 @@ def find_gaps(merged: dict, items: list[dict]) -> list[dict]:
     return gaps
 
 
+def apply_hard_constraints(final_scores: list[dict], items: list[dict]) -> list[dict]:
+    """代码级硬约束过滤器——最后一道防线。
+
+    不依赖 Worker 自觉，直接硬过滤 OPC-CONFIG 三项规则：
+    1. 供应商来源 → 杠杆率降 1 分（独立媒体 > 社区 > 供应商）
+    2. ≥7 分 ≤3 条（硬性上限）——超出部分降至 6 分
+    3. 至少 3 条 ≤3 分（强制梯度）——不足时从低分端补齐
+
+    所有降级操作都会在 action 字段中标注原因。
+    """
+    # Build source lookup from items
+    source_map = {}
+    for item in items:
+        source_map[item["num"]] = item.get("source", "")
+
+    scored = [s for s in final_scores if isinstance(s.get("total"), int)]
+
+    # ── 规则 1：供应商来源降权 ──
+    for s in scored:
+        source = source_map.get(s["num"], "")
+        if source in VENDOR_DOMAINS:
+            old_lev = s.get("leverage", 0)
+            if isinstance(old_lev, int) and old_lev > 0:
+                s["leverage"] = old_lev - 1
+                s["total"] = s.get("relevance", 0) + s["feasibility"] + s["leverage"]
+                prefix = "[供应商降权]"
+                s["action"] = f"{prefix} {s.get('action', '—')}" if s.get("action") and s["action"] != "—" else prefix
+
+    # ── 规则 2：≥7 分上限（重算 total 后，因为规则 1 可能已改变分数）──
+    high_scored = sorted(
+        [s for s in scored if s["total"] >= 7],
+        key=lambda s: s["total"], reverse=True,
+    )
+    if len(high_scored) > 3:
+        # 保留总分最高的 3 条，其余降至 6
+        for s in high_scored[3:]:
+            old_total = s["total"]
+            # 从杠杆率扣除（优先牺牲杠杆率，保留相关性和可行性）
+            excess = old_total - 6
+            s["leverage"] = max(0, s["leverage"] - excess)
+            s["total"] = s["relevance"] + s["feasibility"] + s["leverage"]
+            # 如果 leverage 扣完还不够，继续扣 feasibility
+            while s["total"] > 6 and s["feasibility"] > 0:
+                s["feasibility"] -= 1
+                s["total"] = s["relevance"] + s["feasibility"] + s["leverage"]
+            # 最终兜底
+            if s["total"] > 6:
+                s["total"] = 6
+            prefix = f"[硬约束降级: ≥7上限 {old_total}→{s['total']}]"
+            s["action"] = f"{prefix} {s.get('action', '—')}" if s.get("action") and s["action"] != "—" else prefix
+
+    # ── 规则 3：强制梯度（重新统计，规则 1/2 可能已改变）──
+    low_scored = [s for s in scored if s["total"] <= 3]
+    if len(low_scored) < 3:
+        need = 3 - len(low_scored)
+        # 从总分最低的非低分条目开始降级
+        mid_scored = sorted(
+            [s for s in scored if s["total"] > 3],
+            key=lambda s: s["total"],
+        )
+        for s in mid_scored[:need]:
+            old_total = s["total"]
+            # 降杠杆率优先
+            drop = old_total - 3
+            if s["leverage"] >= drop:
+                s["leverage"] -= drop
+            else:
+                s["leverage"] = 0
+                remaining = drop - s.get("leverage", 0)
+                if s.get("feasibility", 0) >= remaining:
+                    s["feasibility"] -= remaining
+                else:
+                    s["feasibility"] = 0
+            s["total"] = s["relevance"] + s["feasibility"] + s["leverage"]
+            # 兜底
+            if s["total"] > 3:
+                s["total"] = 3
+            prefix = f"[强制梯度 {old_total}→{s['total']}]"
+            s["action"] = f"{prefix} {s.get('action', '—')}" if s.get("action") and s["action"] != "—" else prefix
+
+    return final_scores
+
+
 def finalize_scores(
     merged: dict,
     items: list[dict],
@@ -1255,6 +1388,9 @@ def finalize_scores(
             "total": avg_total,
             "action": best_action,
         })
+
+    # 🚨 硬约束过滤——最后一道防线
+    final_scores = apply_hard_constraints(final_scores, items)
 
     # 生成研判结论
     high_scores = [s for s in final_scores if isinstance(s["total"], int) and s["total"] >= 7]
@@ -1383,6 +1519,8 @@ def main():
     parser.add_argument("--dry-run", action="store_true", help="不实际调用 API，验证流程")
     parser.add_argument("--output", choices=["brief", "json", "both"], default="brief",
                         help="输出格式——brief: 写回报刊文件, json: stdout JSON, both: 两者")
+    parser.add_argument("--verbose", action="store_true",
+                        help="保存每个 Worker 的原始输出到 memory/intel/verbose/{date}/")
     args = parser.parse_args()
 
     goal_file = Path(args.goal)
@@ -1393,7 +1531,7 @@ def main():
         print(f"Goal 文件不存在: {goal_file}", file=sys.stderr)
         sys.exit(1)
 
-    result = supervisor_run(goal_file, args.date, dry_run=args.dry_run)
+    result = supervisor_run(goal_file, args.date, dry_run=args.dry_run, verbose=args.verbose)
 
     if "error" in result:
         print(f"\n❌ Supervisor 运行失败: {result['error']}")
