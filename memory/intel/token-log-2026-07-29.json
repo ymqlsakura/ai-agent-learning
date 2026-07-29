@@ -3,25 +3,25 @@
   "goal": "intel-review",
   "rounds": 5,
   "workers": {
-    "deepseek": {
-      "calls": 5,
-      "prompt_tokens": 6802,
-      "completion_tokens": 9948,
-      "cost_estimate_usd": 0.002346
-    },
     "kimi": {
       "calls": 5,
-      "prompt_tokens": 7073,
-      "completion_tokens": 3415,
-      "cost_estimate_usd": 0.006293
+      "prompt_tokens": 8057,
+      "completion_tokens": 3304,
+      "cost_estimate_usd": 0.006816
+    },
+    "deepseek": {
+      "calls": 6,
+      "prompt_tokens": 8601,
+      "completion_tokens": 10141,
+      "cost_estimate_usd": 0.002624
     },
     "glm": {
       "calls": 6,
-      "prompt_tokens": 7715,
-      "completion_tokens": 2032,
+      "prompt_tokens": 8659,
+      "completion_tokens": 2660,
       "cost_estimate_usd": 0.0
     }
   },
-  "total_cost_estimate_usd": 0.008639,
-  "timestamp": "2026-07-29 10:45"
+  "total_cost_estimate_usd": 0.00944,
+  "timestamp": "2026-07-29 12:28"
 }
