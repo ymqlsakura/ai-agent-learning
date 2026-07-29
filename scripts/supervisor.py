@@ -370,6 +370,33 @@ def parse_intel_items(date_str: str) -> list[dict]:
     return items
 
 
+def parse_existing_scores(date_str: str) -> list[dict]:
+    """从已研判的每日简报评分表中提取已有分数。
+
+    write_back_brief() 写入的表格格式：
+    | # | 相关性(0-3) | 可行性(0-3) | 杠杆率(0-3) | 总分 | 行动建议 |
+    | 1 | 2 | 2 | 3 | 7 | 仔细阅读框架对比 |
+    """
+    brief_path = INTEL_DIR / f"daily-{date_str}.md"
+    if not brief_path.exists():
+        return []
+    text = brief_path.read_text(encoding="utf-8")
+    scores = []
+    pattern = re.compile(
+        r'\| (\d+) \| (\d+) \| (\d+) \| (\d+) \| (\d+) \| (.+?) \|'
+    )
+    for match in pattern.finditer(text):
+        scores.append({
+            "num": int(match.group(1)),
+            "relevance": int(match.group(2)),
+            "feasibility": int(match.group(3)),
+            "leverage": int(match.group(4)),
+            "total": int(match.group(5)),
+            "action": match.group(6).strip(),
+        })
+    return scores
+
+
 # ── Worker Prompt 构建 ─────────────────────────────────
 
 def build_worker_prompt(items: list[dict], worker_id: str, goal: dict) -> tuple[str, str]:
@@ -1703,6 +1730,43 @@ def main():
     result = supervisor_run(goal_file, args.date, dry_run=args.dry_run, verbose=args.verbose)
 
     if "error" in result:
+        # 🆕 Phase 3：all_scored 不是真错误——评分已完成，只需补跑 Action Pass
+        if result["error"] == "all_scored":
+            print(f"\n📋 已全部研判，跳过评分。从已有评分生成行动建议...")
+            all_items = parse_intel_items(args.date)
+            existing_scores = parse_existing_scores(args.date)
+            if existing_scores and all_items:
+                items_by_num = {it["num"]: it for it in all_items}
+                high_items = []
+                for s in existing_scores:
+                    if s.get("total", 0) >= 7:
+                        item = items_by_num.get(s["num"], {})
+                        high_items.append({
+                            **s,
+                            "link": item.get("link", ""),
+                            "snippet": item.get("snippet", ""),
+                            "title": item.get("title", ""),
+                        })
+                if high_items:
+                    goal = json.loads(goal_file.read_text("utf-8"))
+                    actions = generate_actions(
+                        high_items,
+                        "已全部研判——基于已有评分生成行动建议。",
+                        goal,
+                        args.dry_run,
+                    )
+                    write_actions_file(args.date, actions, high_items)
+                    if not args.dry_run:
+                        print(f"✅ Action Pass 完成——{len(actions)} 条行动建议已生成")
+                        # 输出摘要
+                        for s in high_items:
+                            print(f"  #{s['num']}「{s.get('title','')[:40]}」→ {s.get('action','')}")
+                    sys.exit(0)
+                else:
+                    print(f"✅ 无 ≥7 分条目，无需生成行动建议")
+                    sys.exit(0)
+            print(f"\n⚠️ 无法解析已有评分——请手动检查 daily-{args.date}.md 研判区表格")
+            sys.exit(1)
         print(f"\n❌ Supervisor 运行失败: {result['error']}")
         sys.exit(1)
 
