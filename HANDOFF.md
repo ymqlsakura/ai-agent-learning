@@ -9,10 +9,10 @@
 
 | 字段 | 内容 |
 |------|------|
-| **🎯 下一动作** | 🚧 **Phase 3 启动（2026-07-29）。** supervisor v2.2 Action Pass 上线——研判完成后 GLM-4-Flash 自动生成 1-3 条可执行行动建议，写入 `actions-{date}.md`。坑 49 已闭合（正则解析器容错已研判文件）。下一步：等明天 GitHub Actions 自动跑一轮，验证 Action Pass 端到端通。然后讨论「自动执行」的具体边界——哪些行动可以不经确认直接做。 |
-| **⚠️ 上次未完成** | 无。本轮全部完成：坑 49 修复 → Phase 3 Action Pass 实现 → BOOT.md/HANDOFF/STATUS 全线同步。 |
-| **📋 上次决定** | (1) v2.0.0 首次实战评分破线→不依赖 Worker 自觉，采用双层防护：R2 prompt 新增 Part B 合规审计（强制逐条核验三项硬约束）+ `apply_hard_constraints()` 代码级硬过滤（≥7 上限/供应商降权/强制梯度）。(2) 手动 workflow_dispatch 即时触发替代等 cron 延迟（~3h）。(3) Phase 2 完成收束，Phase 3 必须先定义边界再动手——核心问题"行动自动执行具体是什么"待樱漫清澜回答。 |
-| **🔄 收敛状态** | 核心悖论：✅。论文工具：✅。闸门：✅。行为校准：✅。交接系统：✅。OPC Phase 2：✅。**坑 49：✅ 闭合（2026-07-29）**。**OPC Phase 3：🚧 启动**——supervisor v2.2 Action Pass 上线（GLM-4-Flash 生成可执行行动建议 → `actions-{date}.md`）。A+B 模式：安全的事自动做完（情报抓取→研判→建议生成），需确认的事等樱漫清澜一句话。坑 50/52 活跃。 |
+| **🎯 下一动作** | 🚧 **Phase 3（2026-07-29 第 46 轮）。** Action Pass 端到端验证通过 ✅——workflow_dispatch 触发 → GLM-4-Flash 生成 3 条高质量行动建议 → `actions-2026-07-29.md`。all_scored bug 修复（已研判文件不再跳过 Action Pass）→ v2.3。下一步：(1) 审查今日 actions 文件——3 条建议全部 🟡 需确认，樱漫清澜挑感兴趣的让小樱执行；(2) 两个待确认方向（三开关嵌入 + AI 产品经理定位）等樱漫清澜一句话；(3) 定义 Phase 3 自动执行边界。 |
+| **⚠️ 上次未完成** | 无。本轮全部完成：Action Pass 端到端验证 + all_scored bug 修复 → v2.3。两个待确认方向（三开关/AI PM）留待樱漫清澜。 |
+| **📋 上次决定** | (1) v2.0.0 首次实战评分破线→不依赖 Worker 自觉，采用双层防护：R2 prompt 新增 Part B 合规审计 + `apply_hard_constraints()` 代码级硬过滤。(2) Action Pass A+B 模式确认（"a加b"）。(3) all_scored 不再阻止 Action Pass——已研判文件跳过评分但仍生成行动建议（v2.3 修复）。 |
+| **🔄 收敛状态** | 核心悖论：✅。论文工具：✅。闸门：✅。行为校准：✅。交接系统：✅。OPC Phase 2：✅。坑 49：✅。**OPC Phase 3：🚧 进行中**——Action Pass ✅ 已验证（3 条建议质量可用）。all_scored bug ✅ 修复 → v2.3。A+B 模式：安全的事自动做完，需确认的事等一句话。坑 50/52 活跃。三开关嵌入 + AI PM 定位 ⏳ 待樱漫清澜确认。 |
 | **🧠 行为校准** | 🆕 硬边界已接受（2026-07-23 第 44 轮）。触发公式：「框架呢」或「五步法和两个问题呢」或「直接推演」→ 同会话立即用框架重写，零延迟。唯一被 43 轮反复验证有效的机制。不再尝试文档预加载、闸门自查、守门模型——四个层面已穷尽。CALIBRATE.md 存为历史参考，不再每个新会话执行。 |
 
 ### ⛔ 核心禁则（每次必查）
@@ -32,7 +32,7 @@
 ---
 
 > 创建时间：2026-07-11
-> 最后更新：2026-07-29（Phase 3 启动——Action Pass 上线 + 坑 49 闭合。supervisor v2.2。A+B 模式确认。）
+> 最后更新：2026-07-29（Phase 3——Action Pass 端到端验证通过 ✅ + all_scored bug 修复 → v2.3）
 > 最后审计：2026-07-29（HANDOFF/DECISIONS/STATUS/BOOT 四文件更新 + memory/ 同步）
 > 压缩计数：2（第 41 轮瘦身不计入压缩——是大手术）
 
@@ -89,7 +89,7 @@
 | 聊天分析器 v2.0 | `chat_analyzer.py` | 分析聊天记录中的人（六维度+恐惧溯源） |
 | 文档助手 | `doc_assistant.py` | 文档总结、提取要点 |
 | 论文降重 v2.8 | `论文降重.py` | 学术写作辅助——全文改写+翻译腔检测+AI指纹诊断+引用核查+HTML报告。全文直出 5 万字 |
-| 🤖 多 Agent 研判 v2.2 | `scripts/supervisor.py`（~1700 行） | 4 Worker（Kimi K3 + DeepSeek V4 Flash + GLM-4-Flash + Grok 可选）并行评分+交叉审查+争议解决+TokenTracker+🆕 Action Pass（GLM-4-Flash 生成可执行行动建议） |
+| 🤖 多 Agent 研判 v2.3 | `scripts/supervisor.py`（~1790 行） | 4 Worker（Kimi K3 + DeepSeek V4 Flash + GLM-4-Flash + Grok 可选）并行评分+交叉审查+争议解决+TokenTracker+🆕 Action Pass（GLM-4-Flash 生成可执行行动建议，已验证 ✅） |
 
 `PROMPTS.md`：提示词库——五步框架+两个自问问题，每回答必用，永不动。
 
@@ -146,9 +146,10 @@ ai-agent-learning/
 - ✅ 成本基线：$0.0086/次
 
 **Phase 3（🚧 进行中——2026-07-29）**：全链路闭环——情报→决策→**执行**。
-- ✅ 情报自动扫描 → ✅ 研判自动评分 → 🆕 行动建议自动生成（Action Pass + `actions-{date}.md`）
+- ✅ 情报自动扫描 → ✅ 研判自动评分 → ✅ 行动建议自动生成（Action Pass 已验证——3 条建议质量可用）
+- 🆕 v2.3 修复：all_scored 不再跳过 Action Pass——已研判文件从评分表解析分数后仍生成建议
 - 🚧 自动执行边界：安全的事（读/分析/建议生成）已全自动。需确认的事（写代码/改配置/git 操作）等樱漫清澜一句话
-- ⏳ 下一步：等明天 GitHub Actions 跑一轮验证 Action Pass 端到端通 → 定义具体可自动执行的动作
+- ⏳ 下一步：审查今日 actions 文件 + 讨论三开关嵌入 + 定义自动执行边界
 
 详见 [OPC-CONFIG.md](OPC-CONFIG.md)。
 

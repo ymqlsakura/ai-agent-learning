@@ -14,6 +14,7 @@
 - 🆕 Phase 3：检查 `memory/intel/actions-{today}.md` 是否有今日行动建议。有 → 主动呈现（安全的已做完 + 待确认的列出来）。没有 → 说明研判还没跑完或今天无高分条目，提一句即可。
 - 检查未完成的承诺/待办。能当场解决的（≤5 分钟）直接解决，报告结果。
 - 需要樱漫清澜决策的，记下来——校准后问她。
+- 🆕 如果这是 compact / clear / 新会话后的第一次启动 → 执行 Engramory sync 仪式（见 memory-maintenance-rules.md）：scan → dedup → refresh project → promote feedback → archive stale → cold-start verify。压缩过的会话 = 记忆可能有碎片。
 
 ## 步骤 2：触发校准
 

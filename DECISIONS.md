@@ -41,6 +41,7 @@
 | 2026-07-29 | Phase 2 完成收束 | 全链路验证通过（daily-intel → workflow_run → supervisor-daily），评分质量达标，成本 $0.0086/次。Phase 3 必须先定义边界再动手——"行动自动执行具体是什么"待樱漫清澜回答。 | （小樱判断——Phase 2 原定目标全部完成，应主动收束进入下一阶段） | Phase 2 状态标记为完成。HANDOFF/STATUS/memory 全线同步。 | Phase 3 边界定义后 |
 | 2026-07-29 | 坑 49 闭合 | 正则解析器只匹配「⏳ 待小樱评分」→ 已研判文件静默返回空列表。修复：正则容错两种状态（⏳/✅）+ 调用处区分「无条目」「已全部研判」「有待研判」三种情况。 | （小樱判断——已知 bug，≤5 分钟能修，Phase 3 前清旧债） | parse_intel_items() 正则匹配两种状态 + 新增 status 字段。调用处过滤已评分条目 + 明确报错。 | 每次研判运行时 |
 | 🆕 2026-07-29 | Phase 3 A+B 模式 | 行动层闭环：「A」建议清单自动生成 + 「B」安全的事自动做完。安全的=读/分析/建议生成（零副作用）。需确认的=写代码/改配置/git 操作。 | "a加b" | Action Pass 上线——GLM-4-Flash 取 ≥7 分条目生成 1-3 条可执行建议 → `actions-{date}.md`。BOOT.md 启动序列新增 action 文件检查。supervisor v2.2。 | 每次研判运行 + 每次会话启动 |
+| 🆕 2026-07-29 | Action Pass 验证通过 | 手动 workflow_dispatch 触发 → GLM-4-Flash 生成 3 条行动建议，质量可用（具体链接+产出+耗时+失效条件，非废话）。同时修复 all_scored 提前退出不跑 Action Pass 的 bug（→ v2.3）。 | （小樱判断——Phase 3 关键里程碑验证） | supervisor v2.3：`parse_existing_scores()` + main block `all_scored` 拦截 → 从已有评分表解析分数 → 跑 Action Pass。 | 每次研判运行时 |
 
 ## 已完成的决定（历史存档）
 
