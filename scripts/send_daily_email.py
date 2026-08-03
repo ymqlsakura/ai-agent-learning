@@ -69,7 +69,6 @@ if json_path.exists():
 scored = []
 table_start = raw.find("| # |")
 if table_start < 0:
-    # 兼容：有些文件用的中文表头
     table_start = raw.find("| # | 相关性")
 
 if table_start >= 0:
@@ -79,7 +78,6 @@ if table_start >= 0:
         cells = [c.strip() for c in line.split("|") if c.strip()]
         if len(cells) < 6:
             continue
-        # 跳过表头行
         if cells[0] in ("#", "编号"):
             continue
         if "相关性" in cells[0] or "可行性" in cells[1] or "杠杆" in cells[2]:
@@ -88,14 +86,23 @@ if table_start >= 0:
             num = int(cells[0])
         except ValueError:
             continue
+        # 解析总分（处理可能包含的降级标记如 [强制梯度 5→3]）
+        total_str = cells[4]
+        try:
+            total_val = int(total_str)
+        except ValueError:
+            total_val = 0
         scored.append({
             "num": num,
             "relevance": cells[1],
             "feasibility": cells[2],
             "leverage": cells[3],
-            "total": cells[4],
+            "total": total_val,
             "action": cells[5],
         })
+
+# 按总分从高到低排序
+scored.sort(key=lambda s: s["total"], reverse=True)
 
 # ── 4. 解析行动建议 ──
 action_items = []
@@ -104,7 +111,7 @@ if actions_path.exists():
     act_titles = re.findall(r'### 行动 \d+：(.+)', actions_raw)
     action_items = act_titles
 
-# ── 5. 构建 HTML 表格行 ──
+# ── 5. 构建 HTML 表格行（按分数从高到低）──
 score_rows = ""
 for s in scored:
     num = s["num"]
@@ -121,29 +128,29 @@ for s in scored:
             if wname in ws:
                 d = ws[wname]
                 ws_lines.append(
-                    f'<span style="display:inline-block;min-width:75px">'
+                    f'<span style="display:inline-block;min-width:70px">'
                     f'<b>{wname.upper()}</b> {d["relevance"]}+{d["feasibility"]}+{d["leverage"]}=<b>{d["total"]}</b>'
                     f'</span>'
                 )
         ws_detail = "<br>".join(ws_lines) if ws_lines else ""
     else:
-        ws_detail = ""
+        ws_detail = f"R{s['relevance']}+F{s['feasibility']}+L{s['leverage']}"
 
     total_val = s["total"]
-    total_display = f'<span style="font-size:18px;font-weight:bold;color:#222">{total_val}</span>'
 
     score_rows += f"""
             <tr>
-              <td style="padding:8px 10px;border-bottom:1px solid #eee;vertical-align:top">
-                <a href="{link}" style="color:#1a73e8;text-decoration:none;font-weight:bold">#{num} {title}</a>
-                <div style="font-size:11px;color:#999">{tags}</div>
+              <td style="padding:10px;border-bottom:1px solid #eee;vertical-align:top">
+                <span style="font-weight:bold;color:#222">#{num}</span>
+                <span style="color:#333">{title}</span>
+                <div style="font-size:11px;color:#999;margin-top:2px">{tags}</div>
               </td>
-              <td style="padding:8px 10px;border-bottom:1px solid #eee;text-align:center;white-space:nowrap;vertical-align:top">
-                {total_display}
-                <div style="font-size:11px;color:#666;margin-top:2px">{ws_detail if ws_detail else f"R{s['relevance']}+F{s['feasibility']}+L{s['leverage']}"}</div>
+              <td style="padding:10px;border-bottom:1px solid #eee;text-align:center;white-space:nowrap;vertical-align:top;min-width:80px">
+                <span style="font-size:18px;font-weight:bold;color:#222">{total_val}</span>
+                <div style="font-size:11px;color:#666;margin-top:3px">{ws_detail}</div>
               </td>
-              <td style="padding:8px 10px;border-bottom:1px solid #eee;font-size:13px;color:#555;vertical-align:top">
-                {s['action']}
+              <td style="padding:10px;border-bottom:1px solid #eee;text-align:center;vertical-align:top;width:60px">
+                <a href="{link}" style="display:inline-block;background:#1a73e8;color:#fff;text-decoration:none;padding:6px 12px;border-radius:4px;font-size:12px;white-space:nowrap">阅读→</a>
               </td>
             </tr>"""
 
@@ -156,7 +163,7 @@ body = f"""<html><body style="font-family:-apple-system,BlinkMacSystemFont,'Sego
         <tr style="background:#f5f5f5">
           <th style="padding:8px 10px;text-align:left">文章</th>
           <th style="padding:8px 10px;text-align:center;width:90px">总分</th>
-          <th style="padding:8px 10px;text-align:left">建议</th>
+          <th style="padding:8px 10px;text-align:center;width:70px"></th>
         </tr>
         {score_rows}
         </table>"""
