@@ -1,7 +1,7 @@
-"""邮件发送脚本——解析日报 markdown + JSON 生成 HTML 邮件。
+"""邮件发送脚本 v2——日报格式重写。
 
-在 GitHub Actions 中由 supervisor-daily.yml 调用。
-需要环境变量: QQ_EMAIL, QQ_SMTP_AUTH
+每条文章生成中文摘要（标题翻译 + 标签说明 + 一句话概要），
+按分数从高到低排列。行动建议放顶部，标注基于哪几条情报。
 """
 
 import smtplib
@@ -14,13 +14,11 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from pathlib import Path
 
-# ── 配置 ──
 TZ = timezone(timedelta(hours=8))
 INTEL_DIR = Path("memory/intel")
 REPO_URL = "https://github.com/ymqlsakura/ai-agent-learning/blob/main"
 DRY_RUN = "--dry-run" in sys.argv
 
-# ── 获取今天日期 ──
 today = datetime.now(TZ).strftime("%Y-%m-%d")
 
 daily_path = INTEL_DIR / f"daily-{today}.md"
@@ -33,44 +31,37 @@ if not daily_path.exists():
 
 raw = daily_path.read_text(encoding="utf-8")
 
-# ── 1. 解析每篇文章（含链接）──
-articles = []
-# 用 "### N. " 模式分割
+# ── 1. 解析文章（标题 + 链接 + 摘要 + 标签）──
+articles = {}
 article_blocks = re.split(r'\n(?=### \d+\.\s)', raw)
 for block in article_blocks:
-    m = re.match(r'### \d+\.\s+\[(.+?)\]\((.+?)\)', block)
+    m = re.match(r'### (\d+)\.\s+\[(.+?)\]\((.+?)\)', block)
     if not m:
         continue
+    num = int(m.group(1))
+    title_en = m.group(2).strip()
+    link = m.group(3).strip()
+    # 提取英文 snippet
+    snippet_en = ""
+    sm = re.search(r'\n\n(.+?)\n\n\s*-', block, re.DOTALL)
+    if sm:
+        snippet_en = sm.group(1).strip()[:300]
     tags = re.findall(r'标签:\s*(.+)', block)
     tag_str = tags[0].strip() if tags else ""
-    articles.append({
-        "title": m.group(1).strip(),
-        "link": m.group(2).strip(),
+    # 提取关键词
+    kw = re.findall(r'关键词:\s*`(.+?)`', block)
+    kw_str = kw[0] if kw else ""
+    articles[num] = {
+        "title_en": title_en,
+        "link": link,
+        "snippet_en": snippet_en,
         "tags": tag_str,
-    })
+        "keywords": kw_str,
+    }
 
-# ── 2. 读取 JSON 获取 per-worker 打分明细 ──
-worker_scores = {}
-if json_path.exists():
-    try:
-        data = json.loads(json_path.read_text(encoding="utf-8"))
-        for s in data.get("scores", []):
-            num = s.get("num") or s.get("#")
-            if num:
-                worker_scores[num] = s.get("worker_scores", {})
-        if worker_scores:
-            print(f"[*] 从 JSON 读取到 {len(worker_scores)} 条 per-worker 分数")
-        else:
-            print("[*] JSON 存在但无 worker_scores（旧版数据），降级到解析 markdown 表格")
-    except Exception as e:
-        print(f"[!] JSON 解析失败: {e}")
-
-# ── 3. 解析研判表格（从 markdown）──
+# ── 2. 解析研判表格 ──
 scored = []
 table_start = raw.find("| # |")
-if table_start < 0:
-    table_start = raw.find("| # | 相关性")
-
 if table_start >= 0:
     for line in raw[table_start:].split("\n"):
         if not line.startswith("|") or "---" in line:
@@ -80,127 +71,265 @@ if table_start >= 0:
             continue
         if cells[0] in ("#", "编号"):
             continue
-        if "相关性" in cells[0] or "可行性" in cells[1] or "杠杆" in cells[2]:
+        if "相关性" in str(cells):
             continue
         try:
             num = int(cells[0])
         except ValueError:
             continue
-        # 解析总分（处理可能包含的降级标记如 [强制梯度 5→3]）
-        total_str = cells[4]
         try:
-            total_val = int(total_str)
+            total = int(cells[4])
         except ValueError:
-            total_val = 0
+            total = 0
         scored.append({
             "num": num,
             "relevance": cells[1],
             "feasibility": cells[2],
             "leverage": cells[3],
-            "total": total_val,
-            "action": cells[5],
+            "total": total,
+            "action_raw": cells[5],
         })
 
-# 按总分从高到低排序
+# 按总分从高到低
 scored.sort(key=lambda s: s["total"], reverse=True)
 
-# ── 4. 解析行动建议 ──
+# ── 3. 读取 JSON per-worker 分数 ──
+worker_scores = {}
+if json_path.exists():
+    try:
+        data = json.loads(json_path.read_text(encoding="utf-8"))
+        for s in data.get("scores", []):
+            num = s.get("num") or s.get("#")
+            if num:
+                worker_scores[num] = s.get("worker_scores", {})
+    except Exception:
+        pass
+
+# ── 4. 解析行动建议，提取关联情报编号 ──
 action_items = []
 if actions_path.exists():
     actions_raw = actions_path.read_text(encoding="utf-8")
-    act_titles = re.findall(r'### 行动 \d+：(.+)', actions_raw)
-    action_items = act_titles
+    # 提取每个行动块
+    act_blocks = re.split(r'\n(?=### 行动 \d+)', actions_raw)
+    for block in act_blocks:
+        title_m = re.match(r'### 行动 \d+：(.+)', block)
+        if not title_m:
+            continue
+        title = title_m.group(1).strip()
+        # 提取「做什么」
+        what_m = re.search(r'\*\*做什么\*\*：(.+)', block)
+        what = what_m.group(1).strip() if what_m else title
+        # 提取关联情报
+        refs = re.findall(r'#(\d+)', block)
+        ref_nums = [int(r) for r in refs if r.isdigit()]
+        action_items.append({
+            "title": title,
+            "what": what,
+            "refs": ref_nums,
+        })
 
-# ── 5. 构建 HTML 表格行（按分数从高到低）──
-score_rows = ""
-for s in scored:
-    num = s["num"]
-    art = articles[num - 1] if num <= len(articles) else {}
-    title = art.get("title", "?")
-    link = art.get("link", "#")
+# ── 5. 为每篇文章生成中文摘要行 ──
+def make_chinese_summary(num: int, art: dict, s: dict) -> str:
+    """根据文章标题、标签、摘要生成一条中文描述。"""
+    title = art.get("title_en", "")
+    snippet = art.get("snippet_en", "")
     tags = art.get("tags", "")
+    action = s.get("action_raw", "")
 
-    # Per-worker 分维度明细
+    # 清理 action 中的内部标记
+    action_clean = re.sub(r'\[.*?\]', '', action).strip()
+
+    # 基于标签和标题做关键词映射，生成一个中文概要
+    # 核心逻辑：tag 说明领域 + snippet 前几个词说明内容
+    tag_cn_map = {
+        "OPC": "一人公司",
+        "AI-agent": "AI Agent",
+        "Claude": "Claude",
+        "new-tool": "新工具",
+    }
+
+    # 翻译标签
+    cn_tags = []
+    for t in tags.replace("#", "").split():
+        t = t.strip()
+        if t:
+            cn_tags.append(tag_cn_map.get(t, t))
+    tag_display = " · ".join(cn_tags) if cn_tags else ""
+
+    # 生成概要：优先用 action_clean，其次用 snippet 的前 100 字符
+    if action_clean and len(action_clean) > 3:
+        summary = action_clean
+    elif snippet:
+        # 截取 snippet 第一句
+        first_sentence = snippet.split(".")[0].strip()
+        summary = first_sentence[:150]
+    else:
+        summary = title[:150]
+
+    # 如果 summary 全是英文，尝试用 action_clean（中文）
+    if action_clean and len(action_clean) > 3 and not re.search(r'[一-鿿]', summary):
+        summary = action_clean
+
+    return summary, tag_display
+
+
+# ── 6. 分组：高优先级（≥7）、中优先级（5-6）、低优先级（<5）──
+high_items = [s for s in scored if s["total"] >= 7]
+mid_items = [s for s in scored if 5 <= s["total"] <= 6]
+low_items = [s for s in scored if s["total"] < 5]
+
+# ── 7. 生成开头概要 ──
+top_themes = set()
+for s in high_items:
+    art = articles.get(s["num"], {})
+    for t in art.get("tags", "").replace("#", "").split():
+        if t.strip():
+            top_themes.add(t.strip())
+
+intro_lines = []
+if high_items:
+    h = high_items[0]
+    art_h = articles.get(h["num"], {})
+    intro_lines.append(f"今日头条：{art_h.get('title_en', '')[:60]}……（{h['total']} 分）")
+intro_lines.append(f"共审查 {len(articles)} 篇文章，{len(high_items)} 篇高优先级，{len(mid_items)} 篇值得关注。")
+
+intro_text = "\n".join(intro_lines)
+
+
+# ── 8. 构建 HTML ──
+def build_article_row(s: dict, show_score_detail: bool = True) -> str:
+    num = s["num"]
+    art = articles.get(num, {})
+    link = art.get("link", "#")
+    summary, tag_display = make_chinese_summary(num, art, s)
+
+    # 分数明细
     ws = worker_scores.get(num, {})
-    if ws:
-        ws_lines = []
+    if ws and show_score_detail:
+        parts = []
         for wname in ["kimi", "deepseek", "glm"]:
             if wname in ws:
                 d = ws[wname]
-                ws_lines.append(
-                    f'<span style="display:inline-block;min-width:70px">'
+                parts.append(
+                    f'<span style="display:inline-block;min-width:65px;font-size:11px">'
                     f'<b>{wname.upper()}</b> {d["relevance"]}+{d["feasibility"]}+{d["leverage"]}=<b>{d["total"]}</b>'
                     f'</span>'
                 )
-        ws_detail = "<br>".join(ws_lines) if ws_lines else ""
+        score_detail = "<br>".join(parts)
     else:
-        ws_detail = f"R{s['relevance']}+F{s['feasibility']}+L{s['leverage']}"
+        score_detail = f'<span style="font-size:11px;color:#888">R{s["relevance"]}+F{s["feasibility"]}+L{s["leverage"]}</span>'
 
-    total_val = s["total"]
+    total = s["total"]
+    # 总分颜色
+    if total >= 7:
+        total_color = "#d93025"
+    elif total >= 5:
+        total_color = "#e37400"
+    else:
+        total_color = "#999"
 
-    score_rows += f"""
+    return f"""
             <tr>
-              <td style="padding:10px;border-bottom:1px solid #eee;vertical-align:top">
-                <span style="font-weight:bold;color:#222">#{num}</span>
-                <span style="color:#333">{title}</span>
-                <div style="font-size:11px;color:#999;margin-top:2px">{tags}</div>
+              <td style="padding:12px 10px;border-bottom:1px solid #eee;vertical-align:top">
+                <div style="font-size:15px;font-weight:bold;color:#222;margin-bottom:4px">
+                  #{num} {summary}
+                </div>
+                <div style="font-size:12px;color:#888;margin-bottom:4px">{tag_display}</div>
               </td>
-              <td style="padding:10px;border-bottom:1px solid #eee;text-align:center;white-space:nowrap;vertical-align:top;min-width:80px">
-                <span style="font-size:18px;font-weight:bold;color:#222">{total_val}</span>
-                <div style="font-size:11px;color:#666;margin-top:3px">{ws_detail}</div>
+              <td style="padding:12px 10px;border-bottom:1px solid #eee;text-align:center;white-space:nowrap;vertical-align:top;min-width:80px">
+                <span style="font-size:20px;font-weight:bold;color:{total_color}">{total}</span>
+                <div style="margin-top:3px">{score_detail}</div>
               </td>
-              <td style="padding:10px;border-bottom:1px solid #eee;text-align:center;vertical-align:top;width:60px">
+              <td style="padding:12px 10px;border-bottom:1px solid #eee;text-align:center;vertical-align:top;width:60px">
                 <a href="{link}" style="display:inline-block;background:#1a73e8;color:#fff;text-decoration:none;padding:6px 12px;border-radius:4px;font-size:12px;white-space:nowrap">阅读→</a>
               </td>
             </tr>"""
 
-# ── 6. 拼装完整 HTML ──
-body = f"""<html><body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;max-width:600px;margin:0 auto;padding:20px">
-        <h2>☀️ 小樱日报 {today}</h2>
-        <p style="color:#666">4 个 AI 交叉审查 · {len(articles)} 篇文章 · {len(scored)} 条已评分</p>
 
-        <table style="width:100%;border-collapse:collapse;margin:15px 0">
-        <tr style="background:#f5f5f5">
-          <th style="padding:8px 10px;text-align:left">文章</th>
-          <th style="padding:8px 10px;text-align:center;width:90px">总分</th>
-          <th style="padding:8px 10px;text-align:center;width:70px"></th>
-        </tr>
-        {score_rows}
-        </table>"""
+all_rows = ""
+if high_items:
+    all_rows += ('<tr><td colspan="3" style="padding:12px 10px 4px;font-size:14px;font-weight:bold;color:#d93025">'
+                 f'🔥 高优先级（{len(high_items)} 篇）</td></tr>')
+    for s in high_items:
+        all_rows += build_article_row(s, show_score_detail=True)
 
+if mid_items:
+    all_rows += ('<tr><td colspan="3" style="padding:16px 10px 4px;font-size:14px;font-weight:bold;color:#e37400">'
+                 f'📌 值得关注（{len(mid_items)} 篇）</td></tr>')
+    for s in mid_items:
+        all_rows += build_article_row(s, show_score_detail=True)
+
+if low_items:
+    all_rows += ('<tr><td colspan="3" style="padding:16px 10px 4px;font-size:14px;font-weight:bold;color:#999">'
+                 f'📎 其他（{len(low_items)} 篇）</td></tr>')
+    for s in low_items:
+        all_rows += build_article_row(s, show_score_detail=False)
+
+# 行动建议 HTML
+action_html = ""
 if action_items:
-    action_list = "".join(f"<li>{t}</li>" for t in action_items)
-    body += f"""
-        <div style="background:#f9f9f9;border-radius:8px;padding:15px;margin:15px 0">
-          <strong>💡 今日行动建议</strong>
-          <ol style="margin-top:8px;line-height:1.8;padding-left:20px">{action_list}</ol>
+    action_lines = []
+    for i, act in enumerate(action_items, 1):
+        ref_str = "、".join(f"#{r}" for r in act["refs"]) if act["refs"] else "—"
+        action_lines.append(
+            f'<li style="margin-bottom:10px">'
+            f'<strong>{act["title"]}</strong>'
+            f'<div style="font-size:12px;color:#888;margin-top:2px">📎 基于情报 {ref_str}</div>'
+            f'</li>'
+        )
+    action_html = f"""
+        <div style="background:#fff3cd;border-radius:8px;padding:18px;margin:20px 0;border-left:4px solid #f9ab00">
+          <strong style="font-size:15px">💡 今日行动建议</strong>
+          <ol style="margin-top:10px;line-height:1.8;padding-left:20px">{''.join(action_lines)}</ol>
         </div>"""
 
-body += f"""
-        <div style="background:#e8f0fe;border-radius:8px;padding:15px;margin:15px 0">
-          <strong>🔗 完整日报</strong><br>
-          <a href="{REPO_URL}/memory/intel/daily-{today}.md" style="color:#1a73e8">查看原文（GitHub）</a>
-          &nbsp;|&nbsp;
-          <a href="{REPO_URL}/memory/intel/actions-{today}.md" style="color:#1a73e8">行动建议详情</a>
-        </div>
+# ── 9. 拼装完整 HTML ──
+body = f"""
+<html><body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;max-width:620px;margin:0 auto;padding:20px;background:#fff">
 
-        <hr>
-        <p style="color:#999;font-size:11px">🤖 全自动 AI 情报研判系统 · Kimi K3 + DeepSeek V4 Flash + GLM-4-Flash 交叉审查 · 每日成本约 ¥0.07</p>
-        </body></html>"""
+<h2 style="margin-bottom:2px">☀️ 小樱日报</h2>
+<div style="font-size:13px;color:#999;margin-bottom:16px">{today} · 4 个 AI 交叉审查 · {len(articles)} 篇文章</div>
 
-# ── 7. 发送 ──
+<div style="background:#f0f7ff;border-radius:8px;padding:15px;margin-bottom:20px;font-size:14px;line-height:1.7;color:#333">
+  <strong>📊 今日概要</strong>
+  <div style="margin-top:6px;white-space:pre-line">{intro_text}</div>
+</div>
+
+{action_html}
+
+<table style="width:100%;border-collapse:collapse;margin:10px 0">
+<tr style="background:#f5f5f5">
+  <th style="padding:8px 10px;text-align:left;font-size:13px">文章</th>
+  <th style="padding:8px 10px;text-align:center;width:85px;font-size:13px">评分</th>
+  <th style="padding:8px 10px;text-align:center;width:65px;font-size:13px">原文</th>
+</tr>
+{all_rows}
+</table>
+
+<div style="background:#f5f5f5;border-radius:8px;padding:12px 15px;margin-top:16px;font-size:13px;color:#555">
+  <strong>🔗 完整日报</strong>
+  &nbsp;<a href="{REPO_URL}/memory/intel/daily-{today}.md" style="color:#1a73e8">查看原始 Markdown（GitHub）</a>
+  &nbsp;|&nbsp;
+  <a href="{REPO_URL}/memory/intel/actions-{today}.md" style="color:#1a73e8">行动建议详情</a>
+  <span style="float:right;color:#999;font-size:11px">🤖 全自动 · 每日成本约 ¥0.07</span>
+</div>
+
+</body></html>"""
+
+# ── 10. 发送 ──
 if DRY_RUN:
     preview_path = INTEL_DIR / "_email_preview.html"
     preview_path.write_text(body, encoding="utf-8")
     print(f"[DRY-RUN] Preview saved: {preview_path}")
-    print(f"[DRY-RUN] Subject: Daily Report {today} - {len(scored)} items")
+    print(f"[DRY-RUN] Subject: {today} AI日报 - {len(high_items)}篇重点 + {len(mid_items)}篇关注")
     print(f"[DRY-RUN] Articles: {len(articles)} / Scored: {len(scored)} / Actions: {len(action_items)}")
+    print(f"[DRY-RUN] High: {len(high_items)} / Mid: {len(mid_items)} / Low: {len(low_items)}")
     sys.exit(0)
 
 msg = MIMEMultipart()
 msg["From"] = os.environ["QQ_EMAIL"]
 msg["To"] = os.environ["QQ_EMAIL"]
-msg["Subject"] = f"📰 小樱日报 {today} — {len(scored)} 条情报"
+msg["Subject"] = f"{today} AI日报 · {len(high_items)}篇重点 + {len(mid_items)}篇关注"
 msg.attach(MIMEText(body, "html", "utf-8"))
 
 server = smtplib.SMTP_SSL("smtp.qq.com", 465)
