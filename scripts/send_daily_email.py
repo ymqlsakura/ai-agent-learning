@@ -185,9 +185,9 @@ body += f"""
 if DRY_RUN:
     preview_path = INTEL_DIR / "_email_preview.html"
     preview_path.write_text(body, encoding="utf-8")
-    print(f"[DRY-RUN] 预览已保存: {preview_path}")
-    print(f"[DRY-RUN] 邮件主题: 📰 小樱日报 {today} — {len(scored)} 条情报")
-    print(f"[DRY-RUN] 文章 {len(articles)} 篇 / 评分 {len(scored)} 条 / 行动 {len(action_items)} 条")
+    print(f"[DRY-RUN] Preview saved: {preview_path}")
+    print(f"[DRY-RUN] Subject: Daily Report {today} - {len(scored)} items")
+    print(f"[DRY-RUN] Articles: {len(articles)} / Scored: {len(scored)} / Actions: {len(action_items)}")
     sys.exit(0)
 
 msg = MIMEMultipart()
@@ -200,4 +200,4 @@ server = smtplib.SMTP_SSL("smtp.qq.com", 465)
 server.login(os.environ["QQ_EMAIL"], os.environ["QQ_SMTP_AUTH"])
 server.send_message(msg)
 server.quit()
-print(f"[OK] 日报已发送——{len(scored)} 篇文章 / {len(action_items)} 条行动建议")
+print(f"[OK] Daily report sent: {len(scored)} articles / {len(action_items)} actions")
