@@ -58,4 +58,5 @@ jobs:
         env:
           QQ_EMAIL: ${{ secrets.QQ_EMAIL }}
           QQ_SMTP_AUTH: ${{ secrets.QQ_SMTP_AUTH }}
+          GLM_API_KEY: ${{ secrets.GLM_API_KEY }}
         run: python scripts/send_daily_email.py
