@@ -9,6 +9,8 @@ import sys
 import os
 import re
 import json
+import urllib.request
+import urllib.error
 from datetime import datetime, timezone, timedelta
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -18,6 +20,77 @@ TZ = timezone(timedelta(hours=8))
 INTEL_DIR = Path("memory/intel")
 REPO_URL = "https://github.com/ymqlsakura/ai-agent-learning/blob/main"
 DRY_RUN = "--dry-run" in sys.argv
+GLM_API_KEY = os.environ.get("GLM_API_KEY", "")
+GLM_API_URL = "https://open.bigmodel.cn/api/paas/v4/chat/completions"
+
+
+# ── GLM 中文摘要生成 ──
+
+def generate_chinese_summaries(articles: dict) -> dict[int, str]:
+    """调用 GLM-4-Flash（免费）把英文标题+snippet 翻译成中文摘要。
+
+    返回 {num: "中文摘要"} 字典。失败时返回空 dict，调用方降级到原有逻辑。
+    """
+    if not GLM_API_KEY:
+        print("[!] GLM_API_KEY 未设置，跳过中文摘要生成")
+        return {}
+
+    # 构建 prompt：批量处理所有文章
+    items_text = ""
+    for num, art in sorted(articles.items()):
+        items_text += (
+            f"#{num}: {art['title_en']}\n"
+            f"  摘要: {art['snippet_en'][:200]}\n"
+            f"  标签: {art['tags']}\n\n"
+        )
+
+    prompt = (
+        "你是一个AI日报编辑。以下是从今天AI行业新闻中筛选出的文章，"
+        "请为每篇文章写一句中文摘要（20-40字），概括核心内容。\n\n"
+        "要求：\n"
+        "- 只输出JSON格式：{\"1\": \"摘要\", \"2\": \"摘要\", ...}\n"
+        "- 摘要要让人一眼看懂这篇文章在讲什么，不要翻译腔\n"
+        "- 如果原文是英文标题+snippet，用自然的中文表达\n\n"
+        f"{items_text}"
+    )
+
+    payload = json.dumps({
+        "model": "glm-4-flash",
+        "messages": [{"role": "user", "content": prompt}],
+        "temperature": 0.3,
+        "max_tokens": 2048,
+    }).encode()
+
+    try:
+        req = urllib.request.Request(
+            GLM_API_URL,
+            data=payload,
+            headers={
+                "Authorization": f"Bearer {GLM_API_KEY}",
+                "Content-Type": "application/json",
+            },
+            method="POST",
+        )
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            data = json.loads(resp.read())
+            content = data["choices"][0]["message"]["content"]
+
+        # 提取 JSON
+        json_match = re.search(r'\{[^{}]*\}', content, re.DOTALL)
+        if json_match:
+            summaries = json.loads(json_match.group())
+            # 确保 key 为 int
+            result = {}
+            for k, v in summaries.items():
+                result[int(k)] = v.strip()
+            print(f"[*] GLM 生成了 {len(result)} 条中文摘要")
+            return result
+        else:
+            print(f"[!] GLM 返回格式无法解析: {content[:200]}")
+            return {}
+    except Exception as e:
+        print(f"[!] GLM 摘要生成失败: {e}")
+        return {}
 
 today = datetime.now(TZ).strftime("%Y-%m-%d")
 
@@ -130,17 +203,20 @@ if actions_path.exists():
 
 # ── 5. 为每篇文章生成中文摘要行 ──
 def make_chinese_summary(num: int, art: dict, s: dict) -> str:
-    """根据文章标题、标签、摘要生成一条中文描述。"""
+    """根据文章标题、标签、摘要生成一条中文描述。优先使用 GLM 生成的中文摘要。"""
     title = art.get("title_en", "")
     snippet = art.get("snippet_en", "")
     tags = art.get("tags", "")
     action = s.get("action_raw", "")
 
-    # 清理 action 中的内部标记
+    # 优先：GLM 生成的中文摘要
+    if num in cn_summaries and cn_summaries[num]:
+        return cn_summaries[num]
+
+    # 降级：清理 action 中的内部标记
     action_clean = re.sub(r'\[.*?\]', '', action).strip()
 
-    # 基于标签和标题做关键词映射，生成一个中文概要
-    # 核心逻辑：tag 说明领域 + snippet 前几个词说明内容
+    # 基于标签做关键词映射
     tag_cn_map = {
         "OPC": "一人公司",
         "AI-agent": "AI Agent",
@@ -148,30 +224,23 @@ def make_chinese_summary(num: int, art: dict, s: dict) -> str:
         "new-tool": "新工具",
     }
 
-    # 翻译标签
-    cn_tags = []
-    for t in tags.replace("#", "").split():
-        t = t.strip()
-        if t:
-            cn_tags.append(tag_cn_map.get(t, t))
-    tag_display = " · ".join(cn_tags) if cn_tags else ""
-
-    # 生成概要：优先用 action_clean，其次用 snippet 的前 100 字符
+    # 降级逻辑：action_clean → snippet → title
     if action_clean and len(action_clean) > 3:
         summary = action_clean
     elif snippet:
-        # 截取 snippet 第一句
-        first_sentence = snippet.split(".")[0].strip()
-        summary = first_sentence[:150]
+        summary = snippet.split(".")[0].strip()[:150]
     else:
         summary = title[:150]
 
-    # 如果 summary 全是英文，尝试用 action_clean（中文）
+    # 如果全是英文，用 action_clean（中文）
     if action_clean and len(action_clean) > 3 and not re.search(r'[一-鿿]', summary):
         summary = action_clean
 
-    return summary, tag_display
+    return summary
 
+
+# ── 5.5. 用 GLM 生成中文摘要（失败则降级到旧逻辑）──
+cn_summaries = generate_chinese_summaries(articles)
 
 # ── 6. 分组：高优先级（≥7）、中优先级（5-6）、低优先级（<5）──
 high_items = [s for s in scored if s["total"] >= 7]
