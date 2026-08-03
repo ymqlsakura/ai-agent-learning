@@ -182,6 +182,19 @@ if json_path.exists():
 action_items = []
 if actions_path.exists():
     actions_raw = actions_path.read_text(encoding="utf-8")
+
+    # 先提全局关联情报（📊 关联情报 部分）
+    global_refs = []
+    refs_section_start = actions_raw.find("## 📊")
+    if refs_section_start < 0:
+        refs_section_start = actions_raw.find("## 关联情报")
+    if refs_section_start >= 0:
+        refs_section = actions_raw[refs_section_start:]
+        global_refs = list(set(
+            int(m.group(1)) for m in re.finditer(r'\[#(\d+)', refs_section)
+        ))
+        global_refs.sort()
+
     # 提取每个行动块
     act_blocks = re.split(r'\n(?=### 行动 \d+)', actions_raw)
     for block in act_blocks:
@@ -192,9 +205,11 @@ if actions_path.exists():
         # 提取「做什么」
         what_m = re.search(r'\*\*做什么\*\*：(.+)', block)
         what = what_m.group(1).strip() if what_m else title
-        # 提取关联情报
+        # 先用每块内部的 refs，没有则用全局 refs
         refs = re.findall(r'#(\d+)', block)
-        ref_nums = [int(r) for r in refs if r.isdigit()]
+        ref_nums = [int(r) for r in refs if 1 <= int(r) <= 99]
+        if not ref_nums:
+            ref_nums = global_refs
         action_items.append({
             "title": title,
             "what": what,
@@ -391,7 +406,11 @@ action_html = ""
 if action_items:
     action_lines = []
     for i, act in enumerate(action_items, 1):
-        ref_str = "、".join(f"#{r}" for r in act["refs"]) if act["refs"] else "—"
+        # 关联情报——从 refs 列表里生成可读的编号，如 "#7"
+        if act["refs"]:
+            ref_str = "、".join(f"#{r}" for r in sorted(set(act["refs"])))
+        else:
+            ref_str = "—"
         action_lines.append(
             f'<li style="margin-bottom:10px">'
             f'<strong>{act["title"]}</strong>'
