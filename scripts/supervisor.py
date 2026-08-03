@@ -31,73 +31,14 @@ import re
 import time
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import datetime, timezone, timedelta
+from datetime import datetime
 from pathlib import Path
 
-
-# ── 配置 ───────────────────────────────────────────────
-
-TZ = timezone(timedelta(hours=8))  # 北京时间
-REPO_ROOT = Path(__file__).resolve().parent.parent
-GOALS_DIR = REPO_ROOT / "goals"
-INTEL_DIR = REPO_ROOT / "memory" / "intel"
-
-# 供应商域名——这些来源在评分时杠杆率默认降 1 分
-# （独立媒体 > 社区讨论 > 供应商自述）
-VENDOR_DOMAINS = {
-    "blog.jetbrains.com",
-    "www.langchain.com",
-    "www.taskade.com",
-    "code.claude.com",
-    "developers.google.com",
-    "openai.com",
-    "platform.openai.com",
-    "anthropic.com",
-    "aws.amazon.com",
-    "azure.microsoft.com",
-}
-
-# Worker API 配置
-WORKERS = {
-    "kimi": {
-        "name": "Kimi K3",
-        "base_url": "https://api.moonshot.cn/v1/chat/completions",
-        "model": "kimi-k3",
-        "env_key": "KIMI_API_KEY",
-        "strength": "长文档分析、中文市场情报、一人公司案例、政策解读",
-        "reasoning_effort": "low",  # 情报研判不需要深度推理，low = 更快更便宜
-        "temperature": 1.0,       # Kimi K3 只接受 temperature=1
-    },
-    "deepseek": {
-        "name": "DeepSeek V4 Flash",
-        "base_url": "https://api.deepseek.com/chat/completions",
-        "model": "deepseek-v4-flash",
-        "env_key": "DEEPSEEK_API_KEY",
-        "strength": "技术架构评估、成本估算、工程可行性、工具对比",
-    },
-    "grok": {
-        "name": "Grok 4.5",
-        "base_url": "https://api.x.ai/v1/chat/completions",
-        "model": "grok-4.5",
-        "env_key": "GROK_API_KEY",
-        "strength": "技术趋势预判、跨领域关联分析、商业模式可行性、前沿话题嗅觉",
-        "temperature": 0.7,
-    },
-    "glm": {
-        "name": "GLM-4-Flash",
-        "base_url": "https://open.bigmodel.cn/api/paas/v4/chat/completions",
-        "model": "glm-4-flash",
-        "env_key": "GLM_API_KEY",
-        "strength": "学术方法论评估、教育视角、政策文本分析、中文内容质量判断",
-        "temperature": 0.3,
-    },
-}
-
-# 最大迭代轮数（R1 初始评分 + R2 交叉审查 + R3 争议解决 + R4-5 补缺）
-MAX_ROUNDS = 5
-
-# 单次 API 调用超时（秒）
-API_TIMEOUT = 90
+from config import (
+    TZ, REPO_ROOT, GOALS_DIR, INTEL_DIR, INDEX_PATH,
+    VENDOR_DOMAINS, WORKERS, TOKEN_PRICES,
+    MAX_ROUNDS, API_TIMEOUT,
+)
 
 
 # ── Token 追踪 ──────────────────────────────────────────
@@ -109,13 +50,8 @@ class TokenTracker:
     usage 字段：{"prompt_tokens": int, "completion_tokens": int, "total_tokens": int}。
     """
 
-    # 定价（$/百万 tokens）
-    PRICING = {
-        "kimi":       {"input": 0.60, "output": 0.60},
-        "deepseek":   {"input": 0.14, "output": 0.14},
-        "grok":       {"input": 2.00, "output": 6.00},
-        "glm":        {"input": 0.00, "output": 0.00},   # GLM-4-Flash 永久免费
-    }
+    # 定价（$/百万 tokens）——来自共享配置
+    PRICING = TOKEN_PRICES
 
     def __init__(self):
         self.records: list[dict] = []
@@ -313,8 +249,56 @@ def parse_goal(goal_file: Path, date_str: str | None = None) -> dict:
 
 # ── Intel 简报解析 ─────────────────────────────────────
 
+def read_intel_json(date_str: str) -> dict | None:
+    """从结构化 JSON 读取情报条目——主数据源，替代正则解析。"""
+    json_path = INTEL_DIR / f"daily-{date_str}.json"
+    if not json_path.exists():
+        return None
+    try:
+        return json.loads(json_path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, Exception) as e:
+        print(f"⚠️ JSON 解析失败: {json_path} — {e}", file=sys.stderr)
+        return None
+
+
+def write_intel_json(date_str: str, result: dict):
+    """将研判结果写回 JSON 文件。"""
+    json_path = INTEL_DIR / f"daily-{date_str}.json"
+    data = read_intel_json(date_str)
+    if not data:
+        # JSON 不存在——无法写回（不应发生，daily_intel.py 会首先生成）
+        print(f"  ⚠ JSON 文件不存在，无法写回研判结果: {json_path}", file=sys.stderr)
+        return
+
+    data["status"] = "scored"
+    data["scored_at"] = now_str()
+    data["scores"] = result.get("scores", [])
+    data["conclusion"] = result.get("conclusion", "")
+    if result.get("cross_review_stats"):
+        data["cross_review_stats"] = result["cross_review_stats"]
+    json_path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"  📝 研判结果已写入 JSON: {json_path}")
+
+
 def parse_intel_items(date_str: str) -> list[dict]:
-    """从每日简报中解析出情报条目列表。"""
+    """从每日简报获取情报条目——优先 JSON，回退正则解析。"""
+    data = read_intel_json(date_str)
+    if data and data.get("items"):
+        items = []
+        for it in data["items"]:
+            items.append({
+                "num": it["num"],
+                "title": it["title"],
+                "link": it["link"],
+                "snippet": it["snippet"],
+                "query": it.get("query", ""),
+                "tags": it.get("tags", []),
+                "source": it.get("source", ""),
+                "status": "pending" if data.get("status") == "pending" else "scored",
+            })
+        return items
+
+    # 回退：正则解析 markdown（兼容旧文件，无 JSON 时使用）
     brief_path = INTEL_DIR / f"daily-{date_str}.md"
     if not brief_path.exists():
         print(f"简报文件不存在: {brief_path}", file=sys.stderr)
@@ -323,8 +307,6 @@ def parse_intel_items(date_str: str) -> list[dict]:
     text = brief_path.read_text(encoding="utf-8")
 
     items = []
-    # 匹配 ### N. [title](link) ... - 研判: ⏳
-    # 用正则提取每个条目的标题、链接、摘要、标签、来源
     pattern = re.compile(
         r'### (\d+)\. \[(.+?)\]\((.+?)\)\n\n'
         r'(.*?)\n\n'
@@ -345,7 +327,6 @@ def parse_intel_items(date_str: str) -> list[dict]:
         source = match.group(7)
         status = "pending" if "⏳" in match.group(8) else "scored"
 
-        # 解析标签
         tags = [t.strip() for t in tags_str.split() if t.strip().startswith("#")]
 
         items.append({
@@ -359,9 +340,7 @@ def parse_intel_items(date_str: str) -> list[dict]:
             "status": status,
         })
 
-    # 区分「无条目」vs「已全部研判」——避免静默返回空列表
     if not items:
-        # 检查文件是否包含已研判标记（有评分表但研判状态已更新）
         if "✅ 已评分" in text or "研判区" in text:
             print(f"📋 简报 {date_str} 已全部研判，无需重复处理。", file=sys.stderr)
         else:
@@ -371,12 +350,12 @@ def parse_intel_items(date_str: str) -> list[dict]:
 
 
 def parse_existing_scores(date_str: str) -> list[dict]:
-    """从已研判的每日简报评分表中提取已有分数。
+    """从已研判的简报中提取已有分数——优先 JSON，回退正则解析。"""
+    data = read_intel_json(date_str)
+    if data and data.get("scores"):
+        return data["scores"]
 
-    write_back_brief() 写入的表格格式：
-    | # | 相关性(0-3) | 可行性(0-3) | 杠杆率(0-3) | 总分 | 行动建议 |
-    | 1 | 2 | 2 | 3 | 7 | 仔细阅读框架对比 |
-    """
+    # 回退：正则解析 markdown 表格
     brief_path = INTEL_DIR / f"daily-{date_str}.md"
     if not brief_path.exists():
         return []
@@ -1385,8 +1364,9 @@ def apply_hard_constraints(final_scores: list[dict], items: list[dict]) -> list[
             if s["leverage"] >= drop:
                 s["leverage"] -= drop
             else:
+                old_leverage = s["leverage"]
                 s["leverage"] = 0
-                remaining = drop - s.get("leverage", 0)
+                remaining = drop - old_leverage
                 if s.get("feasibility", 0) >= remaining:
                     s["feasibility"] -= remaining
                 else:
@@ -1435,6 +1415,17 @@ def finalize_scores(
         avg_lev = round(sum(s["leverage"] for s in sc) / len(sc))
         avg_total = avg_rel + avg_fea + avg_lev
 
+        # 保留每个 Worker 的原始分数（用于邮件等输出）
+        worker_details = {}
+        for s in sc:
+            wid = s.get("worker", "unknown")
+            worker_details[wid] = {
+                "relevance": s["relevance"],
+                "feasibility": s["feasibility"],
+                "leverage": s["leverage"],
+                "total": s["relevance"] + s["feasibility"] + s["leverage"],
+            }
+
         # 取第一个 Worker 的 action 建议（或拼接）
         actions = entry.get("actions", [])
         best_action = actions[0] if actions else "—"
@@ -1442,11 +1433,13 @@ def finalize_scores(
         final_scores.append({
             "num": item["num"],
             "title": item["title"],
+            "link": item.get("link", ""),
             "relevance": avg_rel,
             "feasibility": avg_fea,
             "leverage": avg_lev,
             "total": avg_total,
             "action": best_action,
+            "worker_scores": worker_details,
         })
 
     # 🚨 硬约束过滤——最后一道防线
@@ -1776,6 +1769,7 @@ def main():
 
     if args.output in ("brief", "both") and not args.dry_run:
         write_back_brief(args.date, result)
+        write_intel_json(args.date, result)  # 同时写入结构化 JSON
         # 🆕 Phase 3：行动建议写入
         actions = result.get("actions", [])
         if actions:

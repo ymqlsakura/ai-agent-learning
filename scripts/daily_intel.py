@@ -19,62 +19,14 @@ import os
 import sys
 import urllib.request
 import urllib.error
-from datetime import datetime, timezone, timedelta
+from datetime import datetime
 from pathlib import Path
 
-
-# ── 配置 ───────────────────────────────────────────────
-
-# 北京时间 (UTC+8)
-TZ = timezone(timedelta(hours=8))
-
-# 搜索关键词（时间敏感的主题加 tbs 参数过滤最近一周）
-QUERIES = [
-    # (query, language, region, tbs)
-    ("AI industry breaking news highlights this week", "en", "us", "qdr:w"),
-    ("new AI agent tools frameworks released 2026", "en", "us", None),
-    ("solo founder one person business AI startup 2026", "en", "us", None),
-    ("Claude Code new features updates 2026", "en", "us", None),
-    ("China AI policy regulation 2026", "en", "us", None),
-    ("一人公司 AI 创业 新工具 2026", "zh-cn", "cn", None),
-]
-
-# Serper API
-API_URL = "https://google.serper.dev/search"
-MAX_PER_QUERY = 3  # 每个关键词最多取几条（查询多，每条少取，保多样性）
-
-# 路径（相对于仓库根目录）
-REPO_ROOT = Path(__file__).resolve().parent.parent
-INTEL_DIR = REPO_ROOT / "memory" / "intel"
-INDEX_PATH = INTEL_DIR / "INDEX.md"
-
-# DeepSeek API（用于每日摘要——可选，不设则跳过）
-DEEPSEEK_API_URL = "https://api.deepseek.com/chat/completions"
-DEEPSEEK_MODEL = "deepseek-v4-flash"  # 便宜够用——每日摘要 ≤30 次/月
-
-# 已知主题标签（用于自动标注）
-TOPIC_TAGS = {
-    "agent": "#AI-agent",
-    "framework": "#AI-agent",
-    "claude": "#Claude",
-    "anthropic": "#Claude",
-    "solo founder": "#OPC",
-    "一人公司": "#OPC",
-    "one person": "#OPC",
-    "opc": "#OPC",
-    "china": "#China-AI",
-    "中国": "#China-AI",
-    "low code": "#vibe-coding",
-    "no code": "#vibe-coding",
-    "vibe cod": "#vibe-coding",
-    "无代码": "#vibe-coding",
-    "paper detect": "#paper-detection",
-    "论文检测": "#paper-detection",
-    "ai detection": "#paper-detection",
-    "tool": "#new-tool",
-    "platform": "#new-tool",
-    "新工具": "#new-tool",
-}
+from config import (
+    TZ, QUERIES, SERPER_API_URL, MAX_PER_QUERY,
+    REPO_ROOT, INTEL_DIR, INDEX_PATH,
+    DEEPSEEK_API_URL, DEEPSEEK_MODEL, TOPIC_TAGS,
+)
 
 
 # ── 工具函数 ───────────────────────────────────────────
@@ -92,7 +44,7 @@ def search(query: str, gl: str, hl: str, tbs: str | None = None) -> list[dict]:
     payload = json.dumps(payload_dict).encode("utf-8")
 
     req = urllib.request.Request(
-        API_URL,
+        SERPER_API_URL,
         data=payload,
         headers={
             "X-API-KEY": os.environ["SERPER_API_KEY"],
@@ -175,6 +127,32 @@ def write_brief(date_str: str, findings: list[dict]) -> Path:
         f.write("\n")
         f.write("**研判结论**：（小樱写）\n\n")
 
+    return path
+
+
+def write_json(date_str: str, findings: list[dict]) -> Path:
+    """写入结构化 JSON 数据——supervisor.py 的主数据源，消除正则解析。"""
+    path = INTEL_DIR / f"daily-{date_str}.json"
+    items = []
+    for i, item in enumerate(findings, 1):
+        items.append({
+            "num": i,
+            "title": item.get("title", "无标题"),
+            "link": item.get("link", ""),
+            "snippet": item.get("snippet", ""),
+            "query": item.get("query", ""),
+            "tags": item.get("tags", []),
+            "source": domain_from(item.get("link", "")),
+        })
+
+    data = {
+        "date": date_str,
+        "generated_at": datetime.now(TZ).strftime("%Y-%m-%d %H:%M"),
+        "status": "pending",
+        "items": items,
+    }
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
     return path
 
 
@@ -383,6 +361,10 @@ def main():
     # 写入简报
     brief_path = write_brief(date_str, unique)
     print(f"\n简报已写入: {brief_path}")
+
+    # 写入结构化 JSON（supervisor.py 的主数据源）
+    json_path = write_json(date_str, unique)
+    print(f"JSON 已写入: {json_path}")
 
     # LLM 摘要（可选——需要 DEEPSEEK_API_KEY 环境变量）
     print(f"\n尝试 LLM 摘要...")
