@@ -239,6 +239,23 @@ def make_chinese_summary(num: int, art: dict, s: dict) -> str:
     return summary
 
 
+def _make_tag_display(art: dict) -> str:
+    """生成中文标签显示。"""
+    tags = art.get("tags", "")
+    tag_cn_map = {
+        "OPC": "一人公司",
+        "AI-agent": "AI Agent",
+        "Claude": "Claude",
+        "new-tool": "新工具",
+    }
+    cn_tags = []
+    for t in tags.replace("#", "").split():
+        t = t.strip()
+        if t:
+            cn_tags.append(tag_cn_map.get(t, t))
+    return " · ".join(cn_tags) if cn_tags else ""
+
+
 # ── 5.5. 用 GLM 生成中文摘要（失败则降级到旧逻辑）──
 cn_summaries = generate_chinese_summaries(articles)
 
@@ -270,7 +287,8 @@ def build_article_row(s: dict, show_score_detail: bool = True, compact: bool = F
     num = s["num"]
     art = articles.get(num, {})
     link = art.get("link", "#")
-    summary, tag_display = make_chinese_summary(num, art, s)
+    summary = make_chinese_summary(num, art, s)
+    tag_display = _make_tag_display(art)
 
     # 分数明细
     ws = worker_scores.get(num, {})
