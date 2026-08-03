@@ -197,7 +197,7 @@ intro_text = "\n".join(intro_lines)
 
 
 # ── 8. 构建 HTML ──
-def build_article_row(s: dict, show_score_detail: bool = True) -> str:
+def build_article_row(s: dict, show_score_detail: bool = True, compact: bool = False) -> str:
     num = s["num"]
     art = articles.get(num, {})
     link = art.get("link", "#")
@@ -220,13 +220,28 @@ def build_article_row(s: dict, show_score_detail: bool = True) -> str:
         score_detail = f'<span style="font-size:11px;color:#888">R{s["relevance"]}+F{s["feasibility"]}+L{s["leverage"]}</span>'
 
     total = s["total"]
-    # 总分颜色
     if total >= 7:
         total_color = "#d93025"
     elif total >= 5:
         total_color = "#e37400"
     else:
         total_color = "#999"
+
+    # 紧凑模式（用于左右分栏里的条目）
+    if compact:
+        return f"""
+            <div style="border-bottom:1px solid #eee;padding:10px 0">
+              <div style="margin-bottom:4px">
+                <span style="font-weight:bold;color:#222;font-size:14px">#{num}</span>
+                <a href="{link}" style="color:#1a73e8;text-decoration:none;font-size:13px;margin-left:4px">原文→</a>
+              </div>
+              <div style="font-size:13px;color:#333;line-height:1.5;margin-bottom:3px">{summary}</div>
+              <div style="font-size:11px;color:#888">{tag_display}</div>
+              <div style="margin-top:4px">
+                <span style="font-size:16px;font-weight:bold;color:{total_color}">{total}</span>
+                <span style="font-size:10px;color:#aaa;margin-left:4px">{score_detail.replace('<br>', ' · ')}</span>
+              </div>
+            </div>"""
 
     return f"""
             <tr>
@@ -246,24 +261,63 @@ def build_article_row(s: dict, show_score_detail: bool = True) -> str:
             </tr>"""
 
 
-all_rows = ""
+# ── 9. 构建左右分栏布局 ──
+# 左栏：高优先级（≥7）
+left_html = ""
 if high_items:
-    all_rows += ('<tr><td colspan="3" style="padding:12px 10px 4px;font-size:14px;font-weight:bold;color:#d93025">'
-                 f'🔥 高优先级（{len(high_items)} 篇）</td></tr>')
+    left_items_html = ""
     for s in high_items:
-        all_rows += build_article_row(s, show_score_detail=True)
+        left_items_html += build_article_row(s, show_score_detail=True, compact=True)
+    left_html = f"""
+    <td style="width:50%;vertical-align:top;padding:12px;background:#fff5f5;border-radius:8px;border:1px solid #fce8e6">
+      <div style="font-size:15px;font-weight:bold;color:#d93025;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #d93025">
+        🔥 高优先级（{len(high_items)} 篇）
+      </div>
+      {left_items_html}
+    </td>"""
 
+# 右栏：值得关注（5-6）
+right_html = ""
 if mid_items:
-    all_rows += ('<tr><td colspan="3" style="padding:16px 10px 4px;font-size:14px;font-weight:bold;color:#e37400">'
-                 f'📌 值得关注（{len(mid_items)} 篇）</td></tr>')
+    right_items_html = ""
     for s in mid_items:
-        all_rows += build_article_row(s, show_score_detail=True)
+        right_items_html += build_article_row(s, show_score_detail=True, compact=True)
+    right_html = f"""
+    <td style="width:50%;vertical-align:top;padding:12px;background:#fffaf0;border-radius:8px;border:1px solid #fef0d0">
+      <div style="font-size:15px;font-weight:bold;color:#e37400;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #e37400">
+        📌 值得关注（{len(mid_items)} 篇）
+      </div>
+      {right_items_html}
+    </td>"""
 
+# 如果有一栏为空，用空白占位保持布局
+if not left_html:
+    left_html = '<td style="width:50%;vertical-align:top"></td>'
+if not right_html:
+    right_html = '<td style="width:50%;vertical-align:top"></td>'
+
+two_column = f"""
+<table style="width:100%;border-collapse:separate;border-spacing:12px;margin:10px 0">
+<tr>{left_html}{right_html}</tr>
+</table>"""
+
+# 低优先级（<5）：传统列表
+low_rows = ""
 if low_items:
-    all_rows += ('<tr><td colspan="3" style="padding:16px 10px 4px;font-size:14px;font-weight:bold;color:#999">'
-                 f'📎 其他（{len(low_items)} 篇）</td></tr>')
+    low_rows = ('<tr><td colspan="3" style="padding:16px 10px 4px;font-size:14px;font-weight:bold;color:#999">'
+                f'📎 其他（{len(low_items)} 篇）</td></tr>')
     for s in low_items:
-        all_rows += build_article_row(s, show_score_detail=False)
+        low_rows += build_article_row(s, show_score_detail=False, compact=False)
+
+# 低优先级表格
+low_table = ""
+if low_rows:
+    low_table = f"""
+<div style="margin-top:16px">
+<table style="width:100%;border-collapse:collapse">
+{low_rows}
+</table>
+</div>"""
 
 # 行动建议 HTML
 action_html = ""
@@ -297,14 +351,9 @@ body = f"""
 
 {action_html}
 
-<table style="width:100%;border-collapse:collapse;margin:10px 0">
-<tr style="background:#f5f5f5">
-  <th style="padding:8px 10px;text-align:left;font-size:13px">文章</th>
-  <th style="padding:8px 10px;text-align:center;width:85px;font-size:13px">评分</th>
-  <th style="padding:8px 10px;text-align:center;width:65px;font-size:13px">原文</th>
-</tr>
-{all_rows}
-</table>
+{two_column}
+
+{low_table}
 
 <div style="background:#f5f5f5;border-radius:8px;padding:12px 15px;margin-top:16px;font-size:13px;color:#555">
   <strong>🔗 完整日报</strong>
