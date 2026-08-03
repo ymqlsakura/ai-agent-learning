@@ -1588,9 +1588,10 @@ def generate_actions(
         "2. 每条行动必须附带一个失效条件——「如果 X 发生，说明判断错误，应停止/转向」\n"
         "3. 标注安全级别：🟢 安全（只读/分析/建议，零副作用）| 🟡 需确认（写文件/改配置/git 操作）\n"
         "4. 每条行动标注「为什么现在」——为什么这个时机适合做这件事\n"
-        "5. 最多 3 条行动建议，按优先级排序\n\n"
+        "5. 最多 3 条行动建议，按优先级排序\n"
+        "6. 每条行动建议必须包含一个 related_items 字段，列出该行动对应的情报编号（如 [7, 3]）——这是强制要求，不可省略\n\n"
         "输出格式：纯 JSON 数组，每个元素包含 action_title, what, how, estimated_time, "
-        "why_now, safety_level (green/yellow), failure_condition 字段。"
+        "why_now, safety_level (green/yellow), failure_condition, related_items (整数数组) 字段。"
     )
 
     user_prompt = (
