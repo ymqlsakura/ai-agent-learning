@@ -60,7 +60,7 @@ jobs:
           QQ_SMTP_AUTH: ${{ secrets.QQ_SMTP_AUTH }}
         run: |
           python -c "
-          import smtplib, email, sys, os
+          import smtplib, email, sys, os, re
           from datetime import datetime, timezone, timedelta
           from email.mime.text import MIMEText
           from email.mime.multipart import MIMEMultipart
@@ -68,24 +68,45 @@ jobs:
 
           tz = timezone(timedelta(hours=8))
           today = datetime.now(tz).strftime('%Y-%m-%d')
+
+          # 优先用摘要，没有就用原始日报
           summary_path = Path(f'memory/intel/daily-summary-{today}.md')
+          daily_path = Path(f'memory/intel/daily-{today}.md')
 
-          if not summary_path.exists():
-              print(f'❌ 日报文件不存在: {summary_path}')
+          content = ''
+          if summary_path.exists():
+              content = summary_path.read_text(encoding='utf-8')
+              print(f'📋 使用摘要文件')
+          elif daily_path.exists():
+              raw = daily_path.read_text(encoding='utf-8')
+              # 提取研判结论部分（🔥 高优先级 + 📌 中优先级）
+              hi_match = re.search(r'🔥 高优先级[^\n]*\n.*', raw)
+              mid_match = re.search(r'📌 中优先级[^\n]*\n.*', raw)
+              total_match = re.search(r'\*\*合计 ≈.*\*\*', raw)
+              parts = []
+              if hi_match: parts.append(hi_match.group())
+              if mid_match: parts.append(mid_match.group())
+              if total_match: parts.append(f'\n💰 成本: {total_match.group()}')
+              if parts:
+                  content = '\n'.join(parts)
+                  print(f'📋 从日报提取研判结论')
+              else:
+                  # 降级：取前 500 字
+                  content = raw[:500] + '...'
+                  print(f'📋 使用日报前 500 字')
+          else:
+              print(f'❌ 日报文件不存在: summary 和 daily 都没有')
               sys.exit(0)
-
-          content = summary_path.read_text(encoding='utf-8')
 
           msg = MIMEMultipart()
           msg['From'] = os.environ['QQ_EMAIL']
           msg['To'] = os.environ['QQ_EMAIL']
           msg['Subject'] = f'📰 小樱日报 {today}'
 
-          # 只取 Top 3 部分，去掉多余内容
           body = f'''<h2>☀️ {today} 每日情报</h2>
           <pre style=\"white-space:pre-wrap;font-family:inherit;\">{content}</pre>
           <hr>
-          <p style=\"color:#999;font-size:12px;\">🤖 全自动生成——4 个 AI 交叉审查，每天成本 ¥0.06</p>
+          <p style=\"color:#999;font-size:12px;\">🤖 全自动生成——4 个 AI 交叉审查，每天成本约 ¥0.07</p>
           '''
 
           msg.attach(MIMEText(body, 'html', 'utf-8'))
