@@ -1662,6 +1662,8 @@ def write_actions_file(date_str: str, actions: list[dict], high_items: list[dict
 
     for i, a in enumerate(actions, 1):
         safety_emoji = "🟢" if a.get("safety_level") == "green" else "🟡"
+        related = a.get("related_items", [])
+        ref_note = f"（关联情报：{'、'.join(f'#{r}' for r in related)}）" if related else ""
         lines.extend([
             f"### 行动 {i}：{a.get('action_title', '未命名')}",
             "",
@@ -1671,6 +1673,7 @@ def write_actions_file(date_str: str, actions: list[dict], high_items: list[dict
             f"**为什么现在**：{a.get('why_now', '—')}",
             f"**安全级别**：{safety_emoji} {'安全——只读/分析' if a.get('safety_level') == 'green' else '需确认——涉及写操作'}",
             f"**失效条件**：{a.get('failure_condition', '—')}",
+            f"**关联情报**：{ref_note}" if ref_note else f"**关联情报**：—",
             "",
         ])
 
