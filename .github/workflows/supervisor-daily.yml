@@ -53,3 +53,46 @@ jobs:
             git push
             echo "已推送。"
           fi
+
+      - name: 📧 邮件发送日报
+        env:
+          QQ_EMAIL: ${{ secrets.QQ_EMAIL }}
+          QQ_SMTP_AUTH: ${{ secrets.QQ_SMTP_AUTH }}
+        run: |
+          python -c "
+          import smtplib, email, sys, os
+          from datetime import datetime, timezone, timedelta
+          from email.mime.text import MIMEText
+          from email.mime.multipart import MIMEMultipart
+          from pathlib import Path
+
+          tz = timezone(timedelta(hours=8))
+          today = datetime.now(tz).strftime('%Y-%m-%d')
+          summary_path = Path(f'memory/intel/daily-summary-{today}.md')
+
+          if not summary_path.exists():
+              print(f'❌ 日报文件不存在: {summary_path}')
+              sys.exit(0)
+
+          content = summary_path.read_text(encoding='utf-8')
+
+          msg = MIMEMultipart()
+          msg['From'] = os.environ['QQ_EMAIL']
+          msg['To'] = os.environ['QQ_EMAIL']
+          msg['Subject'] = f'📰 小樱日报 {today}'
+
+          # 只取 Top 3 部分，去掉多余内容
+          body = f'''<h2>☀️ {today} 每日情报</h2>
+          <pre style=\"white-space:pre-wrap;font-family:inherit;\">{content}</pre>
+          <hr>
+          <p style=\"color:#999;font-size:12px;\">🤖 全自动生成——4 个 AI 交叉审查，每天成本 ¥0.06</p>
+          '''
+
+          msg.attach(MIMEText(body, 'html', 'utf-8'))
+
+          server = smtplib.SMTP_SSL('smtp.qq.com', 465)
+          server.login(os.environ['QQ_EMAIL'], os.environ['QQ_SMTP_AUTH'])
+          server.send_message(msg)
+          server.quit()
+          print(f'✅ 日报已发送到 {os.environ[\"QQ_EMAIL\"]}')
+          "
