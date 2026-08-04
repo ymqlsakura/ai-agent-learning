@@ -29,10 +29,14 @@ git stash && git pull origin main --rebase && git stash pop && git push origin m
 - 每日早上自动运行，结果发到 `1056174461@qq.com`
 - 邮件格式：概要 → 行动建议（含关联情报编号 #X）→ 文章列表（高优先 → 值得关注 → 其他，分数从高到低）
 - 每篇文章：GLM 中文摘要 + 标签 + per-model 分数 + 「阅读→」按钮
-- 手动触发全链路：
-  1. `gh workflow run "Daily Intel Scan" --repo ymqlsakura/ai-agent-learning`（如果当天还没有情报文件）
-  2. 等 scan 完成（约 30s）
-  3. `gh workflow run "Daily Intel Review" --repo ymqlsakura/ai-agent-learning`（研判 + 邮件）
+- 手动触发全链路（合并成一条命令）：
+  ```bash
+  gh workflow run "Daily Intel Scan" --repo ymqlsakura/ai-agent-learning && \
+  sleep 60 && \
+  gh workflow run "Daily Intel Review" --repo ymqlsakura/ai-agent-learning
+  ```
+  注意：两个 workflow 不能合在一起——Scan 是独立的 job，Review 通过 `workflow_run` 触发。
+  但 `workflow_run` 有时不触发（GitHub Actions 的已知问题），所以手动跑两步最稳。
 - 如果 git push 失败（并发冲突）：workflow 已添加 `git pull --rebase` 自动重试
 
 ## 5. 不重复刷版本号
