@@ -61,6 +61,8 @@ git stash && git pull origin main --rebase && git stash pop && git push origin m
 - WebFetch 被墙就用 WebSearch 找相关讨论
 - 都不行就告诉她「访问不了」，问她能不能概括要点
 - **VERIFY/git status/git log 循环禁止**：拿到结果 → 直接输出。不要确认 git clean、不要检查 TodoWrite、不要跑 dry-run。这些是做完了才做的事。
+- **做了 10 分钟还没给用户看结果 = 严重 bug**。如果发现自己在循环，立即停止、输出已有结果。
+- 有内容在本地没 push → 等一下，VPN 好了再推。不要因为 push 不上去就反复尝试。
 
 ## 8. 恢复检查
 
