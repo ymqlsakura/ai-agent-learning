@@ -22,16 +22,25 @@ git stash && git pull origin main --rebase && git stash pop && git push origin m
 
 - 不生成不相关的文件如 `_email_preview.html`、`wf_payload.json`、`_tmp_content.txt`
 - 如果生成了，主动清理
-- 本地测试 → 用 stdout 看结果，不写文件
+- 本地测试 → 用 stdout 看结果，不写文件（sdemail --dry-run 除外，它是只读操作生成预览）
 
 ## 4. OPC 日报系统
 
 - 每日早上自动运行，结果发到 `1056174461@qq.com`
 - 邮件格式：概要 → 行动建议（含关联情报编号 #X）→ 文章列表（高优先 → 值得关注 → 其他，分数从高到低）
-- 每篇文章：GLM 中文摘要 + 标签 + 分数 + 「阅读→」按钮
-- 手动触发：`gh workflow run "Daily Intel Review" --repo ymqlsakura/ai-agent-learning`
+- 每篇文章：GLM 中文摘要 + 标签 + per-model 分数 + 「阅读→」按钮
+- 手动触发全链路：
+  1. `gh workflow run "Daily Intel Scan" --repo ymqlsakura/ai-agent-learning`（如果当天还没有情报文件）
+  2. 等 scan 完成（约 30s）
+  3. `gh workflow run "Daily Intel Review" --repo ymqlsakura/ai-agent-learning`（研判 + 邮件）
+- 如果 git push 失败（并发冲突）：workflow 已添加 `git pull --rebase` 自动重试
 
-## 5. 恢复检查
+## 5. 不重复刷版本号
+
+- 封邮件格式迭代是产品问题不是技术问题——用大白话说清楚做了什么改动
+- 不要说「v2」「v3」这些版本号，樱漫清澜不关心
+
+## 6. 恢复检查
 
 下一会话启动时：
 1. 读当前 MOVEMENT.md
