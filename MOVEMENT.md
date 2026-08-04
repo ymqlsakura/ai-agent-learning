@@ -53,11 +53,13 @@ git stash && git pull origin main --rebase && git stash pop && git push origin m
 
 ## 7. 外部内容作为上下文
 
-- 樱漫清澜发来的任何链接（B站、文章、视频）→ 先停下来尝试理解内容
-- WebFetch 被墙就用 WebSearch 找相关讨论，B站视频用 API（`api.bilibili.com/x/web-interface/view?bvid=...`）
-- 都不行就告诉她「访问不了」，问她能不能概括要点
-- 把内容跟当前正在做的事联系起来——连不起来就说没想清楚
+- 樱漫清澜发来的任何链接（B站、文章、视频）→ **先告诉她内容，再归档**
+- 拿到内容 → 立刻用中文告诉她视频/文章讲了什么 → 跟当前项目的关系
+- **归档、commit、规则更新全部排在后面**——她不需要等这些
 - 这条高于「继续推进当前任务」——她发链接是她觉得内容值得看
+- B站视频用 API: `curl "api.bilibili.com/x/web-interface/view?bvid=..."` 拿标题+描述
+- WebFetch 被墙就用 WebSearch 找相关讨论
+- 都不行就告诉她「访问不了」，问她能不能概括要点
 
 ## 8. 恢复检查
 
