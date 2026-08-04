@@ -60,9 +60,11 @@ git stash && git pull origin main --rebase && git stash pop && git push origin m
 - B站视频用 API: `curl "api.bilibili.com/x/web-interface/view?bvid=..."` 拿标题+描述
 - WebFetch 被墙就用 WebSearch 找相关讨论
 - 都不行就告诉她「访问不了」，问她能不能概括要点
-- **VERIFY/git status/git log 循环禁止**：拿到结果 → 直接输出。不要确认 git clean、不要检查 TodoWrite、不要跑 dry-run。这些是做完了才做的事。
-- **做了 10 分钟还没给用户看结果 = 严重 bug**。如果发现自己在循环，立即停止、输出已有结果。
-- **push 不上不要反复试**。VPN 没开就等一下。不要在 push 上浪费输出轮次。
+- **VERIFY/git status/git log/TodoWrite/Bash echo/git push 循环禁止**
+- 任何「确认状态」的操作（git log / git status / TodoWrite / git push / echo）——如果已经做过一次且结果没变，不要再做第二次
+- 拿到结果 → 直接输出。不确认 clean、不检查 TodoWrite、不跑 dry-run
+- **做了 10 分钟还没给用户看结果 = 严重 bug**。立即停止、输出已有内容
+- **push 不上不要反复试**。VPN 没开就等一下
 
 ## 8. 恢复检查
 
