@@ -60,6 +60,7 @@ git stash && git pull origin main --rebase && git stash pop && git push origin m
 - B站视频用 API: `curl "api.bilibili.com/x/web-interface/view?bvid=..."` 拿标题+描述
 - WebFetch 被墙就用 WebSearch 找相关讨论
 - 都不行就告诉她「访问不了」，问她能不能概括要点
+- **VERIFY/git status/git log 循环禁止**：拿到结果 → 直接输出。不要确认 git clean、不要检查 TodoWrite、不要跑 dry-run。这些是做完了才做的事。
 
 ## 8. 恢复检查
 
