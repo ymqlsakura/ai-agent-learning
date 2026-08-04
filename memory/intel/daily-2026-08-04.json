@@ -1,0 +1,118 @@
+{
+  "date": "2026-08-04",
+  "generated_at": "2026-08-04 11:48",
+  "status": "pending",
+  "items": [
+    {
+      "num": 1,
+      "title": "Artificial Intelligence - The New York ...",
+      "link": "https://www.nytimes.com/spotlight/artificial-intelligence",
+      "snippet": "Artificial Intelligence Highlights Times. An upgrade transformed the beleaguered virtual assistant into a modern chatbot. Moves to Block Robot Imports The ...",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [],
+      "source": "www.nytimes.com"
+    },
+    {
+      "num": 2,
+      "title": "Artificial Intelligence - Latest AI News and Analysis",
+      "link": "https://www.wsj.com/tech/ai",
+      "snippet": "The latest artificial intelligence news coverage focusing on the technology, tools and the companies building AI technology.",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [
+        "#new-tool"
+      ],
+      "source": "www.wsj.com"
+    },
+    {
+      "num": 3,
+      "title": "Europe is spending €30B to build its own AI giants",
+      "link": "https://www.instagram.com/p/DbkzOSiAC8J/",
+      "snippet": "The biggest AI updates you missed this week Google launched Gemini Omni Flash for AI video editing. A student built a $317k AI traffic system using Claude. ...",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [
+        "#Claude"
+      ],
+      "source": "www.instagram.com"
+    },
+    {
+      "num": 4,
+      "title": "Top AI Agent Frameworks in 2026: A Production-Ready ...",
+      "link": "https://pub.towardsai.net/top-ai-agent-frameworks-in-2026-a-production-ready-comparison-7ba5e39ad56d",
+      "snippet": "OpenAI, Anthropic, and Google all launched agent development kits in 2026. 120+ agentic AI tools across 11 categories,",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent",
+        "#Claude",
+        "#new-tool"
+      ],
+      "source": "pub.towardsai.net"
+    },
+    {
+      "num": 5,
+      "title": "Top Agentic Frameworks for Building Applications 2026",
+      "link": "https://blog.jetbrains.com/pycharm/2026/06/top-agentic-frameworks-for-building-applications-2026/",
+      "snippet": "Haystack is an open-source AI orchestration framework created by deepset for building production-ready AI agents, retrieval-augmented generation ...",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "blog.jetbrains.com"
+    },
+    {
+      "num": 6,
+      "title": "The best AI agent frameworks in 2026",
+      "link": "https://www.langchain.com/resources/ai-agent-frameworks",
+      "snippet": "This guide compares seven frameworks: LangChain, CrewAI, Microsoft Agent Framework, LlamaIndex Workflows, Google ADK, OpenAI Agents SDK, and Mastra.",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "www.langchain.com"
+    },
+    {
+      "num": 7,
+      "title": "The One-Person Unicorn: How Solo Founders Are Building Billion-Dollar ...",
+      "link": "https://fi.co/insight/the-one-person-unicorn-how-solo-founders-are-building-billion-dollar-companies-with-ai-in-2026",
+      "snippet": "A one-person unicorn is a startup valued at a billion dollars or more that is founded, built, and largely operated by a single person who uses ...",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC"
+      ],
+      "source": "fi.co"
+    },
+    {
+      "num": 8,
+      "title": "2026 - The year of the one person billion dollar startup",
+      "link": "https://www.reddit.com/r/Solopreneur/comments/1r2grc6/2026_the_year_of_the_one_person_billion_dollar/",
+      "snippet": "",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC"
+      ],
+      "source": "www.reddit.com"
+    },
+    {
+      "num": 9,
+      "title": "We analyzed 2,000+ startups built on our AI platform — here's what solo founders are actually building in 2026",
+      "link": "https://www.reddit.com/r/EntrepreneurRideAlong/comments/1sabim9/we_analyzed_2000_startups_built_on_our_ai/",
+      "snippet": "",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC",
+        "#new-tool"
+      ],
+      "source": "www.reddit.com"
+    },
+    {
+      "num": 10,
+      "title": "What's new - Claude Code Docs",
+      "link": "https://code.claude.com/docs/en/whats-new",
+      "snippet": "June 15–19, 2026. Artifacts: turn a session's output into a live, shareable page on claude.ai that updates in place as the session works, now in beta on Team ...",
+      "query": "Claude Code new features updates 2026",
+      "tags": [
+        "#Claude"
+      ],
+      "source": "code.claude.com"
+    }
+  ]
+}
