@@ -257,6 +257,8 @@ low_items = [s for s in scored if s["total"] < 5]
 def build_row(s: dict, show_score_detail: bool = True) -> str:
     num = s["num"]
     art = articles.get(num, {})
+    if not art:
+        return ""  # 找不到对应的文章，跳过这行
     link = art.get("link", "#")
     summary = get_summary(art, s)
     tag_display = get_tag_display(art)
