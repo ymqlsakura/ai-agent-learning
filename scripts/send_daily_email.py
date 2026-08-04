@@ -1,7 +1,8 @@
-"""邮件发送脚本 v2——日报格式重写。
+"""邮件发送脚本 v3——真正的日报格式。
 
-每条文章生成中文摘要（标题翻译 + 标签说明 + 一句话概要），
-按分数从高到低排列。行动建议放顶部，标注基于哪几条情报。
+每条文章有 GLM 生成的中文摘要（而非内部评分备注），
+行动建议放在顶部并标注关联情报编号，
+高优先→值得关注→其他 单列垂直布局，分数从高到低。
 """
 
 import smtplib
@@ -27,15 +28,14 @@ GLM_API_URL = "https://open.bigmodel.cn/api/paas/v4/chat/completions"
 # ── GLM 中文摘要生成 ──
 
 def generate_chinese_summaries(articles: dict) -> dict[int, str]:
-    """调用 GLM-4-Flash（免费）把英文标题+snippet 翻译成中文摘要。
+    """调用 GLM-4-Flash（免费）把每篇文章生成中文摘要。
 
-    返回 {num: "中文摘要"} 字典。失败时返回空 dict，调用方降级到原有逻辑。
+    返回 {num: "中文摘要"} 字典。失败时返回空 dict，调用方降级。
     """
     if not GLM_API_KEY:
         print("[!] GLM_API_KEY 未设置，跳过中文摘要生成")
         return {}
 
-    # 构建 prompt：批量处理所有文章
     items_text = ""
     for num, art in sorted(articles.items()):
         items_text += (
@@ -75,11 +75,9 @@ def generate_chinese_summaries(articles: dict) -> dict[int, str]:
             data = json.loads(resp.read())
             content = data["choices"][0]["message"]["content"]
 
-        # 提取 JSON
         json_match = re.search(r'\{[^{}]*\}', content, re.DOTALL)
         if json_match:
             summaries = json.loads(json_match.group())
-            # 确保 key 为 int
             result = {}
             for k, v in summaries.items():
                 result[int(k)] = v.strip()
@@ -91,6 +89,9 @@ def generate_chinese_summaries(articles: dict) -> dict[int, str]:
     except Exception as e:
         print(f"[!] GLM 摘要生成失败: {e}")
         return {}
+
+
+# ── 主流程 ──
 
 today = datetime.now(TZ).strftime("%Y-%m-%d")
 
@@ -104,7 +105,7 @@ if not daily_path.exists():
 
 raw = daily_path.read_text(encoding="utf-8")
 
-# ── 1. 解析文章（标题 + 链接 + 摘要 + 标签）──
+# ── 1. 解析文章 ──
 articles = {}
 article_blocks = re.split(r'\n(?=### \d+\.\s)', raw)
 for block in article_blocks:
@@ -114,22 +115,17 @@ for block in article_blocks:
     num = int(m.group(1))
     title_en = m.group(2).strip()
     link = m.group(3).strip()
-    # 提取英文 snippet
     snippet_en = ""
     sm = re.search(r'\n\n(.+?)\n\n\s*-', block, re.DOTALL)
     if sm:
         snippet_en = sm.group(1).strip()[:300]
     tags = re.findall(r'标签:\s*(.+)', block)
     tag_str = tags[0].strip() if tags else ""
-    # 提取关键词
-    kw = re.findall(r'关键词:\s*`(.+?)`', block)
-    kw_str = kw[0] if kw else ""
     articles[num] = {
         "title_en": title_en,
         "link": link,
         "snippet_en": snippet_en,
         "tags": tag_str,
-        "keywords": kw_str,
     }
 
 # ── 2. 解析研判表格 ──
@@ -148,12 +144,9 @@ if table_start >= 0:
             continue
         try:
             num = int(cells[0])
-        except ValueError:
-            continue
-        try:
             total = int(cells[4])
         except ValueError:
-            total = 0
+            continue
         scored.append({
             "num": num,
             "relevance": cells[1],
@@ -163,7 +156,6 @@ if table_start >= 0:
             "action_raw": cells[5],
         })
 
-# 按总分从高到低
 scored.sort(key=lambda s: s["total"], reverse=True)
 
 # ── 3. 读取 JSON per-worker 分数 ──
@@ -178,12 +170,12 @@ if json_path.exists():
     except Exception:
         pass
 
-# ── 4. 解析行动建议，提取关联情报编号 ──
+# ── 4. 解析行动建议 ──
 action_items = []
 if actions_path.exists():
     actions_raw = actions_path.read_text(encoding="utf-8")
 
-    # 先提全局关联情报（📊 关联情报 部分）
+    # 提取全局关联情报
     global_refs = []
     refs_section_start = actions_raw.find("## 📊")
     if refs_section_start < 0:
@@ -202,59 +194,41 @@ if actions_path.exists():
         if not title_m:
             continue
         title = title_m.group(1).strip()
-        # 提取「做什么」
-        what_m = re.search(r'\*\*做什么\*\*：(.+)', block)
-        what = what_m.group(1).strip() if what_m else title
-        # 先用每块内部的 refs，没有则用全局 refs
-        refs = re.findall(r'#(\d+)', block)
-        ref_nums = [int(r) for r in refs if 1 <= int(r) <= 99]
-        if not ref_nums:
-            ref_nums = global_refs
-        action_items.append({
-            "title": title,
-            "what": what,
-            "refs": ref_nums,
-        })
 
-# ── 5. 为每篇文章生成中文摘要行 ──
-def make_chinese_summary(num: int, art: dict, s: dict) -> str:
-    """根据文章标题、标签、摘要生成一条中文描述。优先使用 GLM 生成的中文摘要。"""
-    title = art.get("title_en", "")
-    snippet = art.get("snippet_en", "")
-    tags = art.get("tags", "")
-    action = s.get("action_raw", "")
+        # Per-action 关联情报
+        refs = []
+        ref_match = re.search(r'\*\*关联情报\*\*：(.+)', block)
+        if ref_match:
+            ref_raw = ref_match.group(1).strip()
+            refs = list(set(
+                int(r) for r in re.findall(r'#(\d+)', ref_raw) if 1 <= int(r) <= 99
+            ))
+            refs.sort()
+        if not refs:
+            refs = global_refs
 
-    # 优先：GLM 生成的中文摘要
+        action_items.append({"title": title, "refs": refs})
+
+# ── 5. 用 GLM 生成中文摘要 ──
+cn_summaries = generate_chinese_summaries(articles)
+
+
+# ── 6. 辅助函数 ──
+
+def get_summary(num: int, art: dict, s: dict) -> str:
+    """获取文章的中文描述。"""
+    # 优先 GLM 摘要
     if num in cn_summaries and cn_summaries[num]:
         return cn_summaries[num]
-
-    # 降级：清理 action 中的内部标记
-    action_clean = re.sub(r'\[.*?\]', '', action).strip()
-
-    # 基于标签做关键词映射
-    tag_cn_map = {
-        "OPC": "一人公司",
-        "AI-agent": "AI Agent",
-        "Claude": "Claude",
-        "new-tool": "新工具",
-    }
-
-    # 降级逻辑：action_clean → snippet → title
+    # 降级：action_clean（去掉内部标记）
+    action_clean = re.sub(r'\[.*?\]', '', s.get("action_raw", "")).strip()
     if action_clean and len(action_clean) > 3:
-        summary = action_clean
-    elif snippet:
-        summary = snippet.split(".")[0].strip()[:150]
-    else:
-        summary = title[:150]
-
-    # 如果全是英文，用 action_clean（中文）
-    if action_clean and len(action_clean) > 3 and not re.search(r'[一-鿿]', summary):
-        summary = action_clean
-
-    return summary
+        return action_clean
+    # 再降级：英文标题
+    return art.get("title_en", "")[:150]
 
 
-def _make_tag_display(art: dict) -> str:
+def get_tag_display(art: dict) -> str:
     """生成中文标签显示。"""
     tags = art.get("tags", "")
     tag_cn_map = {
@@ -271,39 +245,20 @@ def _make_tag_display(art: dict) -> str:
     return " · ".join(cn_tags) if cn_tags else ""
 
 
-# ── 5.5. 用 GLM 生成中文摘要（失败则降级到旧逻辑）──
-cn_summaries = generate_chinese_summaries(articles)
-
-# ── 6. 分组：高优先级（≥7）、中优先级（5-6）、低优先级（<5）──
+# ── 7. 分组 ──
 high_items = [s for s in scored if s["total"] >= 7]
 mid_items = [s for s in scored if 5 <= s["total"] <= 6]
 low_items = [s for s in scored if s["total"] < 5]
 
-# ── 7. 生成开头概要 ──
-top_themes = set()
-for s in high_items:
-    art = articles.get(s["num"], {})
-    for t in art.get("tags", "").replace("#", "").split():
-        if t.strip():
-            top_themes.add(t.strip())
 
-intro_lines = []
-if high_items:
-    h = high_items[0]
-    art_h = articles.get(h["num"], {})
-    intro_lines.append(f"今日头条：{art_h.get('title_en', '')[:60]}……（{h['total']} 分）")
-intro_lines.append(f"共审查 {len(articles)} 篇文章，{len(high_items)} 篇高优先级，{len(mid_items)} 篇值得关注。")
+# ── 8. 构建一条文章行 ──
 
-intro_text = "\n".join(intro_lines)
-
-
-# ── 8. 构建 HTML ──
-def build_article_row(s: dict, show_score_detail: bool = True, compact: bool = False) -> str:
+def build_row(s: dict, show_score_detail: bool = True) -> str:
     num = s["num"]
     art = articles.get(num, {})
     link = art.get("link", "#")
-    summary = make_chinese_summary(num, art, s)
-    tag_display = _make_tag_display(art)
+    summary = get_summary(num, art, s)
+    tag_display = get_tag_display(art)
 
     # 分数明细
     ws = worker_scores.get(num, {})
@@ -329,22 +284,6 @@ def build_article_row(s: dict, show_score_detail: bool = True, compact: bool = F
     else:
         total_color = "#999"
 
-    # 紧凑模式（用于左右分栏里的条目）
-    if compact:
-        return f"""
-            <div style="border-bottom:1px solid #eee;padding:10px 0">
-              <div style="margin-bottom:4px">
-                <span style="font-weight:bold;color:#222;font-size:14px">#{num}</span>
-                <a href="{link}" style="color:#1a73e8;text-decoration:none;font-size:13px;margin-left:4px">原文→</a>
-              </div>
-              <div style="font-size:13px;color:#333;line-height:1.5;margin-bottom:3px">{summary}</div>
-              <div style="font-size:11px;color:#888">{tag_display}</div>
-              <div style="margin-top:4px">
-                <span style="font-size:16px;font-weight:bold;color:{total_color}">{total}</span>
-                <span style="font-size:10px;color:#aaa;margin-left:4px">{score_detail.replace('<br>', ' · ')}</span>
-              </div>
-            </div>"""
-
     return f"""
             <tr>
               <td style="padding:12px 10px;border-bottom:1px solid #eee;vertical-align:top">
@@ -363,33 +302,27 @@ def build_article_row(s: dict, show_score_detail: bool = True, compact: bool = F
             </tr>"""
 
 
-# ── 9. 构建单列垂直布局 ──
-# 高优先级 → 值得关注 → 其他，从上往下
+# ── 9. 构建文章表格 ──
 
 all_rows = ""
 if high_items:
     all_rows += ('<tr><td colspan="3" style="padding:14px 10px 6px;font-size:14px;font-weight:bold;color:#d93025">'
                  f'🔥 高优先级（{len(high_items)} 篇）</td></tr>')
     for s in high_items:
-        all_rows += build_article_row(s, show_score_detail=True, compact=False)
+        all_rows += build_row(s, show_score_detail=True)
 
 if mid_items:
     all_rows += ('<tr><td colspan="3" style="padding:20px 10px 6px;font-size:14px;font-weight:bold;color:#e37400">'
                  f'📌 值得关注（{len(mid_items)} 篇）</td></tr>')
     for s in mid_items:
-        all_rows += build_article_row(s, show_score_detail=True, compact=False)
-
-if not high_items and not mid_items:
-    # 没有重点也没有关注，直接从其他开始
-    all_rows += ('<tr><td colspan="3" style="padding:10px 10px 6px;font-size:14px;color:#666">'
-                 f'今天没有≥5分的文章，以下是全部 {len(low_items)} 篇：</td></tr>')
+        all_rows += build_row(s, show_score_detail=True)
 
 if low_items:
     if high_items or mid_items:
         all_rows += ('<tr><td colspan="3" style="padding:20px 10px 6px;font-size:14px;font-weight:bold;color:#999">'
                      f'📎 其他（{len(low_items)} 篇）</td></tr>')
     for s in low_items:
-        all_rows += build_article_row(s, show_score_detail=False, compact=False)
+        all_rows += build_row(s, show_score_detail=False)
 
 article_table = f"""
 <table style="width:100%;border-collapse:collapse;margin:10px 0">
@@ -401,16 +334,14 @@ article_table = f"""
 {all_rows}
 </table>"""
 
-# 行动建议 HTML
+
+# ── 10. 构建行动建议 ──
+
 action_html = ""
 if action_items:
     action_lines = []
     for i, act in enumerate(action_items, 1):
-        # 关联情报——从 refs 列表里生成可读的编号，如 "#7"
-        if act["refs"]:
-            ref_str = "、".join(f"#{r}" for r in sorted(set(act["refs"])))
-        else:
-            ref_str = "—"
+        ref_str = "、".join(f"#{r}" for r in act["refs"]) if act["refs"] else "—"
         action_lines.append(
             f'<li style="margin-bottom:10px">'
             f'<strong>{act["title"]}</strong>'
@@ -423,7 +354,16 @@ if action_items:
           <ol style="margin-top:10px;line-height:1.8;padding-left:20px">{''.join(action_lines)}</ol>
         </div>"""
 
-# ── 9. 拼装完整 HTML ──
+
+# ── 11. 拼装完整 HTML ──
+
+# 今日概要
+intro = f"今日共审查 {len(articles)} 篇文章，{len(high_items)} 篇高优先级"
+if high_items:
+    top_article = articles.get(high_items[0]["num"], {})
+    intro += f"，头条是关于 {top_article.get('title_en', 'AI')[:60]}"
+intro += "。"
+
 body = f"""
 <html><body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;max-width:620px;margin:0 auto;padding:20px;background:#fff">
 
@@ -432,7 +372,7 @@ body = f"""
 
 <div style="background:#f0f7ff;border-radius:8px;padding:15px;margin-bottom:20px;font-size:14px;line-height:1.7;color:#333">
   <strong>📊 今日概要</strong>
-  <div style="margin-top:6px;white-space:pre-line">{intro_text}</div>
+  <div style="margin-top:6px">{intro}</div>
 </div>
 
 {action_html}
@@ -449,14 +389,13 @@ body = f"""
 
 </body></html>"""
 
-# ── 10. 发送 ──
+# ── 12. 发送 ──
 if DRY_RUN:
     preview_path = INTEL_DIR / "_email_preview.html"
     preview_path.write_text(body, encoding="utf-8")
     print(f"[DRY-RUN] Preview saved: {preview_path}")
-    print(f"[DRY-RUN] Subject: {today} AI日报 - {len(high_items)}篇重点 + {len(mid_items)}篇关注")
+    print(f"[DRY-RUN] Subject: {today} AI日报 - {len(high_items)}重点 + {len(mid_items)}关注")
     print(f"[DRY-RUN] Articles: {len(articles)} / Scored: {len(scored)} / Actions: {len(action_items)}")
-    print(f"[DRY-RUN] High: {len(high_items)} / Mid: {len(mid_items)} / Low: {len(low_items)}")
     sys.exit(0)
 
 msg = MIMEMultipart()
