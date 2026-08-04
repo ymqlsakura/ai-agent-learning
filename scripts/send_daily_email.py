@@ -215,16 +215,17 @@ cn_summaries = generate_chinese_summaries(articles)
 
 # ── 6. 辅助函数 ──
 
-def get_summary(num: int, art: dict, s: dict) -> str:
-    """获取文章的中文描述。"""
-    # 优先 GLM 摘要
+def get_summary(art: dict, s: dict) -> str:
+    """获取文章的中文描述——只用 GLM 摘要，不做降级。"""
+    num = s["num"]
+    # 1. GLM 摘要优先
     if num in cn_summaries and cn_summaries[num]:
         return cn_summaries[num]
-    # 降级：action_clean（去掉内部标记）
+    # 2. 没有 GLM 摘要时：action_clean 作为底
     action_clean = re.sub(r'\[.*?\]', '', s.get("action_raw", "")).strip()
-    if action_clean and len(action_clean) > 3:
+    if action_clean and len(action_clean) > 3 and re.search(r'[一-鿿]', action_clean):
         return action_clean
-    # 再降级：英文标题
+    # 3. 全是英文 → 用英文标题（现实：GLM 应该不会失败）
     return art.get("title_en", "")[:150]
 
 
@@ -257,7 +258,7 @@ def build_row(s: dict, show_score_detail: bool = True) -> str:
     num = s["num"]
     art = articles.get(num, {})
     link = art.get("link", "#")
-    summary = get_summary(num, art, s)
+    summary = get_summary(art, s)
     tag_display = get_tag_display(art)
 
     # 分数明细
