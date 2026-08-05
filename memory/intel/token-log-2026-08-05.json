@@ -5,23 +5,23 @@
   "workers": {
     "glm": {
       "calls": 5,
-      "prompt_tokens": 6983,
-      "completion_tokens": 1870,
+      "prompt_tokens": 6975,
+      "completion_tokens": 1755,
       "cost_estimate_usd": 0.0
     },
     "kimi": {
       "calls": 5,
-      "prompt_tokens": 7186,
-      "completion_tokens": 3864,
-      "cost_estimate_usd": 0.0066289999999999995
+      "prompt_tokens": 7226,
+      "completion_tokens": 3016,
+      "cost_estimate_usd": 0.006145
     },
     "deepseek": {
       "calls": 5,
-      "prompt_tokens": 7324,
-      "completion_tokens": 14217,
-      "cost_estimate_usd": 0.003016
+      "prompt_tokens": 7298,
+      "completion_tokens": 15398,
+      "cost_estimate_usd": 0.0031780000000000003
     }
   },
-  "total_cost_estimate_usd": 0.009645,
-  "timestamp": "2026-08-05 12:26"
+  "total_cost_estimate_usd": 0.009323,
+  "timestamp": "2026-08-05 12:56"
 }
