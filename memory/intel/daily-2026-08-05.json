@@ -1,0 +1,116 @@
+{
+  "date": "2026-08-05",
+  "generated_at": "2026-08-05 12:22",
+  "status": "pending",
+  "items": [
+    {
+      "num": 1,
+      "title": "Artificial intelligence - BBC News",
+      "link": "https://www.bbc.com/news/topics/ce1qrvleleqt",
+      "snippet": "AI used new levels of 'autonomy and deception' to trick people in safety test. OpenAI models was malicious and unprecedented. AI is reshaping the Philippines' ...",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [],
+      "source": "www.bbc.com"
+    },
+    {
+      "num": 2,
+      "title": "Will the $1.8B Fund Have a Second Life & How the AI Industry ...",
+      "link": "https://www.youtube.com/watch?v=PWG_9Qsdtzc",
+      "snippet": "Justice Department's $1.8 billion \"anti-weaponization\" fund. How the AI Industry Is Shaping the Midterms & Will the $1.8B Fund Have a Second Life?",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [],
+      "source": "www.youtube.com"
+    },
+    {
+      "num": 3,
+      "title": "The latest AI-powered martech news and releases",
+      "link": "https://martech.org/the-latest-ai-powered-martech-news-and-releases/",
+      "snippet": "Here are this week's other AI-powered martech releases and news: Algolia launched Agent Studio to help online store owners create digital shopping assistants. ...",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "martech.org"
+    },
+    {
+      "num": 4,
+      "title": "Top Agentic Frameworks for Building Applications 2026",
+      "link": "https://blog.jetbrains.com/pycharm/2026/06/top-agentic-frameworks-for-building-applications-2026/",
+      "snippet": "Haystack is an open-source AI orchestration framework created by deepset for building production-ready AI agents, retrieval-augmented generation ...",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "blog.jetbrains.com"
+    },
+    {
+      "num": 5,
+      "title": "The 2026 AI Agent Landscape — 25+ Frameworks Compared, 57% of ...",
+      "link": "https://www.reddit.com/r/AI_Agents/comments/1trzvim/the_2026_ai_agent_landscape_25_frameworks/",
+      "snippet": "",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "www.reddit.com"
+    },
+    {
+      "num": 6,
+      "title": "The 4 Agent Frameworks That Will Define AI Systems in 2026 | Krishna Reddy",
+      "link": "https://www.linkedin.com/posts/krishna-reddy-780a7286_the-4-agent-frameworks-that-will-define-ai-activity-7399658658479050752-klhL",
+      "snippet": "",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "www.linkedin.com"
+    },
+    {
+      "num": 7,
+      "title": "Solo founders are using AI to do the work of entire teams ...",
+      "link": "https://fortune.com/2026/05/18/solo-founders-ai-automation-entire-teams-entrepreneurs/",
+      "snippet": "AI tools are letting founders launch products, serve hundreds of customers, and land big exits on their own, without having to hire any ...",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC",
+        "#new-tool"
+      ],
+      "source": "fortune.com"
+    },
+    {
+      "num": 8,
+      "title": "One-Person Company Software: The Solo AI Tool Stack ...",
+      "link": "https://www.taskade.com/blog/one-person-companies",
+      "snippet": "The software stack a one-person company actually runs on - one AI workspace replaces 8 subscriptions: CRM, dashboards, AI agents, ...",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#AI-agent",
+        "#new-tool"
+      ],
+      "source": "www.taskade.com"
+    },
+    {
+      "num": 9,
+      "title": "The Rise of the One Person Business: Solo Founders ...",
+      "link": "https://cipherprojects.com/blog/posts/rise-one-person-business-solo-founders-reshaping-entrepreneurship/",
+      "snippet": "The rise of the solo founder: how one-person businesses and one-man startups leverage AI, Hermes-class agents, fractional CTO partners, ...",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#AI-agent",
+        "#OPC"
+      ],
+      "source": "cipherprojects.com"
+    },
+    {
+      "num": 10,
+      "title": "What's new - Claude Code Docs",
+      "link": "https://code.claude.com/docs/en/whats-new",
+      "snippet": "June 15–19, 2026. Artifacts: turn a session's output into a live, shareable page on claude.ai that updates in place as the session works, now in beta on Team ...",
+      "query": "Claude Code new features updates 2026",
+      "tags": [
+        "#Claude"
+      ],
+      "source": "code.claude.com"
+    }
+  ]
+}
