@@ -1,36 +1,36 @@
 {
   "date": "2026-08-05",
-  "generated_at": "2026-08-05 12:22",
-  "status": "scored",
+  "generated_at": "2026-08-05 12:52",
+  "status": "pending",
   "items": [
     {
       "num": 1,
-      "title": "Artificial intelligence - BBC News",
-      "link": "https://www.bbc.com/news/topics/ce1qrvleleqt",
-      "snippet": "AI used new levels of 'autonomy and deception' to trick people in safety test. OpenAI models was malicious and unprecedented. AI is reshaping the Philippines' ...",
+      "title": "Artificial Intelligence Trends And Top AI Stocks To Watch",
+      "link": "https://www.investors.com/news/technology/ai-stocks-artificial-intelligence-trends-and-news/",
+      "snippet": "Microsoft, and Google stocks rallied Monday as investors digested a strong second-quarter earning season for the tech giants. s, Cloud Titans, Chipmakers ...",
       "query": "AI industry breaking news highlights this week",
       "tags": [],
-      "source": "www.bbc.com"
+      "source": "www.investors.com"
     },
     {
       "num": 2,
-      "title": "Will the $1.8B Fund Have a Second Life & How the AI Industry ...",
-      "link": "https://www.youtube.com/watch?v=PWG_9Qsdtzc",
-      "snippet": "Justice Department's $1.8 billion \"anti-weaponization\" fund. How the AI Industry Is Shaping the Midterms & Will the $1.8B Fund Have a Second Life?",
-      "query": "AI industry breaking news highlights this week",
-      "tags": [],
-      "source": "www.youtube.com"
-    },
-    {
-      "num": 3,
-      "title": "The latest AI-powered martech news and releases",
-      "link": "https://martech.org/the-latest-ai-powered-martech-news-and-releases/",
-      "snippet": "Here are this week's other AI-powered martech releases and news: Algolia launched Agent Studio to help online store owners create digital shopping assistants. ...",
+      "title": "Prof. Calls for Oversight as OpenAI Agent Hacks Other Firms",
+      "link": "https://www.democracynow.org/2026/7/30/max_tegmark",
+      "snippet": "OpenAI, maker of ChatGPT, recently disclosed that one of its experimental AI agents went rogue and secretly hacked into the infrastructure of several other ...",
       "query": "AI industry breaking news highlights this week",
       "tags": [
         "#AI-agent"
       ],
-      "source": "martech.org"
+      "source": "www.democracynow.org"
+    },
+    {
+      "num": 3,
+      "title": "Europe is spending €30B to build its own AI giants",
+      "link": "https://www.instagram.com/p/DbkzOSiAC8J/",
+      "snippet": "What a HUGE week in AI Here's what's new in the last 7 days: - AI companies are buying books, scanning them, then destroying them",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [],
+      "source": "www.instagram.com"
     },
     {
       "num": 4,
@@ -45,29 +45,31 @@
     },
     {
       "num": 5,
-      "title": "The 2026 AI Agent Landscape — 25+ Frameworks Compared, 57% of ...",
-      "link": "https://www.reddit.com/r/AI_Agents/comments/1trzvim/the_2026_ai_agent_landscape_25_frameworks/",
-      "snippet": "",
+      "title": "Top AI Agent Frameworks in 2026: A Production-Ready Comparison",
+      "link": "https://pub.towardsai.net/top-ai-agent-frameworks-in-2026-a-production-ready-comparison-7ba5e39ad56d",
+      "snippet": "OpenAI, Anthropic, and Google all launched agent development kits in 2026. 120+ agentic AI tools across 11 categories, Development Kit (ADK)",
       "query": "new AI agent tools frameworks released 2026",
       "tags": [
-        "#AI-agent"
+        "#AI-agent",
+        "#Claude",
+        "#new-tool"
       ],
-      "source": "www.reddit.com"
+      "source": "pub.towardsai.net"
     },
     {
       "num": 6,
-      "title": "The 4 Agent Frameworks That Will Define AI Systems in 2026 | Krishna Reddy",
-      "link": "https://www.linkedin.com/posts/krishna-reddy-780a7286_the-4-agent-frameworks-that-will-define-ai-activity-7399658658479050752-klhL",
-      "snippet": "",
+      "title": "The best AI agent frameworks in 2026",
+      "link": "https://www.langchain.com/resources/ai-agent-frameworks",
+      "snippet": "This guide compares seven frameworks: LangChain, CrewAI, Microsoft Agent Framework, LlamaIndex Workflows, Google ADK, OpenAI Agents SDK, and Mastra.",
       "query": "new AI agent tools frameworks released 2026",
       "tags": [
         "#AI-agent"
       ],
-      "source": "www.linkedin.com"
+      "source": "www.langchain.com"
     },
     {
       "num": 7,
-      "title": "Solo founders are using AI to do the work of entire teams ...",
+      "title": "Solo founders are using AI to do the work of entire teams—but going it ...",
       "link": "https://fortune.com/2026/05/18/solo-founders-ai-automation-entire-teams-entrepreneurs/",
       "snippet": "AI tools are letting founders launch products, serve hundreds of customers, and land big exits on their own, without having to hire any ...",
       "query": "solo founder one person business AI startup 2026",
@@ -79,27 +81,26 @@
     },
     {
       "num": 8,
-      "title": "One-Person Company Software: The Solo AI Tool Stack ...",
-      "link": "https://www.taskade.com/blog/one-person-companies",
-      "snippet": "The software stack a one-person company actually runs on - one AI workspace replaces 8 subscriptions: CRM, dashboards, AI agents, ...",
+      "title": "We analyzed 2000+ startups built on our AI platform — here's what solo founders are ...",
+      "link": "https://www.reddit.com/r/EntrepreneurRideAlong/comments/1sabim9/we_analyzed_2000_startups_built_on_our_ai/",
+      "snippet": "",
       "query": "solo founder one person business AI startup 2026",
       "tags": [
-        "#AI-agent",
+        "#OPC",
         "#new-tool"
       ],
-      "source": "www.taskade.com"
+      "source": "www.reddit.com"
     },
     {
       "num": 9,
-      "title": "The Rise of the One Person Business: Solo Founders ...",
-      "link": "https://cipherprojects.com/blog/posts/rise-one-person-business-solo-founders-reshaping-entrepreneurship/",
-      "snippet": "The rise of the solo founder: how one-person businesses and one-man startups leverage AI, Hermes-class agents, fractional CTO partners, ...",
+      "title": "One person building a $1B company by 2026…wtf?",
+      "link": "https://www.reddit.com/r/SaaS/comments/1rdtjg8/one_person_building_a_1b_company_by_2026wtf/",
+      "snippet": "",
       "query": "solo founder one person business AI startup 2026",
       "tags": [
-        "#AI-agent",
         "#OPC"
       ],
-      "source": "cipherprojects.com"
+      "source": "www.reddit.com"
     },
     {
       "num": 10,
@@ -112,273 +113,5 @@
       ],
       "source": "code.claude.com"
     }
-  ],
-  "scored_at": "2026-08-05 12:26",
-  "scores": [
-    {
-      "num": 1,
-      "title": "Artificial intelligence - BBC News",
-      "link": "https://www.bbc.com/news/topics/ce1qrvleleqt",
-      "relevance": 2,
-      "feasibility": 1,
-      "leverage": 0,
-      "total": 3,
-      "action": "[强制梯度 5→3] 关注AI自主性和欺骗性风险",
-      "worker_scores": {
-        "glm": {
-          "relevance": 2,
-          "feasibility": 1,
-          "leverage": 2,
-          "total": 5
-        },
-        "kimi": {
-          "relevance": 1,
-          "feasibility": 1,
-          "leverage": 1,
-          "total": 3
-        }
-      }
-    },
-    {
-      "num": 2,
-      "title": "Will the $1.8B Fund Have a Second Life & How the AI Industry ...",
-      "link": "https://www.youtube.com/watch?v=PWG_9Qsdtzc",
-      "relevance": 0,
-      "feasibility": 1,
-      "leverage": 0,
-      "total": 1,
-      "action": "了解反武器化基金动态",
-      "worker_scores": {
-        "glm": {
-          "relevance": 1,
-          "feasibility": 1,
-          "leverage": 1,
-          "total": 3
-        },
-        "kimi": {
-          "relevance": 0,
-          "feasibility": 1,
-          "leverage": 0,
-          "total": 1
-        }
-      }
-    },
-    {
-      "num": 3,
-      "title": "The latest AI-powered martech news and releases",
-      "link": "https://martech.org/the-latest-ai-powered-martech-news-and-releases/",
-      "relevance": 2,
-      "feasibility": 2,
-      "leverage": 2,
-      "total": 6,
-      "action": "评估AI营销工具的适用性",
-      "worker_scores": {
-        "glm": {
-          "relevance": 2,
-          "feasibility": 2,
-          "leverage": 2,
-          "total": 6
-        },
-        "kimi": {
-          "relevance": 2,
-          "feasibility": 2,
-          "leverage": 1,
-          "total": 5
-        }
-      }
-    },
-    {
-      "num": 4,
-      "title": "Top Agentic Frameworks for Building Applications 2026",
-      "link": "https://blog.jetbrains.com/pycharm/2026/06/top-agentic-frameworks-for-building-applications-2026/",
-      "relevance": 2,
-      "feasibility": 2,
-      "leverage": 1,
-      "total": 5,
-      "action": "[供应商降权] 研究开源AI编排框架",
-      "worker_scores": {
-        "glm": {
-          "relevance": 2,
-          "feasibility": 1,
-          "leverage": 2,
-          "total": 5
-        },
-        "kimi": {
-          "relevance": 2,
-          "feasibility": 1,
-          "leverage": 1,
-          "total": 4
-        },
-        "deepseek": {
-          "relevance": 3,
-          "feasibility": 2,
-          "leverage": 1,
-          "total": 6
-        }
-      }
-    },
-    {
-      "num": 5,
-      "title": "The 2026 AI Agent Landscape — 25+ Frameworks Compared, 57% of ...",
-      "link": "https://www.reddit.com/r/AI_Agents/comments/1trzvim/the_2026_ai_agent_landscape_25_frameworks/",
-      "relevance": 3,
-      "feasibility": 2,
-      "leverage": 2,
-      "total": 7,
-      "action": "比较不同AI代理框架",
-      "worker_scores": {
-        "glm": {
-          "relevance": 3,
-          "feasibility": 2,
-          "leverage": 3,
-          "total": 8
-        },
-        "kimi": {
-          "relevance": 3,
-          "feasibility": 2,
-          "leverage": 2,
-          "total": 7
-        }
-      }
-    },
-    {
-      "num": 6,
-      "title": "The 4 Agent Frameworks That Will Define AI Systems in 2026 | Krishna Reddy",
-      "link": "https://www.linkedin.com/posts/krishna-reddy-780a7286_the-4-agent-frameworks-that-will-define-ai-activity-7399658658479050752-klhL",
-      "relevance": 2,
-      "feasibility": 1,
-      "leverage": 0,
-      "total": 3,
-      "action": "[强制梯度 4→3] 研究定义AI系统的框架",
-      "worker_scores": {
-        "glm": {
-          "relevance": 2,
-          "feasibility": 1,
-          "leverage": 2,
-          "total": 5
-        },
-        "kimi": {
-          "relevance": 1,
-          "feasibility": 0,
-          "leverage": 1,
-          "total": 2
-        },
-        "deepseek": {
-          "relevance": 1,
-          "feasibility": 1,
-          "leverage": 0,
-          "total": 2
-        }
-      }
-    },
-    {
-      "num": 7,
-      "title": "Solo founders are using AI to do the work of entire teams ...",
-      "link": "https://fortune.com/2026/05/18/solo-founders-ai-automation-entire-teams-entrepreneurs/",
-      "relevance": 3,
-      "feasibility": 2,
-      "leverage": 2,
-      "total": 7,
-      "action": "探索AI工具在创业中的应用",
-      "worker_scores": {
-        "glm": {
-          "relevance": 3,
-          "feasibility": 3,
-          "leverage": 3,
-          "total": 9
-        },
-        "kimi": {
-          "relevance": 3,
-          "feasibility": 2,
-          "leverage": 2,
-          "total": 7
-        }
-      }
-    },
-    {
-      "num": 8,
-      "title": "One-Person Company Software: The Solo AI Tool Stack ...",
-      "link": "https://www.taskade.com/blog/one-person-companies",
-      "relevance": 3,
-      "feasibility": 2,
-      "leverage": 1,
-      "total": 6,
-      "action": "[供应商降权] 了解一人公司使用的AI工具栈",
-      "worker_scores": {
-        "glm": {
-          "relevance": 3,
-          "feasibility": 2,
-          "leverage": 3,
-          "total": 8
-        },
-        "kimi": {
-          "relevance": 3,
-          "feasibility": 2,
-          "leverage": 1,
-          "total": 6
-        },
-        "deepseek": {
-          "relevance": 3,
-          "feasibility": 2,
-          "leverage": 1,
-          "total": 6
-        }
-      }
-    },
-    {
-      "num": 9,
-      "title": "The Rise of the One Person Business: Solo Founders ...",
-      "link": "https://cipherprojects.com/blog/posts/rise-one-person-business-solo-founders-reshaping-entrepreneurship/",
-      "relevance": 3,
-      "feasibility": 2,
-      "leverage": 2,
-      "total": 7,
-      "action": "研究一人公司如何利用AI",
-      "worker_scores": {
-        "glm": {
-          "relevance": 3,
-          "feasibility": 2,
-          "leverage": 3,
-          "total": 8
-        },
-        "kimi": {
-          "relevance": 3,
-          "feasibility": 1,
-          "leverage": 2,
-          "total": 6
-        },
-        "deepseek": {
-          "relevance": 2,
-          "feasibility": 2,
-          "leverage": 1,
-          "total": 5
-        }
-      }
-    },
-    {
-      "num": 10,
-      "title": "What's new - Claude Code Docs",
-      "link": "https://code.claude.com/docs/en/whats-new",
-      "relevance": 2,
-      "feasibility": 2,
-      "leverage": 1,
-      "total": 5,
-      "action": "[供应商降权] 关注Claude Code的新功能",
-      "worker_scores": {
-        "glm": {
-          "relevance": 2,
-          "feasibility": 2,
-          "leverage": 2,
-          "total": 6
-        },
-        "kimi": {
-          "relevance": 3,
-          "feasibility": 2,
-          "leverage": 2,
-          "total": 7
-        }
-      }
-    }
-  ],
-  "conclusion": "研判时间：2026-08-05 12:25（北京时间）\n参与 Worker：glm, kimi, deepseek\n评分标准：OPC-CONFIG.md 三维评分（相关性/可行性/杠杆率 0-3）\n交叉审查：5 个挑战 / 0 个已解决 （多数投票）\n\n🔥 高优先级（≥7 分，3 条）：\n  - #5「The 2026 AI Agent Landscape — 25+ Framew」总分 7 → 比较不同AI代理框架\n  - #7「Solo founders are using AI to do the wor」总分 7 → 探索AI工具在创业中的应用\n  - #9「The Rise of the One Person Business: Sol」总分 7 → 研究一人公司如何利用AI\n\n📌 中优先级（5-6 分，4 条）：\n  - #3「The latest AI-powered martech news and r」总分 6 → 评估AI营销工具的适用性\n  - #4「Top Agentic Frameworks for Building Appl」总分 5 → [供应商降权] 研究开源AI编排框架\n  - #8「One-Person Company Software: The Solo AI」总分 6 → [供应商降权] 了解一人公司使用的AI工具栈\n  - #10「What's new - Claude Code Docs」总分 5 → [供应商降权] 关注Claude Code的新功能\n\n💰 本次研判 Token 消耗：\n  - GLM-4-Flash：5 次调用 / 输入 6,983 tokens / 输出 1,870 tokens / ≈ $0.0000\n  - Kimi K3：5 次调用 / 输入 7,186 tokens / 输出 3,864 tokens / ≈ $0.0066\n  - DeepSeek V4 Flash：5 次调用 / 输入 7,324 tokens / 输出 14,217 tokens / ≈ $0.0030\n  **合计 ≈ $0.0096**"
+  ]
 }
