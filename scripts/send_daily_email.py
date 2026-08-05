@@ -338,7 +338,82 @@ article_table = f"""
 </table>"""
 
 
-# ── 10. 构建行动建议 ──
+# ── 10. 每日一得（心理学观点 + 今日一言） ──
+
+def generate_daily_insight(articles: dict, high_items: list) -> str:
+    """调用 GLM-4-Flash 生成心理学相关观点 + 人生名言/今日鼓励。
+
+    根据当天新闻主题自动关联，失败时返回通用版。
+    """
+    if not GLM_API_KEY:
+        return _fallback_insight()
+
+    topics = "、".join(a.get("title_en", "")[:60] for a in list(articles.values())[:5])
+    tags_all = set()
+    for a in articles.values():
+        for t in a.get("tags", "").replace("#", "").split():
+            tags_all.add(t.strip())
+    tag_str = "、".join(list(tags_all)[:8]) if tags_all else "AI行业"
+
+    prompt = (
+        "你是一个日报编辑兼心理学爱好者。今天AI行业的新闻主题是："
+        f"{topics}。标签：{tag_str}。\n\n"
+        "请根据今天的新闻主题，生成一段「每日一得」板块的内容，格式要求：\n\n"
+        "1. 🧠 **心理学观点**：从今天的新闻里提炼一个跟人类心理相关的洞察——"
+        "必须引用一个具体的心理学理论或效应名称（例如：蔡格尼克效应、邓宁-克鲁格效应、"
+        "峰终定律、损失厌恶、社会认同理论、自我决定论、习得性无助、心流理论……），"
+        "简要解释这个理论，再跟今天的新闻关联起来。"
+        "要让人觉得「原来如此」，不要泛泛而谈。50-80字。\n\n"
+        "2. 💬 **今日一言**：一句人生名言或今日鼓励，跟上面的心理学观点呼应。"
+        "可以是名家名言（注明出处），也可以是你写的鼓励。20-40字。\n\n"
+        "输出格式（严格按此）：\n"
+        "🧠 心理学观点：[理论名称]：xxx\n"
+        "💬 今日一言：xxx\n\n"
+        "注意：必须出现「[理论名称]：」的格式。名言要有出处或像出处。"
+    )
+
+    payload = json.dumps({
+        "model": "glm-4-flash",
+        "messages": [{"role": "user", "content": prompt}],
+        "temperature": 0.7,
+        "max_tokens": 512,
+    }).encode()
+
+    try:
+        req = urllib.request.Request(
+            GLM_API_URL,
+            data=payload,
+            headers={
+                "Authorization": f"Bearer {GLM_API_KEY}",
+                "Content-Type": "application/json",
+            },
+            method="POST",
+        )
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            data = json.loads(resp.read())
+            content = data["choices"][0]["message"]["content"]
+        # 基本格式校验
+        if "心理学" in content or "今日一言" in content:
+            return content.strip()
+        return _fallback_insight()
+    except Exception as e:
+        print(f"[!] 每日一得生成失败: {e}")
+        return _fallback_insight()
+
+
+def _fallback_insight() -> str:
+    """GLM 不可用时的通用版每日一得。"""
+    import random
+    insights = [
+        "🧠 心理学观点：[蔡格尼克效应] 人对「未完成」的记忆比「已完成」强约两倍——大脑会自动保持未完成任务的活跃状态，直到完成或被归档。今天如果有半途而废的事，要么做完它，要么写下来告诉自己「已归档」。\n💬 今日一言：「完成比完美更重要。」—— 谢丽尔·桑德伯格",
+        "🧠 心理学观点：[情绪标注理论] 焦虑的本质不是「事情太多」，而是大脑的杏仁核把不确定性当成了威胁。把模糊的担忧用具体词汇写下来（哪怕只写「焦虑」两个字），前额叶会重新接管——这叫做「情绪标注效应」。\n💬 今日一言：「我们受苦的根源，不是发生了什么，而是我们对它的看法。」—— 爱比克泰德",
+        "🧠 心理学观点：[自我效能感] 心理学家班杜拉提出：每天做一个小决定并执行（哪怕是「今天喝什么」），能显著增强对生活的掌控感。AI 能帮你分析，但选择的权利永远在你手里——那才是一切改变的开始。\n💬 今日一言：「不是因为事情难我们不敢做，而是因为我们不敢做事情才难。」—— 塞内卡",
+        "🧠 心理学观点：[环境设计理论] 习惯的形成不是靠意志力，是靠环境设计——福格行为模型指出：B=MAP（行为=动机×能力×提示）。把想做的事放在「顺手就能开始」的地方，把不想做的事增加一步阻力，改变就发生了。\n💬 今日一言：「我们是我们反复做的事。卓越不是一种行为，而是一种习惯。」—— 亚里士多德",
+    ]
+    return random.choice(insights)
+
+
+# ── 11. 构建行动建议 ──
 
 action_html = ""
 if action_items:
@@ -358,7 +433,29 @@ if action_items:
         </div>"""
 
 
-# ── 11. 拼装完整 HTML ──
+# ── 11. 每日一得 ──
+
+insight_text = generate_daily_insight(articles, high_items)
+lines = insight_text.strip().split("\n")
+psych_line = ""
+quote_line = ""
+for line in lines:
+    if "心理学" in line or line.startswith("🧠"):
+        psych_line = line.replace("🧠 心理学观点：", "").replace("🧠", "").strip()
+    elif "今日一言" in line or line.startswith("💬"):
+        quote_line = line.replace("💬 今日一言：", "").replace("💬", "").strip()
+
+insight_html = ""
+if psych_line or quote_line:
+    insight_html = f"""
+        <div style="background:linear-gradient(135deg,#f5f0ff,#ede4ff);border-radius:12px;padding:20px;margin:20px 0;border-left:4px solid #7c3aed">
+          <strong style="font-size:15px;color:#6d28d9">🌙 每日一得</strong>
+          <div style="margin-top:10px;font-size:14px;line-height:1.7;color:#4c1d95"><strong>🧠</strong> {psych_line}</div>
+          <div style="margin-top:8px;font-size:14px;line-height:1.7;color:#5b21b6;font-style:italic">💬 {quote_line}</div>
+        </div>"""
+
+
+# ── 12. 拼装完整 HTML ──
 
 # 今日概要
 intro = f"今日共审查 {len(articles)} 篇文章，{len(high_items)} 篇高优先级"
@@ -381,6 +478,8 @@ body = f"""
 {action_html}
 
 {article_table}
+
+{insight_html}
 
 <div style="background:#f5f5f5;border-radius:8px;padding:12px 15px;margin-top:16px;font-size:13px;color:#555">
   <strong>🔗 完整日报</strong>
