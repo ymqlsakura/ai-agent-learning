@@ -1,0 +1,32 @@
+{
+  "variants": [
+    {
+      "id": "A-control",
+      "gates": {
+        "buildPass": true,
+        "deterministicRender": true,
+        "audioPass": true,
+        "accurateMaterials": true,
+        "safeReadableText": true,
+        "cueSyncPass": true,
+        "processVisible": true
+      },
+      "scores": {
+        "compositionHierarchy": 6,
+        "motionIntent": 5,
+        "processVisibility": 5,
+        "narrationSync": 7,
+        "brandConsistency": 8,
+        "contentClarity": 7,
+        "reuseSpeed": 8,
+        "renderReliability": 9
+      },
+      "metrics": {
+        "implementationMinutes": 45,
+        "renderSeconds": 90,
+        "bundleMegabytes": 12
+      }
+    }
+  ]
+}
+

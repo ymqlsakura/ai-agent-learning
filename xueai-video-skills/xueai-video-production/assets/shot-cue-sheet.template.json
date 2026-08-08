@@ -1,0 +1,26 @@
+{
+  "episode": "dayXX",
+  "fps": 30,
+  "audio": "video/assets/audio/final/narration.wav",
+  "durationSeconds": 0,
+  "scenes": [
+    {
+      "id": "01-hook",
+      "start": 0,
+      "end": 0,
+      "narration": "",
+      "viewerTask": "",
+      "input": "",
+      "process": "",
+      "result": "",
+      "materials": [],
+      "primaryMotion": "result-relay",
+      "cues": [
+        {
+          "time": 0,
+          "event": ""
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "currentCandidate": "xueai-motion-v3.0.0",
+  "selectedVersion": "xueai-motion-v3.0.0",
+  "versions": [
+    {
+      "version": "xueai-motion-v2.0.0",
+      "date": "2026-08-05",
+      "status": "rejected",
+      "parentVersion": null,
+      "renderSourceCommit": "b0a486a38bf8e37263a715e4a7d551c633db9531",
+      "methodologyCommit": "6b8104df73f0fb2f4ec63db8d340eaadb9782a5e",
+      "renderSha256": "8772A2B9893768527159D13A18207ADC076D2DDC5441C488FFC00F7F640B6C08",
+      "samplePath": "D:/video/_worktrees/motion-design-benchmark/out/design-releases/xueai-motion-v2.0.0/xueai-motion-v2.0.0.mp4",
+      "contactSheetPath": "D:/video/_worktrees/motion-design-benchmark/out/design-releases/xueai-motion-v2.0.0/contact-sheet.jpg",
+      "visualQcPath": "D:/video/_worktrees/motion-design-benchmark/out/design-releases/xueai-motion-v2.0.0/visual-qc.md",
+      "selection": "rejected",
+      "changes": [
+        "深色证据场和浅色解释场形成统一的编辑设计语言",
+        "真实 Claude Code 素材承担证明，动效只负责顺序和状态变化",
+        "命令、流程节点和未来内容严格按照口播提示点出现",
+        "吸收 Curvable 的色场和空间层级，但不引入四个完整组件库"
+      ],
+      "knownIssues": [
+        "/goal 结果停留接近五秒，正式长口播可增加一次局部证据推近",
+        "发布使用前仍需完成人工耳机听审"
+      ],
+      "rejectedOn": "2026-08-06",
+      "rejectedReason": "创作者在七版同分辨率盲测中未选择。大面积橙色径向辉光和高光扫过与系列既定的暖黑哑光方向冲突，结果直接飞入，没有输入和执行过程。"
+    },
+    {
+      "version": "xueai-motion-v3.0.0",
+      "date": "2026-08-06",
+      "status": "selected",
+      "parentVersion": "xueai-motion-v2.0.0",
+      "renderSourceCommit": "3398b5e8db6f7e21a9e01ead104ad82f71041d6f",
+      "methodologyCommit": null,
+      "renderSha256": "DF00DB3B49B30651E4558E1398731116105DBE41EE5817F9E2FC921FEDADC627",
+      "samplePath": "D:/video/_worktrees/motion-design-benchmark/out/design-releases/xueai-motion-v3.0.0/xueai-motion-v3.0.0.mp4",
+      "contactSheetPath": "D:/video/_worktrees/motion-design-benchmark/out/design-releases/xueai-motion-v3.0.0/contact-sheet.png",
+      "audioQcPath": "D:/video/_worktrees/motion-design-benchmark/out/design-releases/xueai-motion-v3.0.0/audio-qc.json",
+      "reusableModule": "src/motion/workbench",
+      "selection": "selected",
+      "selectedOn": "2026-08-06",
+      "selectedBy": "creator-blind-viewing",
+      "changes": [
+        "单一哑光工作台横向运镜取代场景硬切，观众不需要在换话题时重新认位置",
+        "每条命令走完输入、执行、结果三个可见状态，静态卡片不再代替过程",
+        "关键信息落定后画面完全静止，静止段里只保留有语义的运动",
+        "证据按素材原始比例定框不裁切，需要细节时用镜头推近而不是裁切",
+        "去掉辉光、渐变填充和装饰性高光扫过，层次改由数值对比和一像素描边建立",
+        "品牌橙只落在当前活动元素，讲过的降为米白，没讲到的不存在"
+      ],
+      "knownIssues": [
+        "只适合有真实截图或终端画面可挂的段落，纯流程和逻辑图段落还没有对应做法",
+        "画面偏空留白多，信息密集的内容需要另外验证节奏",
+        "工位超过五个后横移距离变长，需要重新评估镜头节奏",
+        "发布使用前仍需完成人工耳机听审"
+      ],
+      "visualQcPath": "D:/video/_worktrees/motion-design-benchmark/out/design-releases/xueai-motion-v3.0.0/visual-qc.md",
+      "cueContactSheetPath": "D:/video/_worktrees/motion-design-benchmark/out/design-releases/xueai-motion-v3.0.0/cue-contact-sheet.png"
+    }
+  ]
+}

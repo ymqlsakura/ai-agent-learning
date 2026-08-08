@@ -34,15 +34,14 @@ _（当前无文件归入此级）_
 
 | 文件 | 重要度 | 说明 |
 |------|--------|------|
-| [../STATUS.md](../STATUS.md) | 🔴 **最优先** | 🆕 当前状态（≤30 行）——新会话先读这个，再读 QUICKSTART。告诉你上次做到哪了、这次第一件事做什么 |
+| [../../../../memory/ai-agent-learning-archive.md](../../../../memory/ai-agent-learning-archive.md) | 🔴 **最优先** | 🆕 项目存档（2026-08-08 合并了原来的 HANDOFF/STATUS/DECISIONS 三个文件）——项目状态、阶段历史、关键决策、工具矩阵 |
 | [../QUICKSTART.md](../QUICKSTART.md) | 🔴 | 操作指令——环境、怎么跑三个工具、铁律（≤40 行） |
-| [../HANDOFF.md](../HANDOFF.md) | 🔴 | 🆕 含接力信号块 + 三振出局规则（2026-07-20）——入口文件。STATUS 不存在或任务已完成时读。按需跳读 |
-| [../DECISIONS.md](../DECISIONS.md) | 🔴 **🆕** | 🆕 结构化决策日志（v3.0，2026-07-23 第 36 轮）——每条决策一行：日期+主题+决定+准确表述+我的动作+触发条件。对抗压缩算法扭曲意图。17 活跃+7 历史。SessionStart hook 自动注入 |
 | [../.claude/settings.local.json](../../.claude/settings.local.json) | 🔴 | 🆕 SessionStart hook（2026-07-20 配置）——自动注入接力信号 + STATUS。新会话启动即生效，不需要手动读 |
 | [../../.mcp.json](../../.mcp.json) | 🔴 | 🆕 MCP 联网工具配置（2026-07-21）——Serper search + scrape。新会话自动加载 |
 | [../../.claude/skills/](../../.claude/skills/) | 🔴 | 🆕 Claude Code 技能目录（2026-07-21）——3 战略 skill（assumption-audit/strategic-options/war-gaming）——新会话自动发现 |
 | [../PRIORITY-REPORT.md](../PRIORITY-REPORT.md) | 🟡 | 优先级快照（Day 11 生成；会随进度过时） |
 | [../session-logs/README.md](../session-logs/README.md) | 🟢 | 原始转录审计流程 |
+| [../OPC-CONFIG.md](../OPC-CONFIG.md) | 🔴 | OPC 搜索关键词、评分规则、节制规则
 
 ---
 
@@ -68,4 +67,4 @@ _（当前无文件归入此级）_
 
 ---
 
-*最后更新：2026-07-23（第 42 轮——HANDOFF 第二轮精修 + CALIBRATE/BOOT 开场修正。memory/ 3文件过期引用已修复。坑 44：CALIBRATE 开场模板制造框架豁免区。三振出局「听新方向」第 2 个周期。零新代码。）*
+*最后更新：2026-08-08（合并 HANDOFF/STATUS/DECISIONS → memory/ai-agent-learning-archive.md；更新索引）*

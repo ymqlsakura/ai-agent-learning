@@ -1,0 +1,4 @@
+interface:
+  display_name: "视频音频质检"
+  short_description: "自动检查视频音频的响度、底噪、高频噪声、啸叫、削波与同步问题"
+  default_prompt: "使用 $check-video-audio 检查这段录音或最终视频，音频不合格时阻止交付。"

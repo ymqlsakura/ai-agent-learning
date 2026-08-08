@@ -6,8 +6,8 @@
 
 - 读 [PROMPTS.md](PROMPTS.md)——樱漫清澜的提示词库（每回答必用）。
 - 读下方 HANDOFF 接力信号（⚡ 区）。
-- 读 STATUS.md。
-- 查 DECISIONS.md 活跃决策。
+- 读 memory/ai-agent-learning-archive.md（项目存档——合入了原 STATUS.md + DECISIONS.md）。
+- 查活跃决策——在 memory/ai-agent-learning-archive.md 的"关键决策摘要"区。
 - 读 [OPC-CONFIG.md](OPC-CONFIG.md)——OPC 骨架配置（搜索关键词、评分规则、节制规则）。
 - `git pull` 拉取最新 Intel 简报（GitHub Actions 每天 ~12:00 自动推送）。
 - 检查 `memory/intel/` 是否有未读的每日简报。有 → 分析 → 主动提建议。

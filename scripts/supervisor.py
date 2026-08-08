@@ -433,15 +433,22 @@ def build_worker_prompt(items: list[dict], worker_id: str, goal: dict) -> tuple[
 ```json
 {{
   "num": 条目编号,
+  "status": "complete|partial|blocked",
   "relevance": 0-3,
   "feasibility": 0-3,
   "leverage": 0-3,
   "total": 三项之和,
   "action": "一句话行动建议（≤30字）",
   "confidence": "high|medium|low——你对这条评分的把握",
-  "reasoning": "评分理由（≤50字）"
+  "reasoning": "评分理由（≤50字）",
+  "self_assessment": "本条评分你最有争议/最没把握的点是什么？（≤30字，没争议写'无'）"
 }}
 ```
+
+**status 字段说明**：
+- complete：你有足够信息完成本条评分
+- partial：你缺少关键信息（如链接不可达、摘要不完整）但不影响大致判断
+- blocked：你完全无法评分（如链接失效、信息严重不足）
 
 评分必须严格。不要全都打 2-3 分——0 和 1 分是正常的。只输出 JSON 数组，不要其他文字。"""
 
@@ -1205,6 +1212,27 @@ def supervisor_run(goal_file: Path, date_str: str, dry_run: bool = False, verbos
     actions = generate_actions(high_for_actions, final["conclusion"], goal, dry_run)
     final["actions"] = actions
 
+    # 🆕 PM Agent 质量审核
+    pm_review = pm_quality_review(
+        final["scores"], final.get("raw_workers", []), date_str, goal, dry_run
+    )
+    if pm_review:
+        final["pm_review"] = pm_review
+        # 追加到 conclusion
+        pm_block = (
+            f"\n\n---\n\n📋 PM 审核 ({pm_review.get('quality', '?')}):\n"
+            f"{pm_review.get('summary', '')}\n"
+            f"建议: {pm_review.get('recommendation', '')}"
+        )
+        if pm_review.get("needs_human_review"):
+            pm_block += f"\n⚠️ 建议人工复核——{pm_review.get('human_review_reason', '')}"
+        if pm_review.get("flagged_items"):
+            pm_block += "\n标记条目:\n"
+            for f_item in pm_review["flagged_items"]:
+                pm_block += f"  - #{f_item['num']} [{f_item.get('issue','?')}]: {f_item.get('detail','')}\n"
+        final["conclusion"] += pm_block
+        print(f"  📋 PM 报告已追加到研判结论")
+
     # 8. 写 Token 日志
     total_rounds = sum(1 for r in range(1, MAX_ROUNDS + 1)
                        if r == 1 or (r > 1 and r <= MAX_ROUNDS))
@@ -1249,6 +1277,8 @@ def merge_scores(
                 "leverage": item.get("leverage", 0),
                 "total": item.get("total", 0),
                 "worker": wr.get("worker", "unknown"),
+                "status": item.get("status", "complete"),
+                "self_assessment": item.get("self_assessment", ""),
             })
             if item.get("action"):
                 entry["actions"].append(item["action"])
@@ -1487,6 +1517,144 @@ def finalize_scores(
         "conclusion": "\n".join(conclusion_lines),
         "raw_workers": raw_results,
     }
+
+
+# ── PM Agent：研判质量审核 ──────────────────────────────
+
+def pm_quality_review(
+    final_scores: list[dict],
+    raw_results: list[dict],
+    date_str: str,
+    goal: dict,
+    dry_run: bool = False,
+) -> dict | None:
+    """PM Agent 读完所有 Worker 评分后，输出研判质量报告。
+
+    职责：
+    1. 评估整体可信度——所有 Worker 的评分一致性如何？
+    2. 标记分歧——哪些条目分歧大、需要人工复核？
+    3. 追踪被硬约束降级的条目——屏蔽了哪些潜在的高价值信息？
+    4. 判断是否需要人工介入
+
+    返回 {"quality": "good|warning|poor", "needs_human_review": bool,
+           "flagged_items": [...], "summary": "..."}
+    """
+
+    worker_info = WORKERS.get("glm", {})
+    api_key = os.environ.get(worker_info.get("env_key", ""), "")
+    if not api_key:
+        # fallback to deepseek
+        worker_info = WORKERS.get("deepseek", {})
+        api_key = os.environ.get(worker_info.get("env_key", ""), "")
+    if not api_key:
+        print("  ⚠ PM Agent 不可用——无 GLM/DeepSeek API Key", file=sys.stderr)
+        return None
+
+    # 构造评分摘要
+    score_lines = []
+    for s in final_scores:
+        wid_scores = s.get("worker_scores", {})
+        totals = {wid: d["total"] for wid, d in wid_scores.items()}
+        confs = [
+            d.get("confidence", "?")
+            for d in (raw_results or [])
+            for item in d.get("items", [])
+            if item.get("num") == s["num"]
+        ]
+        statuses = [
+            item.get("status", "complete")
+            for wr in (raw_results or [])
+            for item in wr.get("items", [])
+            if item.get("num") == s["num"]
+        ]
+        blocked_count = statuses.count("blocked") + statuses.count("partial")
+
+        # 检查是否被硬约束降级
+        action = s.get("action", "")
+        was_downgraded = "[硬约束" in action or "[供应商降权" in action or "[强制梯度" in action
+
+        score_lines.append(
+            f"#{s['num']}「{s['title'][:50]}」\n"
+            f"  各 Worker 总分: {totals}\n"
+            f"  最终: R={s.get('relevance','?')} F={s.get('feasibility','?')} "
+            f"L={s.get('leverage','?')} Total={s.get('total','?')}\n"
+            f"  阻塞计数: {blocked_count} {'⚠️ 被硬约束降级' if was_downgraded else ''}\n"
+        )
+    scores_block = "\n".join(score_lines)
+
+    system_prompt = (
+        "你是 OPC 多 Agent 研判系统的 PM（Project Manager）Agent。"
+        "你不评分——你只读所有 Worker 的评分结果，输出一份研判质量报告。\n\n"
+        "你的职责：\n"
+        "1. 评估整体可信度——所有 Worker 的评分一致性如何？（good / warning / poor）\n"
+        "2. 标记分歧——哪些条目不同 Worker 评分差 ≥3 分？需要人工复核吗？\n"
+        "3. 追踪硬约束降级——哪些条目被系统规则（供应商降权/≥7上限/强制梯度）强制调整了分数？这些条目可能是被误伤的优质信息。\n"
+        "4. 最终判断——是否需要人工介入？\n\n"
+        "输出格式（纯 JSON，不要其他文字）：\n"
+        "```json\n"
+        "{\n"
+        '  "quality": "good|warning|poor",\n'
+        '  "needs_human_review": true/false,\n'
+        '  "human_review_reason": "如果需要人工复核，为什么？（≤50字；不需要则写空字符串）",\n'
+        '  "flagged_items": [\n'
+        '    {"num": 条目编号, "issue": "分歧大|被降级|信息不足", "detail": "具体描述（≤30字）"}\n'
+        '  ],\n'
+        '  "summary": "整体质量一句话总结（≤60字）",\n'
+        '  "recommendation": "给小樱的一句话行动建议——她今天应该关注/做什么？（≤40字）"\n'
+        "}\n"
+        "```\n\n"
+        "标准：\n"
+        "- good：所有条目评分一致（最大分差 ≤2），无阻塞，可信度高\n"
+        '- warning：存在中度分歧（最大分差 3-4）或少量阻塞或硬约束降级 ≥2 条\n'
+        "- poor：严重分歧（最大分差 ≥5）或多数条目 blocked，建议人工复核\n"
+    )
+
+    user_prompt = (
+        f"日期：{date_str}\n"
+        f"目标：{goal.get('goal', '')}\n"
+        f"参与 Worker：{', '.join(r['worker'] for r in raw_results)}\n\n"
+        f"## 最终评分汇总\n\n{scores_block}\n\n"
+        "请输出研判质量报告（纯 JSON）。"
+    )
+
+    print(f"\n── PM Agent 质量审核 ──")
+    if dry_run:
+        print(f"  [DRY RUN] 跳过 API 调用")
+        return None
+
+    extra = {}
+    if worker_info.get("reasoning_effort"):
+        extra["reasoning_effort"] = worker_info["reasoning_effort"]
+
+    result = llm_call(
+        base_url=worker_info["base_url"],
+        api_key=api_key,
+        model=worker_info["model"],
+        system_prompt=system_prompt,
+        user_prompt=user_prompt,
+        temperature=0.2,
+        max_tokens=1024,
+        extra_body=extra if extra else None,
+    )
+
+    if result is None:
+        print(f"  ✗ PM Agent 调用失败", file=sys.stderr)
+        return None
+
+    try:
+        start = result["text"].find("{")
+        end = result["text"].rfind("}")
+        if start != -1 and end != -1:
+            review = json.loads(result["text"][start:end + 1])
+            print(f"  ✓ PM 审核完成: 质量={review.get('quality','?')}, "
+                  f"需人工复核={review.get('needs_human_review', False)}, "
+                  f"标记 {len(review.get('flagged_items', []))} 条")
+            # 追加到 conclusion
+            return review
+    except (json.JSONDecodeError, KeyError) as e:
+        print(f"  ⚠ PM Agent JSON 解析失败: {e}", file=sys.stderr)
+
+    return None
 
 
 # ── 写入简报 ────────────────────────────────────────────

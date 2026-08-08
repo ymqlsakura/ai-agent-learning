@@ -1,0 +1,4 @@
+interface:
+  display_name: "Remotion 动效套装评测"
+  short_description: "用同素材横评 Remotion 动效技能并选出稳定高质量组合"
+  default_prompt: "使用 $benchmark-remotion-motion-design 用统一样片评测当前 Remotion 动效套装。"

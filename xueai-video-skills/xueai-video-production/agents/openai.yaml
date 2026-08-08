@@ -1,0 +1,4 @@
+interface:
+  display_name: "XueAI 视频制作系统"
+  short_description: "沉淀文案、音频、素材、Remotion、质检和归档的完整视频流程"
+  default_prompt: "使用 $xueai-video-production 完成下一期学习 AI 1000 天视频。"

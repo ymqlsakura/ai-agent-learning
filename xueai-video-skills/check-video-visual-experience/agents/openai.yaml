@@ -1,0 +1,4 @@
+interface:
+  display_name: "视频视觉体验质检"
+  short_description: "检查视频过程展示、动效节奏、画面理解成本、素材对应和发布体验"
+  default_prompt: "使用 $check-video-visual-experience 检查最终成片的过程展示、动效节奏、素材对应和发布体验。"
