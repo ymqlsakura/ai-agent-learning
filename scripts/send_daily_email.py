@@ -457,7 +457,7 @@ if action_items:
 
 # ── 12. 13 方向每日速览（每个方向有实质内容）──
 
-# 加载全部 8 个静态内容源
+# 加载全部 12 个静态内容源
 _ddj = get_daily_from_json("daodejing.json")
 _mx = get_daily_from_json("maoxuan.json")
 _zb = get_daily_from_json("zibenlun.json")
@@ -466,6 +466,9 @@ _sh = get_daily_from_json("shehui.json")
 _lo = get_daily_from_json("logic.json")
 _mw = get_daily_from_json("meiwen.json")
 _en = get_daily_from_json("english.json")
+_po = get_daily_from_json("politics.json")
+_fi = get_daily_from_json("finance.json")
+_ji = get_daily_from_json("jilu.json")
 
 # 取每日一得的心理+名言
 insight_text = generate_daily_insight(articles, high_items)
@@ -488,11 +491,9 @@ direction_rows.append(f'<tr><td style="padding:8px 10px;border-bottom:1px solid 
 sh_txt = _sh["tip"] if _sh else ""
 direction_rows.append(f'<tr><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;white-space:nowrap;color:#15803d;font-weight:bold">2.📋 社会</td><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;color:#333">{sh_txt}</td></tr>')
 
-# 3. 政治 — OPC日报覆盖
-pol_tag = ""
-if high_items:
-    pol_tag = "→ 头条可关注"
-direction_rows.append(f'<tr><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;white-space:nowrap;color:#15803d;font-weight:bold">3.🏛️ 政治</td><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;color:#888">{pol_tag}</td></tr>')
+# 3. 政治
+po_txt = _po["tip"] if _po else ""
+direction_rows.append(f'<tr><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;white-space:nowrap;color:#15803d;font-weight:bold">3.🏛️ 政治</td><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;color:#333">{po_txt}</td></tr>')
 
 # 4. 心理
 psych_txt = psych_line if psych_line else ""
@@ -502,8 +503,9 @@ direction_rows.append(f'<tr><td style="padding:8px 10px;border-bottom:1px solid 
 lo_txt = _lo["tip"] if _lo else ""
 direction_rows.append(f'<tr><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;white-space:nowrap;color:#15803d;font-weight:bold">5.🔍 逻辑</td><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;color:#333">{lo_txt}</td></tr>')
 
-# 6. 记录 — 留给樱漫清澜
-direction_rows.append(f'<tr><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;white-space:nowrap;color:#15803d;font-weight:bold">6.📝 记录</td><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;color:#aaa">今天发生了哪件事值得你记一句？</td></tr>')
+# 6. 记录
+ji_txt = _ji["tip"] if _ji else ""
+direction_rows.append(f'<tr><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;white-space:nowrap;color:#15803d;font-weight:bold">6.📝 记录</td><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;color:#333">{ji_txt}</td></tr>')
 
 # 7. 美文
 mw_txt = _mw["text"] if _mw else ""
@@ -515,20 +517,27 @@ en_txt = _en["en"] if _en else ""
 en_cn = f"——{_en['cn']}" if _en else ""
 direction_rows.append(f'<tr><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;white-space:nowrap;color:#15803d;font-weight:bold">8.🎬 英文</td><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;color:#333">{en_txt} <span style="color:#888;font-size:11px">{en_cn}</span></td></tr>')
 
-# 9. AI — OPC日报
-ai_tag = "→ 今日报道见上方"
-direction_rows.append(f'<tr><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;white-space:nowrap;color:#15803d;font-weight:bold">9.🤖 AI</td><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;color:#888">{ai_tag}</td></tr>')
+# 9. AI — 取今日头条标题摘要
+ai_txt = ""
+if high_items:
+    top_art = articles.get(high_items[0]["num"], {})
+    ai_txt = top_art.get("snippet_en", "")[:120] if top_art else ""
+if not ai_txt and articles:
+    first = list(articles.values())[0]
+    ai_txt = first.get("snippet_en", "")[:120]
+direction_rows.append(f'<tr><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;white-space:nowrap;color:#15803d;font-weight:bold">9.🤖 AI</td><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;color:#333">{ai_txt}</td></tr>')
 
-# 10. 五维 — 一条今日适用的逻辑思维
-direction_rows.append(f'<tr><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;white-space:nowrap;color:#15803d;font-weight:bold">10.🔮 五维</td><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;color:#888">→ 五步框架已内化——今天分析时用即可</td></tr>')
+# 10. 五维 — 今天的五步框架自检提示
+wv_txt = "今天做判断之前——先拆成三个子问题，再正反推演各找两条证据，最后问「如果我是错的，最早什么时候能发现」"
+direction_rows.append(f'<tr><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;white-space:nowrap;color:#15803d;font-weight:bold">10.🔮 五维</td><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;color:#333">{wv_txt}</td></tr>')
 
 # 11. 毛选
 mx_txt = f'{_mx["text"]} ——{_mx["insight"]}' if _mx else ""
 direction_rows.append(f'<tr><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;white-space:nowrap;color:#15803d;font-weight:bold">11.📕 毛选</td><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;color:#333">{mx_txt}</td></tr>')
 
 # 12. 金融
-fin_tag = "→ 与资本论互通"
-direction_rows.append(f'<tr><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;white-space:nowrap;color:#15803d;font-weight:bold">12.💰 金融</td><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;color:#888">{fin_tag}</td></tr>')
+fi_txt = _fi["tip"] if _fi else ""
+direction_rows.append(f'<tr><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;white-space:nowrap;color:#15803d;font-weight:bold">12.💰 金融</td><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;color:#333">{fi_txt}</td></tr>')
 
 # 13. 资本论
 zb_txt = f'{_zb["text"]} ——{_zb["insight"]}' if _zb else ""
