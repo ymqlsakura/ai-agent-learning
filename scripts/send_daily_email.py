@@ -516,7 +516,6 @@ en_cn = f"——{_en['cn']}" if _en else ""
 direction_rows.append(f'<tr><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;white-space:nowrap;color:#15803d;font-weight:bold">8.🎬 英文</td><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;color:#333">{en_txt} <span style="color:#888;font-size:11px">{en_cn}</span></td></tr>')
 
 # 9. AI — OPC日报
-ai_topics = ", ".join([items_map.get(s["num"], {}).get("tags", "") for s in high_items[:2]]) if high_items else ""
 ai_tag = "→ 今日报道见上方"
 direction_rows.append(f'<tr><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;white-space:nowrap;color:#15803d;font-weight:bold">9.🤖 AI</td><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;color:#888">{ai_tag}</td></tr>')
 
