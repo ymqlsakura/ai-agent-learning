@@ -19,6 +19,7 @@ from pathlib import Path
 
 TZ = timezone(timedelta(hours=8))
 INTEL_DIR = Path("memory/intel")
+DATA_DIR = Path("data")
 REPO_URL = "https://github.com/ymqlsakura/ai-agent-learning/blob/main"
 DRY_RUN = "--dry-run" in sys.argv
 GLM_API_KEY = os.environ.get("GLM_API_KEY", "")
@@ -413,6 +414,27 @@ def _fallback_insight() -> str:
     return random.choice(insights)
 
 
+# ── 每日一章道德经 ──
+
+def get_daily_from_json(filename: str, start_date: str = "2026-08-09") -> dict | None:
+    """通用：从 data/ 目录 JSON 文件中按天循环读取一条。
+
+    start_date: 从这一天开始算第 0 天，往后每天 +1 对文件长度取模。
+    """
+    try:
+        path = DATA_DIR / filename
+        if not path.exists():
+            return None
+        items = json.loads(path.read_text(encoding="utf-8"))
+        start = datetime.strptime(start_date, "%Y-%m-%d").replace(tzinfo=TZ)
+        days_since_start = (datetime.now(TZ) - start).days
+        idx = max(0, days_since_start) % len(items)
+        return items[idx]
+    except Exception as e:
+        print(f"[!] 读取 {filename} 失败: {e}")
+        return None
+
+
 # ── 11. 构建行动建议 ──
 
 action_html = ""
@@ -433,17 +455,109 @@ if action_items:
         </div>"""
 
 
-# ── 11. 每日一得 ──
+# ── 12. 13 方向每日速览（每个方向有实质内容）──
 
+# 加载全部 8 个静态内容源
+_ddj = get_daily_from_json("daodejing.json")
+_mx = get_daily_from_json("maoxuan.json")
+_zb = get_daily_from_json("zibenlun.json")
+_rq = get_daily_from_json("renqing.json")
+_sh = get_daily_from_json("shehui.json")
+_lo = get_daily_from_json("logic.json")
+_mw = get_daily_from_json("meiwen.json")
+_en = get_daily_from_json("english.json")
+
+# 取每日一得的心理+名言
 insight_text = generate_daily_insight(articles, high_items)
-lines = insight_text.strip().split("\n")
+lines2 = insight_text.strip().split("\n")
 psych_line = ""
 quote_line = ""
-for line in lines:
+for line in lines2:
     if "心理学" in line or line.startswith("🧠"):
         psych_line = line.replace("🧠 心理学观点：", "").replace("🧠", "").strip()
     elif "今日一言" in line or line.startswith("💬"):
         quote_line = line.replace("💬 今日一言：", "").replace("💬", "").strip()
+
+direction_rows = []
+
+# 1. 人情
+rq_txt = _rq["tip"] if _rq else ""
+direction_rows.append(f'<tr><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;white-space:nowrap;color:#15803d;font-weight:bold">1.🤝 人情</td><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;color:#333">{rq_txt}</td></tr>')
+
+# 2. 社会
+sh_txt = _sh["tip"] if _sh else ""
+direction_rows.append(f'<tr><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;white-space:nowrap;color:#15803d;font-weight:bold">2.📋 社会</td><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;color:#333">{sh_txt}</td></tr>')
+
+# 3. 政治 — OPC日报覆盖
+pol_tag = ""
+if high_items:
+    pol_tag = "→ 头条可关注"
+direction_rows.append(f'<tr><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;white-space:nowrap;color:#15803d;font-weight:bold">3.🏛️ 政治</td><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;color:#888">{pol_tag}</td></tr>')
+
+# 4. 心理
+psych_txt = psych_line if psych_line else ""
+direction_rows.append(f'<tr><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;white-space:nowrap;color:#15803d;font-weight:bold">4.🧠 心理</td><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;color:#333">{psych_txt}</td></tr>')
+
+# 5. 逻辑
+lo_txt = _lo["tip"] if _lo else ""
+direction_rows.append(f'<tr><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;white-space:nowrap;color:#15803d;font-weight:bold">5.🔍 逻辑</td><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;color:#333">{lo_txt}</td></tr>')
+
+# 6. 记录 — 留给樱漫清澜
+direction_rows.append(f'<tr><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;white-space:nowrap;color:#15803d;font-weight:bold">6.📝 记录</td><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;color:#aaa">今天发生了哪件事值得你记一句？</td></tr>')
+
+# 7. 美文
+mw_txt = _mw["text"] if _mw else ""
+mw_src = f"——{_mw['source']}" if _mw else ""
+direction_rows.append(f'<tr><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;white-space:nowrap;color:#15803d;font-weight:bold">7.✍️ 美文</td><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;color:#333">{mw_txt} <span style="color:#999;font-size:11px">{mw_src}</span></td></tr>')
+
+# 8. 英文
+en_txt = _en["en"] if _en else ""
+en_cn = f"——{_en['cn']}" if _en else ""
+direction_rows.append(f'<tr><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;white-space:nowrap;color:#15803d;font-weight:bold">8.🎬 英文</td><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;color:#333">{en_txt} <span style="color:#888;font-size:11px">{en_cn}</span></td></tr>')
+
+# 9. AI — OPC日报
+ai_topics = ", ".join([items_map.get(s["num"], {}).get("tags", "") for s in high_items[:2]]) if high_items else ""
+ai_tag = "→ 今日报道见上方"
+direction_rows.append(f'<tr><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;white-space:nowrap;color:#15803d;font-weight:bold">9.🤖 AI</td><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;color:#888">{ai_tag}</td></tr>')
+
+# 10. 五维 — 一条今日适用的逻辑思维
+direction_rows.append(f'<tr><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;white-space:nowrap;color:#15803d;font-weight:bold">10.🔮 五维</td><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;color:#888">→ 五步框架已内化——今天分析时用即可</td></tr>')
+
+# 11. 毛选
+mx_txt = f'{_mx["text"]} ——{_mx["insight"]}' if _mx else ""
+direction_rows.append(f'<tr><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;white-space:nowrap;color:#15803d;font-weight:bold">11.📕 毛选</td><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;color:#333">{mx_txt}</td></tr>')
+
+# 12. 金融
+fin_tag = "→ 与资本论互通"
+direction_rows.append(f'<tr><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;white-space:nowrap;color:#15803d;font-weight:bold">12.💰 金融</td><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;color:#888">{fin_tag}</td></tr>')
+
+# 13. 资本论
+zb_txt = f'{_zb["text"]} ——{_zb["insight"]}' if _zb else ""
+direction_rows.append(f'<tr><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;white-space:nowrap;color:#15803d;font-weight:bold">13.📗 资本论</td><td style="padding:8px 10px;border-bottom:1px solid #d1fae5;font-size:13px;color:#333">{zb_txt}</td></tr>')
+
+direction_html = f"""
+        <div style="background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-radius:12px;padding:16px;margin:20px 0;border-left:4px solid #16a34a">
+          <strong style="font-size:14px;color:#15803d">🧭 13 方向每日速览</strong>
+          <div style="margin-top:8px">
+            <table style="width:100%;border-collapse:collapse">
+              {''.join(direction_rows)}
+            </table>
+          </div>
+        </div>"""
+
+# ── 道德经（放在每日一得上面）──
+
+daodejing_html = ""
+if _ddj:
+    daodejing_html = f"""
+        <div style="background:linear-gradient(135deg,#fefce8,#fef9c3);border-radius:12px;padding:20px;margin:20px 0;border-left:4px solid #ca8a04">
+          <strong style="font-size:15px;color:#a16207">☯️ 每日道德经 · 第{_ddj['chapter']}章</strong>
+          <div style="margin-top:10px;font-size:14px;line-height:1.8;color:#713f12">{_ddj['text']}</div>
+          <div style="margin-top:8px;font-size:13px;line-height:1.7;color:#854d0e;font-style:italic">💡 {_ddj['insight']}</div>
+        </div>"""
+
+
+# ── 每日一得 ──
 
 insight_html = ""
 if psych_line or quote_line:
@@ -455,7 +569,8 @@ if psych_line or quote_line:
         </div>"""
 
 
-# ── 12. 拼装完整 HTML ──
+
+# ── 13. 拼装完整 HTML ──
 
 # 今日概要
 intro = f"今日共审查 {len(articles)} 篇文章，{len(high_items)} 篇高优先级"
@@ -479,6 +594,10 @@ body = f"""
 
 {article_table}
 
+{direction_html}
+
+{daodejing_html}
+
 {insight_html}
 
 <div style="background:#f5f5f5;border-radius:8px;padding:12px 15px;margin-top:16px;font-size:13px;color:#555">
@@ -491,7 +610,7 @@ body = f"""
 
 </body></html>"""
 
-# ── 12. 发送 ──
+# ── 14. 发送 ──
 if DRY_RUN:
     preview_path = INTEL_DIR / "_email_preview.html"
     preview_path.write_text(body, encoding="utf-8")
