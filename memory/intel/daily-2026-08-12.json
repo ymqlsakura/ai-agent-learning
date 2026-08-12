@@ -1,7 +1,7 @@
 {
   "date": "2026-08-12",
   "generated_at": "2026-08-12 11:28",
-  "status": "pending",
+  "status": "scored",
   "items": [
     {
       "num": 1,
@@ -114,5 +114,261 @@
       ],
       "source": "code.claude.com"
     }
-  ]
+  ],
+  "scored_at": "2026-08-12 11:32",
+  "scores": [
+    {
+      "num": 1,
+      "title": "Artificial Intelligence - Latest AI News and Analysis",
+      "link": "https://www.wsj.com/tech/ai",
+      "relevance": 2,
+      "feasibility": 1,
+      "leverage": 0,
+      "total": 3,
+      "action": "[强制梯度 5→3] 略读标题即可，付费墙内无需深究",
+      "worker_scores": {
+        "kimi": {
+          "relevance": 1,
+          "feasibility": 1,
+          "leverage": 1,
+          "total": 3
+        },
+        "glm": {
+          "relevance": 2,
+          "feasibility": 1,
+          "leverage": 2,
+          "total": 5
+        }
+      }
+    },
+    {
+      "num": 2,
+      "title": "AI News Today — Top AI Stories & Live Updates",
+      "link": "https://aiweekly.co/ai-news-today",
+      "relevance": 2,
+      "feasibility": 1,
+      "leverage": 2,
+      "total": 5,
+      "action": "关注Anthropic算力动向，其余跳过",
+      "worker_scores": {
+        "kimi": {
+          "relevance": 2,
+          "feasibility": 1,
+          "leverage": 1,
+          "total": 4
+        },
+        "glm": {
+          "relevance": 2,
+          "feasibility": 1,
+          "leverage": 2,
+          "total": 5
+        }
+      }
+    },
+    {
+      "num": 3,
+      "title": "Artificial Intelligence (AI) News Updates",
+      "link": "https://m.economictimes.com/tech/artificial-intelligence",
+      "relevance": 2,
+      "feasibility": 1,
+      "leverage": 2,
+      "total": 5,
+      "action": "仅留意Manus独立运营后续",
+      "worker_scores": {
+        "kimi": {
+          "relevance": 1,
+          "feasibility": 1,
+          "leverage": 1,
+          "total": 3
+        },
+        "glm": {
+          "relevance": 2,
+          "feasibility": 1,
+          "leverage": 2,
+          "total": 5
+        }
+      }
+    },
+    {
+      "num": 4,
+      "title": "The best AI agent frameworks in 2026 - LangChain",
+      "link": "https://www.langchain.com/resources/ai-agent-frameworks",
+      "relevance": 3,
+      "feasibility": 2,
+      "leverage": 1,
+      "total": 6,
+      "action": "[供应商降权] 作为选型基准，对比后锁定一个框架",
+      "worker_scores": {
+        "kimi": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 1,
+          "total": 6
+        },
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        }
+      }
+    },
+    {
+      "num": 5,
+      "title": "Top Agentic Frameworks for Building Applications 2026",
+      "link": "https://blog.jetbrains.com/pycharm/2026/06/top-agentic-frameworks-for-building-applications-2026/",
+      "relevance": 2,
+      "feasibility": 1,
+      "leverage": 0,
+      "total": 3,
+      "action": "[供应商降权] 与第4条交叉验证即可，不单独深读",
+      "worker_scores": {
+        "kimi": {
+          "relevance": 2,
+          "feasibility": 1,
+          "leverage": 1,
+          "total": 4
+        },
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 2,
+          "total": 7
+        },
+        "deepseek": {
+          "relevance": 2,
+          "feasibility": 2,
+          "leverage": 1,
+          "total": 5
+        }
+      }
+    },
+    {
+      "num": 6,
+      "title": "Best AI Agent Building Tools in 2026 (No-Code & Developer Options)",
+      "link": "https://www.reddit.com/r/AI_Agents/comments/1slb7xi/best_ai_agent_building_tools_in_2026_nocode/",
+      "relevance": 3,
+      "feasibility": 2,
+      "leverage": 2,
+      "total": 7,
+      "action": "优先试用Claude Agent SDK+零代码清单",
+      "worker_scores": {
+        "kimi": {
+          "relevance": 3,
+          "feasibility": 3,
+          "leverage": 2,
+          "total": 8
+        },
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        }
+      }
+    },
+    {
+      "num": 7,
+      "title": "Solo founders are using AI to do the work of entire teams ...",
+      "link": "https://fortune.com/2026/05/18/solo-founders-ai-automation-entire-teams-entrepreneurs/",
+      "relevance": 3,
+      "feasibility": 2,
+      "leverage": 3,
+      "total": 8,
+      "action": "精读全文，提炼可复用的一人公司方法论",
+      "worker_scores": {
+        "kimi": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        },
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        }
+      }
+    },
+    {
+      "num": 8,
+      "title": "The Rise of the One Person Business: Solo Founders ...",
+      "link": "https://www.cipherprojects.com/blog/posts/rise-one-person-business-solo-founders-reshaping-entrepreneurship/",
+      "relevance": 3,
+      "feasibility": 2,
+      "leverage": 2,
+      "total": 7,
+      "action": "扫读fractional CTO与Hermes代理部分",
+      "worker_scores": {
+        "kimi": {
+          "relevance": 3,
+          "feasibility": 3,
+          "leverage": 2,
+          "total": 8
+        },
+        "glm": {
+          "relevance": 2,
+          "feasibility": 1,
+          "leverage": 3,
+          "total": 6
+        },
+        "deepseek": {
+          "relevance": 3,
+          "feasibility": 1,
+          "leverage": 1,
+          "total": 5
+        }
+      }
+    },
+    {
+      "num": 9,
+      "title": "One-Person Company Software: The Solo AI Tool Stack ...",
+      "link": "https://www.taskade.com/blog/one-person-companies",
+      "relevance": 3,
+      "feasibility": 2,
+      "leverage": 1,
+      "total": 6,
+      "action": "[供应商降权] 提取工具栈清单，忽略Taskade自荐",
+      "worker_scores": {
+        "kimi": {
+          "relevance": 3,
+          "feasibility": 3,
+          "leverage": 1,
+          "total": 7
+        },
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        }
+      }
+    },
+    {
+      "num": 10,
+      "title": "What's new - Claude Code Docs",
+      "link": "https://code.claude.com/docs/en/whats-new",
+      "relevance": 1,
+      "feasibility": 0,
+      "leverage": 1,
+      "total": 2,
+      "action": "[供应商降权] Windows暂不支持，列入观望清单",
+      "worker_scores": {
+        "kimi": {
+          "relevance": 2,
+          "feasibility": 1,
+          "leverage": 2,
+          "total": 5
+        },
+        "glm": {
+          "relevance": 0,
+          "feasibility": 0,
+          "leverage": 1,
+          "total": 1
+        }
+      }
+    }
+  ],
+  "conclusion": "研判时间：2026-08-12 11:31（北京时间）\n参与 Worker：deepseek, kimi, glm\n评分标准：OPC-CONFIG.md 三维评分（相关性/可行性/杠杆率 0-3）\n交叉审查：8 个挑战 / 6 个已解决 （多数投票）\n\n🔥 高优先级（≥7 分，3 条）：\n  - #6「Best AI Agent Building Tools in 2026 (No」总分 7 → 优先试用Claude Agent SDK+零代码清单\n  - #7「Solo founders are using AI to do the wor」总分 8 → 精读全文，提炼可复用的一人公司方法论\n  - #8「The Rise of the One Person Business: Sol」总分 7 → 扫读fractional CTO与Hermes代理部分\n\n📌 中优先级（5-6 分，4 条）：\n  - #2「AI News Today — Top AI Stories & Live Up」总分 5 → 关注Anthropic算力动向，其余跳过\n  - #3「Artificial Intelligence (AI) News Update」总分 5 → 仅留意Manus独立运营后续\n  - #4「The best AI agent frameworks in 2026 - L」总分 6 → [供应商降权] 作为选型基准，对比后锁定一个框架\n  - #9「One-Person Company Software: The Solo AI」总分 6 → [供应商降权] 提取工具栈清单，忽略Taskade自荐\n\n💰 本次研判 Token 消耗：\n  - DeepSeek V4 Flash：6 次调用 / 输入 8,268 tokens / 输出 15,108 tokens / ≈ $0.0033\n  - Kimi K3：5 次调用 / 输入 7,173 tokens / 输出 3,718 tokens / ≈ $0.0065\n  - GLM-4-Flash：6 次调用 / 输入 7,913 tokens / 输出 2,224 tokens / ≈ $0.0000\n  **合计 ≈ $0.0098**\n\n---\n\n📋 PM 审核 (warning):\n存在分歧和硬约束降级，部分条目评分一致性差\n建议: 关注分歧大和被降级的条目，进行人工复核\n⚠️ 建议人工复核——存在中度分歧和硬约束降级\n标记条目:\n  - #4 [被降级]: 硬约束降级\n  - #5 [被降级]: 硬约束降级\n  - #6 [分歧大]: kimi与glm评分差3分\n  - #7 [分歧大]: kimi与glm评分差3分\n  - #8 [分歧大]: kimi与glm评分差2分；deepseek评分低于其他两个Worker\n  - #9 [被降级]: 硬约束降级\n  - #10 [分歧大]: kimi与glm评分差4分\n"
 }
