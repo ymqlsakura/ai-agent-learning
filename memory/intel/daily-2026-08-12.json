@@ -1,0 +1,118 @@
+{
+  "date": "2026-08-12",
+  "generated_at": "2026-08-12 11:28",
+  "status": "pending",
+  "items": [
+    {
+      "num": 1,
+      "title": "Artificial Intelligence - Latest AI News and Analysis",
+      "link": "https://www.wsj.com/tech/ai",
+      "snippet": "Why Open-Weight AI Models Matter and Meta Benefits from Them · Plus, a $500 billion AI financing deal, and the AI boom shakes up South Korea's dating scene.",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [],
+      "source": "www.wsj.com"
+    },
+    {
+      "num": 2,
+      "title": "AI News Today — Top AI Stories & Live Updates",
+      "link": "https://aiweekly.co/ai-news-today",
+      "snippet": "Anthropic locks 20-year, 191 MW compute deal with Riot for $9.1B · OpenAI's new GPT-5.6-Cyber found two Chrome zero-days · New attack decrypts CoT reasoning ...",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [
+        "#Claude"
+      ],
+      "source": "aiweekly.co"
+    },
+    {
+      "num": 3,
+      "title": "Artificial Intelligence (AI) News Updates",
+      "link": "https://m.economictimes.com/tech/artificial-intelligence",
+      "snippet": "AI startup Manus to resume independent operations as deal with Meta unwinds · Senior OpenAI executive Brad Lightcap to leave for new venture · Spotify to ...",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [],
+      "source": "m.economictimes.com"
+    },
+    {
+      "num": 4,
+      "title": "The best AI agent frameworks in 2026 - LangChain",
+      "link": "https://www.langchain.com/resources/ai-agent-frameworks",
+      "snippet": "This guide compares seven frameworks: LangChain, CrewAI, Microsoft Agent Framework, LlamaIndex Workflows, Google ADK, OpenAI Agents SDK, and Mastra.",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "www.langchain.com"
+    },
+    {
+      "num": 5,
+      "title": "Top Agentic Frameworks for Building Applications 2026",
+      "link": "https://blog.jetbrains.com/pycharm/2026/06/top-agentic-frameworks-for-building-applications-2026/",
+      "snippet": "Haystack is an open-source AI orchestration framework created by deepset for building production-ready AI agents, retrieval-augmented generation ...",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "blog.jetbrains.com"
+    },
+    {
+      "num": 6,
+      "title": "Best AI Agent Building Tools in 2026 (No-Code & Developer Options)",
+      "link": "https://www.reddit.com/r/AI_Agents/comments/1slb7xi/best_ai_agent_building_tools_in_2026_nocode/",
+      "snippet": "Best AI Agent Building Tools in 2026 (No-Code & Developer Options) · Claude Agent SDK A Python SDK for working directly with Claude models.",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent",
+        "#Claude",
+        "#new-tool"
+      ],
+      "source": "www.reddit.com"
+    },
+    {
+      "num": 7,
+      "title": "Solo founders are using AI to do the work of entire teams ...",
+      "link": "https://fortune.com/2026/05/18/solo-founders-ai-automation-entire-teams-entrepreneurs/",
+      "snippet": "AI tools are letting founders launch products, serve hundreds of customers, and land big exits on their own, without having to hire any ...",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC",
+        "#new-tool"
+      ],
+      "source": "fortune.com"
+    },
+    {
+      "num": 8,
+      "title": "The Rise of the One Person Business: Solo Founders ...",
+      "link": "https://www.cipherprojects.com/blog/posts/rise-one-person-business-solo-founders-reshaping-entrepreneurship/",
+      "snippet": "The rise of the solo founder: how one-person businesses and one-man startups leverage AI, Hermes-class agents, fractional CTO partners, ...",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#AI-agent",
+        "#OPC"
+      ],
+      "source": "www.cipherprojects.com"
+    },
+    {
+      "num": 9,
+      "title": "One-Person Company Software: The Solo AI Tool Stack ...",
+      "link": "https://www.taskade.com/blog/one-person-companies",
+      "snippet": "Solo Founders, and the $1B Prediction (2026) Sam Altman predicts a one-person billion-dollar company. Solo founders like Pieter Levels already ...",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC",
+        "#new-tool"
+      ],
+      "source": "www.taskade.com"
+    },
+    {
+      "num": 10,
+      "title": "What's new - Claude Code Docs",
+      "link": "https://code.claude.com/docs/en/whats-new",
+      "snippet": "2026 Cross-session messaging: on macOS and Linux, your Claude Code sessions can now message each other, so Claude passes a finding or a decision",
+      "query": "Claude Code new features updates 2026",
+      "tags": [
+        "#Claude"
+      ],
+      "source": "code.claude.com"
+    }
+  ]
+}
