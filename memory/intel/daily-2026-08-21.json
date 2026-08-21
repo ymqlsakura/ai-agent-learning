@@ -1,0 +1,116 @@
+{
+  "date": "2026-08-21",
+  "generated_at": "2026-08-21 10:35",
+  "status": "pending",
+  "items": [
+    {
+      "num": 1,
+      "title": "Artificial Intelligence - The New York ...",
+      "link": "https://www.nytimes.com/spotlight/artificial-intelligence",
+      "snippet": "So You Want to Build an A.I. Star? Designers at a new crop of creative studios create fake personas they hope real people will love.",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [],
+      "source": "www.nytimes.com"
+    },
+    {
+      "num": 2,
+      "title": "Artificial Intelligence (AI) News Updates: Latest News About ...",
+      "link": "https://ai.economictimes.com/",
+      "snippet": "AI agents can catch 'mind viruses' AI writes 86% of Paisabazaar's new code, AI boom outpacing law: users report issues in loading prompts. ChatGPT's health ...",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "ai.economictimes.com"
+    },
+    {
+      "num": 3,
+      "title": "Artificial Intelligence Trends And Top AI Stocks To Watch",
+      "link": "https://www.investors.com/news/technology/ai-stocks-artificial-intelligence-trends-and-news/",
+      "snippet": "Tesla 'Intentionally' as \"the fastest AI accelerator in the industry.\" AI stocks like Nvidia (NVDA), Microsoft (MSFT), Alphabet (GOOGL), Apple (AAPL), Meta ...",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [],
+      "source": "www.investors.com"
+    },
+    {
+      "num": 4,
+      "title": "Top AI Agent Frameworks in 2026: A Production-Ready ...",
+      "link": "https://pub.towardsai.net/top-ai-agent-frameworks-in-2026-a-production-ready-comparison-7ba5e39ad56d",
+      "snippet": "OpenAI, Anthropic, and Google all launched agent development kits in 2026. 120+ agentic AI tools across 11 categories, Google Agent Development ...",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent",
+        "#Claude",
+        "#new-tool"
+      ],
+      "source": "pub.towardsai.net"
+    },
+    {
+      "num": 5,
+      "title": "The best AI agent frameworks in 2026",
+      "link": "https://www.langchain.com/resources/ai-agent-frameworks",
+      "snippet": "This guide compares seven frameworks: LangChain, CrewAI, Microsoft Agent Framework, LlamaIndex Workflows, Google ADK, OpenAI Agents SDK, and Mastra.",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "www.langchain.com"
+    },
+    {
+      "num": 6,
+      "title": "Top Agentic Frameworks for Building Applications 2026",
+      "link": "https://blog.jetbrains.com/pycharm/2026/06/top-agentic-frameworks-for-building-applications-2026/",
+      "snippet": "Haystack is an open-source AI orchestration framework created by deepset for building production-ready AI agents, retrieval-augmented generation ...",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "blog.jetbrains.com"
+    },
+    {
+      "num": 7,
+      "title": "The Rise of the One Person Business: Solo Founders ...",
+      "link": "https://www.cipherprojects.com/blog/posts/rise-one-person-business-solo-founders-reshaping-entrepreneurship/",
+      "snippet": "The rise of the solo founder: how one-person businesses and one-man startups leverage AI, Hermes-class agents, fractional CTO partners, ...",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#AI-agent",
+        "#OPC"
+      ],
+      "source": "www.cipherprojects.com"
+    },
+    {
+      "num": 8,
+      "title": "One person building a $1B company by 2026…wtf?",
+      "link": "https://www.reddit.com/r/SaaS/comments/1rdtjg8/one_person_building_a_1b_company_by_2026wtf/",
+      "snippet": "",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC"
+      ],
+      "source": "www.reddit.com"
+    },
+    {
+      "num": 9,
+      "title": "here's what solo founders are actually building in 2026",
+      "link": "https://www.reddit.com/r/EntrepreneurRideAlong/comments/1sabim9/we_analyzed_2000_startups_built_on_our_ai/",
+      "snippet": "",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC"
+      ],
+      "source": "www.reddit.com"
+    },
+    {
+      "num": 10,
+      "title": "What's new - Claude Code Docs",
+      "link": "https://code.claude.com/docs/en/whats-new",
+      "snippet": "2026 Cross-session messaging: on macOS and Linux, your Claude Code sessions can now message each other, so Claude passes a finding or a decision",
+      "query": "Claude Code new features updates 2026",
+      "tags": [
+        "#Claude"
+      ],
+      "source": "code.claude.com"
+    }
+  ]
+}
