@@ -1,0 +1,27 @@
+{
+  "date": "2026-08-25",
+  "goal": "intel-review",
+  "rounds": 5,
+  "workers": {
+    "kimi": {
+      "calls": 5,
+      "prompt_tokens": 7222,
+      "completion_tokens": 3410,
+      "cost_estimate_usd": 0.006379
+    },
+    "glm": {
+      "calls": 5,
+      "prompt_tokens": 6983,
+      "completion_tokens": 1911,
+      "cost_estimate_usd": 0.0
+    },
+    "deepseek": {
+      "calls": 5,
+      "prompt_tokens": 7328,
+      "completion_tokens": 14513,
+      "cost_estimate_usd": 0.003057
+    }
+  },
+  "total_cost_estimate_usd": 0.009436,
+  "timestamp": "2026-08-25 10:25"
+}
