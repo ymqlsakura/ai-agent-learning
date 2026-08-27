@@ -1,7 +1,7 @@
 {
   "date": "2026-08-27",
   "generated_at": "2026-08-27 19:08",
-  "status": "pending",
+  "status": "scored",
   "items": [
     {
       "num": 1,
@@ -113,5 +113,273 @@
       ],
       "source": "support.claude.com"
     }
-  ]
+  ],
+  "scored_at": "2026-08-27 19:12",
+  "scores": [
+    {
+      "num": 1,
+      "title": "Artificial Intelligence - The New York Times",
+      "link": "https://www.nytimes.com/spotlight/artificial-intelligence",
+      "relevance": 2,
+      "feasibility": 1,
+      "leverage": 0,
+      "total": 3,
+      "action": "[强制梯度 6→3] 仅浏览盖茨风险论要点，无需行动",
+      "worker_scores": {
+        "kimi": {
+          "relevance": 1,
+          "feasibility": 2,
+          "leverage": 1,
+          "total": 4
+        },
+        "glm": {
+          "relevance": 2,
+          "feasibility": 1,
+          "leverage": 2,
+          "total": 5
+        }
+      }
+    },
+    {
+      "num": 2,
+      "title": "Artificial intelligence - NBC News",
+      "link": "https://www.nbcnews.com/artificial-intelligence",
+      "relevance": 1,
+      "feasibility": 1,
+      "leverage": 1,
+      "total": 3,
+      "action": "忽略，纯新闻聚合页无具体内容",
+      "worker_scores": {
+        "kimi": {
+          "relevance": 1,
+          "feasibility": 2,
+          "leverage": 0,
+          "total": 3
+        },
+        "glm": {
+          "relevance": 2,
+          "feasibility": 1,
+          "leverage": 2,
+          "total": 5
+        },
+        "deepseek": {
+          "relevance": 1,
+          "feasibility": 2,
+          "leverage": 1,
+          "total": 4
+        }
+      }
+    },
+    {
+      "num": 3,
+      "title": "AI (artificial intelligence) | The Guardian",
+      "link": "https://www.theguardian.com/technology/artificialintelligenceai",
+      "relevance": 3,
+      "feasibility": 1,
+      "leverage": 2,
+      "total": 6,
+      "action": "关注'中国AI对话常态化'一文作市场素材",
+      "worker_scores": {
+        "kimi": {
+          "relevance": 3,
+          "feasibility": 1,
+          "leverage": 2,
+          "total": 6
+        },
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        },
+        "deepseek": {
+          "relevance": 2,
+          "feasibility": 2,
+          "leverage": 1,
+          "total": 5
+        }
+      }
+    },
+    {
+      "num": 4,
+      "title": "Top AI Agent Frameworks in 2026: A Production-Ready Comparison",
+      "link": "https://pub.towardsai.net/top-ai-agent-frameworks-in-2026-a-production-ready-comparison-7ba5e39ad56d",
+      "relevance": 3,
+      "feasibility": 2,
+      "leverage": 2,
+      "total": 7,
+      "action": "精读全文，提取OpenAI/Anthropic/Google三套ADK对比",
+      "worker_scores": {
+        "kimi": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 2,
+          "total": 7
+        },
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        }
+      }
+    },
+    {
+      "num": 5,
+      "title": "Top Agentic Frameworks for Building Applications 2026",
+      "link": "https://blog.jetbrains.com/pycharm/2026/06/top-agentic-frameworks-for-building-applications-2026/",
+      "relevance": 3,
+      "feasibility": 2,
+      "leverage": 1,
+      "total": 6,
+      "action": "[供应商降权] 略读，仅在与第4条冲突时参考",
+      "worker_scores": {
+        "kimi": {
+          "relevance": 2,
+          "feasibility": 2,
+          "leverage": 1,
+          "total": 5
+        },
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        },
+        "deepseek": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 2,
+          "total": 7
+        }
+      }
+    },
+    {
+      "num": 6,
+      "title": "The best AI agent frameworks in 2026 - LangChain",
+      "link": "https://www.langchain.com/resources/ai-agent-frameworks",
+      "relevance": 3,
+      "feasibility": 2,
+      "leverage": 1,
+      "total": 6,
+      "action": "[供应商降权] 仅查LangChain对竞品框架的表述口径",
+      "worker_scores": {
+        "kimi": {
+          "relevance": 2,
+          "feasibility": 1,
+          "leverage": 1,
+          "total": 4
+        },
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        },
+        "deepseek": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 1,
+          "total": 6
+        }
+      }
+    },
+    {
+      "num": 7,
+      "title": "Solo founders are using AI to do the work of entire teams ...",
+      "link": "https://fortune.com/2026/05/18/solo-founders-ai-automation-entire-teams-entrepreneurs/",
+      "relevance": 3,
+      "feasibility": 2,
+      "leverage": 3,
+      "total": 8,
+      "action": "全文精读，提炼一人公司工具栈与案例写深度笔记",
+      "worker_scores": {
+        "kimi": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        },
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        }
+      }
+    },
+    {
+      "num": 8,
+      "title": "2026 - The year of the one person billion dollar startup",
+      "link": "https://www.reddit.com/r/Solopreneur/comments/1r2grc6/2026_the_year_of_the_one_person_billion_dollar/",
+      "relevance": 2,
+      "feasibility": 1,
+      "leverage": 0,
+      "total": 3,
+      "action": "[强制梯度 5→3] 打开原帖核实数据后再定",
+      "worker_scores": {
+        "kimi": {
+          "relevance": 2,
+          "feasibility": 1,
+          "leverage": 1,
+          "total": 4
+        },
+        "glm": {
+          "relevance": 3,
+          "feasibility": 1,
+          "leverage": 2,
+          "total": 6
+        }
+      }
+    },
+    {
+      "num": 9,
+      "title": "here's what solo founders are actually building in 2026",
+      "link": "https://www.reddit.com/r/EntrepreneurRideAlong/comments/1sabim9/we_analyzed_2000_startups_built_on_our_ai/",
+      "relevance": 3,
+      "feasibility": 2,
+      "leverage": 2,
+      "total": 7,
+      "action": "读取2000个AI创业数据分析，提取品类分布",
+      "worker_scores": {
+        "kimi": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 2,
+          "total": 7
+        },
+        "glm": {
+          "relevance": 3,
+          "feasibility": 1,
+          "leverage": 2,
+          "total": 6
+        }
+      }
+    },
+    {
+      "num": 10,
+      "title": "Release notes | Anthropic Help Center - Claude Support",
+      "link": "https://support.claude.com/en/articles/12138966-release-notes",
+      "relevance": 2,
+      "feasibility": 2,
+      "leverage": 2,
+      "total": 6,
+      "action": "立即升级试用Opus 4.8并记录变化",
+      "worker_scores": {
+        "kimi": {
+          "relevance": 3,
+          "feasibility": 3,
+          "leverage": 2,
+          "total": 8
+        },
+        "glm": {
+          "relevance": 2,
+          "feasibility": 2,
+          "leverage": 2,
+          "total": 6
+        }
+      }
+    }
+  ],
+  "conclusion": "研判时间：2026-08-27 19:12（北京时间）\n参与 Worker：kimi, deepseek, glm\n评分标准：OPC-CONFIG.md 三维评分（相关性/可行性/杠杆率 0-3）\n交叉审查：4 个挑战 / 0 个已解决 （多数投票）\n\n🔥 高优先级（≥7 分，3 条）：\n  - #4「Top AI Agent Frameworks in 2026: A Produ」总分 7 → 精读全文，提取OpenAI/Anthropic/Google三套ADK对比\n  - #7「Solo founders are using AI to do the wor」总分 8 → 全文精读，提炼一人公司工具栈与案例写深度笔记\n  - #9「here's what solo founders are actually b」总分 7 → 读取2000个AI创业数据分析，提取品类分布\n\n📌 中优先级（5-6 分，4 条）：\n  - #3「AI (artificial intelligence) | The Guard」总分 6 → 关注'中国AI对话常态化'一文作市场素材\n  - #5「Top Agentic Frameworks for Building Appl」总分 6 → [供应商降权] 略读，仅在与第4条冲突时参考\n  - #6「The best AI agent frameworks in 2026 - L」总分 6 → [供应商降权] 仅查LangChain对竞品框架的表述口径\n  - #10「Release notes | Anthropic Help Center - 」总分 6 → 立即升级试用Opus 4.8并记录变化\n\n💰 本次研判 Token 消耗：\n  - Kimi K3：5 次调用 / 输入 7,629 tokens / 输出 3,617 tokens / ≈ $0.0067\n  - DeepSeek V4 Flash：5 次调用 / 输入 7,727 tokens / 输出 17,999 tokens / ≈ $0.0036\n  - GLM-4-Flash：5 次调用 / 输入 7,400 tokens / 输出 2,246 tokens / ≈ $0.0000\n  **合计 ≈ $0.0104**\n\n---\n\n📋 PM 审核 (warning):\n存在分歧和硬约束降级，需人工复核\n建议: 关注分歧大和被降级的条目，进行人工复核\n⚠️ 建议人工复核——存在中度分歧和硬约束降级\n标记条目:\n  - #1 [分歧大]: kimi与glm评分差1分\n  - #2 [分歧大]: kimi与deepseek评分差1分\n  - #3 [分歧大]: kimi与deepseek评分差3分\n  - #5 [被降级]: 被硬约束降级\n  - #6 [被降级]: 被硬约束降级\n  - #8 [被降级]: 被硬约束降级\n"
 }
