@@ -1,7 +1,7 @@
 {
   "date": "2026-08-28",
   "generated_at": "2026-08-28 20:41",
-  "status": "pending",
+  "status": "scored",
   "items": [
     {
       "num": 1,
@@ -116,5 +116,273 @@
       ],
       "source": "code.claude.com"
     }
-  ]
+  ],
+  "scored_at": "2026-08-28 20:45",
+  "scores": [
+    {
+      "num": 1,
+      "title": "Artificial Intelligence - AI News",
+      "link": "https://www.reuters.com/technology/artificial-intelligence/",
+      "relevance": 2,
+      "feasibility": 1,
+      "leverage": 0,
+      "total": 3,
+      "action": "[强制梯度 5→3] 关注中国AI天气预报的发展",
+      "worker_scores": {
+        "glm": {
+          "relevance": 2,
+          "feasibility": 1,
+          "leverage": 2,
+          "total": 5
+        },
+        "kimi": {
+          "relevance": 2,
+          "feasibility": 1,
+          "leverage": 1,
+          "total": 4
+        }
+      }
+    },
+    {
+      "num": 2,
+      "title": "AI (artificial intelligence)",
+      "link": "https://www.theguardian.com/technology/artificialintelligenceai",
+      "relevance": 2,
+      "feasibility": 1,
+      "leverage": 0,
+      "total": 3,
+      "action": "[强制梯度 5→3] 研究OpenAI员工在AI代理黑客攻击前的观察",
+      "worker_scores": {
+        "glm": {
+          "relevance": 2,
+          "feasibility": 1,
+          "leverage": 2,
+          "total": 5
+        },
+        "kimi": {
+          "relevance": 2,
+          "feasibility": 1,
+          "leverage": 1,
+          "total": 4
+        }
+      }
+    },
+    {
+      "num": 3,
+      "title": "AI cyber attacks are top of mind for tech executives according ...",
+      "link": "https://www.facebook.com/cnbc/videos/cnbc-tec-survey-respondents-say-ai-is-accelerating-cyber-risk-faster-than-organi/2074058543189912/",
+      "relevance": 1,
+      "feasibility": 1,
+      "leverage": 0,
+      "total": 2,
+      "action": "了解AI攻击对小型企业的数据泄露成本",
+      "worker_scores": {
+        "glm": {
+          "relevance": 1,
+          "feasibility": 1,
+          "leverage": 1,
+          "total": 3
+        },
+        "kimi": {
+          "relevance": 1,
+          "feasibility": 1,
+          "leverage": 0,
+          "total": 2
+        }
+      }
+    },
+    {
+      "num": 4,
+      "title": "Top AI Agent Frameworks in 2026: A Production-Ready ...",
+      "link": "https://pub.towardsai.net/top-ai-agent-frameworks-in-2026-a-production-ready-comparison-7ba5e39ad56d",
+      "relevance": 3,
+      "feasibility": 2,
+      "leverage": 2,
+      "total": 7,
+      "action": "评估OpenAI、Anthropic和Google的agent开发套件",
+      "worker_scores": {
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        },
+        "kimi": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 2,
+          "total": 7
+        }
+      }
+    },
+    {
+      "num": 5,
+      "title": "Top Agentic Frameworks for Building Applications 2026",
+      "link": "https://blog.jetbrains.com/pycharm/2026/06/top-agentic-frameworks-for-building-applications-2026/",
+      "relevance": 2,
+      "feasibility": 2,
+      "leverage": 1,
+      "total": 5,
+      "action": "[供应商降权] 研究deepset的Haystack AI编排框架",
+      "worker_scores": {
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 2,
+          "total": 7
+        },
+        "kimi": {
+          "relevance": 2,
+          "feasibility": 2,
+          "leverage": 1,
+          "total": 5
+        },
+        "deepseek": {
+          "relevance": 2,
+          "feasibility": 2,
+          "leverage": 1,
+          "total": 5
+        }
+      }
+    },
+    {
+      "num": 6,
+      "title": "The best AI agent frameworks in 2026",
+      "link": "https://www.langchain.com/resources/ai-agent-frameworks",
+      "relevance": 2,
+      "feasibility": 2,
+      "leverage": 1,
+      "total": 5,
+      "action": "[供应商降权] 比较LangChain、CrewAI等七个框架",
+      "worker_scores": {
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 2,
+          "total": 7
+        },
+        "kimi": {
+          "relevance": 2,
+          "feasibility": 2,
+          "leverage": 1,
+          "total": 5
+        },
+        "deepseek": {
+          "relevance": 2,
+          "feasibility": 1,
+          "leverage": 1,
+          "total": 4
+        }
+      }
+    },
+    {
+      "num": 7,
+      "title": "Solo founders are using AI to do the work of entire teams ...",
+      "link": "https://fortune.com/2026/05/18/solo-founders-ai-automation-entire-teams-entrepreneurs/",
+      "relevance": 3,
+      "feasibility": 2,
+      "leverage": 2,
+      "total": 7,
+      "action": "研究AI工具如何帮助单人创业者",
+      "worker_scores": {
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        },
+        "kimi": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 2,
+          "total": 7
+        }
+      }
+    },
+    {
+      "num": 8,
+      "title": "2026 - The year of the one person billion dollar startup",
+      "link": "https://www.reddit.com/r/Solopreneur/comments/1r2grc6/2026_the_year_of_the_one_person_billion_dollar/",
+      "relevance": 2,
+      "feasibility": 1,
+      "leverage": 2,
+      "total": 5,
+      "action": "关注单人创业者如何利用AI创建价值",
+      "worker_scores": {
+        "glm": {
+          "relevance": 2,
+          "feasibility": 1,
+          "leverage": 3,
+          "total": 6
+        },
+        "kimi": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 1,
+          "total": 6
+        },
+        "deepseek": {
+          "relevance": 3,
+          "feasibility": 1,
+          "leverage": 2,
+          "total": 6
+        }
+      }
+    },
+    {
+      "num": 9,
+      "title": "here's what solo founders are actually building in 2026",
+      "link": "https://www.reddit.com/r/EntrepreneurRideAlong/comments/1sabim9/we_analyzed_2000_startups_built_on_our_ai/",
+      "relevance": 2,
+      "feasibility": 1,
+      "leverage": 2,
+      "total": 5,
+      "action": "分析2000家基于AI的初创企业",
+      "worker_scores": {
+        "glm": {
+          "relevance": 2,
+          "feasibility": 1,
+          "leverage": 3,
+          "total": 6
+        },
+        "kimi": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 2,
+          "total": 7
+        },
+        "deepseek": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 2,
+          "total": 7
+        }
+      }
+    },
+    {
+      "num": 10,
+      "title": "Week 27 · June 29 – July 3, 2026 - Claude Code Docs",
+      "link": "https://code.claude.com/docs/en/whats-new/2026-w27",
+      "relevance": 3,
+      "feasibility": 2,
+      "leverage": 1,
+      "total": 6,
+      "action": "[供应商降权] 了解Claude Sonnet 5等新功能",
+      "worker_scores": {
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        },
+        "kimi": {
+          "relevance": 3,
+          "feasibility": 3,
+          "leverage": 1,
+          "total": 7
+        }
+      }
+    }
+  ],
+  "conclusion": "研判时间：2026-08-28 20:44（北京时间）\n参与 Worker：deepseek, glm, kimi\n评分标准：OPC-CONFIG.md 三维评分（相关性/可行性/杠杆率 0-3）\n交叉审查：6 个挑战 / 0 个已解决 （多数投票）\n\n🔥 高优先级（≥7 分，2 条）：\n  - #4「Top AI Agent Frameworks in 2026: A Produ」总分 7 → 评估OpenAI、Anthropic和Google的agent开发套件\n  - #7「Solo founders are using AI to do the wor」总分 7 → 研究AI工具如何帮助单人创业者\n\n📌 中优先级（5-6 分，5 条）：\n  - #5「Top Agentic Frameworks for Building Appl」总分 5 → [供应商降权] 研究deepset的Haystack AI编排框架\n  - #6「The best AI agent frameworks in 2026」总分 5 → [供应商降权] 比较LangChain、CrewAI等七个框架\n  - #8「2026 - The year of the one person billio」总分 5 → 关注单人创业者如何利用AI创建价值\n  - #9「here's what solo founders are actually b」总分 5 → 分析2000家基于AI的初创企业\n  - #10「Week 27 · June 29 – July 3, 2026 - Claud」总分 6 → [供应商降权] 了解Claude Sonnet 5等新功能\n\n💰 本次研判 Token 消耗：\n  - DeepSeek V4 Flash：5 次调用 / 输入 7,732 tokens / 输出 12,890 tokens / ≈ $0.0029\n  - GLM-4-Flash：5 次调用 / 输入 7,365 tokens / 输出 2,267 tokens / ≈ $0.0000\n  - Kimi K3：5 次调用 / 输入 7,612 tokens / 输出 4,103 tokens / ≈ $0.0070\n  **合计 ≈ $0.0099**\n\n---\n\n📋 PM 审核 (warning):\n存在分歧和硬约束降级，部分条目需复核\n建议: 关注分歧大和硬约束降级的条目\n⚠️ 建议人工复核——存在中度分歧和硬约束降级\n标记条目:\n  - #1 [分歧大]: 评分差2分\n  - #2 [分歧大]: 评分差2分\n  - #5 [被降级]: 硬约束降级\n  - #6 [被降级]: 硬约束降级\n  - #10 [被降级]: 硬约束降级\n"
 }
