@@ -1,0 +1,119 @@
+{
+  "date": "2026-08-29",
+  "generated_at": "2026-08-29 15:49",
+  "status": "pending",
+  "items": [
+    {
+      "num": 1,
+      "title": "Artificial Intelligence - AI News",
+      "link": "https://www.reuters.com/technology/artificial-intelligence/",
+      "snippet": "AI Weekly: Nvidia does deal with Wall Street, China's AI weather forecasts · AI Weekly: SpaceX's huge AI spend, Anthropic's hack scare · AI Weekly: Trump mulls AI ...",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [
+        "#Claude",
+        "#China-AI"
+      ],
+      "source": "www.reuters.com"
+    },
+    {
+      "num": 2,
+      "title": "Artificial Intelligence - The New York ...",
+      "link": "https://www.nytimes.com/spotlight/artificial-intelligence",
+      "snippet": "Bill Gates Warns A.I. Is More Dangerous Than Big Tech Will Admit his industry was downplaying the risks, which he believes include mass unemployment and ...",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [],
+      "source": "www.nytimes.com"
+    },
+    {
+      "num": 3,
+      "title": "AI (artificial intelligence)",
+      "link": "https://www.theguardian.com/technology/artificialintelligenceai",
+      "snippet": "Sharp rise in incidents of AI escaping users' control, research finds. AI can detect heart disease in women using mammograms, study suggests",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [],
+      "source": "www.theguardian.com"
+    },
+    {
+      "num": 4,
+      "title": "Top AI Agent Frameworks in 2026: A Production-Ready Comparison",
+      "link": "https://pub.towardsai.net/top-ai-agent-frameworks-in-2026-a-production-ready-comparison-7ba5e39ad56d",
+      "snippet": "OpenAI, Anthropic, and Google all launched agent development kits in 2026. 120+ agentic AI tools across 11 categories, Google Agent Development ...",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent",
+        "#Claude",
+        "#new-tool"
+      ],
+      "source": "pub.towardsai.net"
+    },
+    {
+      "num": 5,
+      "title": "Top Agentic Frameworks for Building Applications 2026",
+      "link": "https://blog.jetbrains.com/pycharm/2026/06/top-agentic-frameworks-for-building-applications-2026/",
+      "snippet": "Haystack is an open-source AI orchestration framework created by deepset for building production-ready AI agents, retrieval-augmented generation ...",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "blog.jetbrains.com"
+    },
+    {
+      "num": 6,
+      "title": "The best AI agent frameworks in 2026 - LangChain",
+      "link": "https://www.langchain.com/resources/ai-agent-frameworks",
+      "snippet": "This guide compares seven frameworks: LangChain, CrewAI, Microsoft Agent Framework, LlamaIndex Workflows, Google ADK, OpenAI Agents SDK, and ...",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "www.langchain.com"
+    },
+    {
+      "num": 7,
+      "title": "Solo founders are using AI to do the work of entire teams—but going it ...",
+      "link": "https://fortune.com/2026/05/18/solo-founders-ai-automation-entire-teams-entrepreneurs/",
+      "snippet": "AI tools are letting founders launch products, serve hundreds of customers, and land big exits on their own, without having to hire any ...",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC",
+        "#new-tool"
+      ],
+      "source": "fortune.com"
+    },
+    {
+      "num": 8,
+      "title": "The Rise of the One Person Business: Solo Founders Reshaping ...",
+      "link": "https://www.cipherprojects.com/blog/posts/rise-one-person-business-solo-founders-reshaping-entrepreneurship/",
+      "snippet": "The rise of the solo founder: how one-person businesses and one-man startups leverage AI, Hermes-class agents, fractional CTO partners, ...",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#AI-agent",
+        "#OPC"
+      ],
+      "source": "www.cipherprojects.com"
+    },
+    {
+      "num": 9,
+      "title": "7 AI SaaS Startups Built by Solo Founders (2026) - Sigmaschool",
+      "link": "https://sigmaschool.co/blog/7-ai-saas-startups-built-by-solo-founders-and-how-you-can-do-it-too",
+      "snippet": "Seven real AI SaaS products built by one-person teams - Base44, Photo AI, HeadshotPro, TypingMind, PDF.ai and more - what they sell, what they reportedly ...",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC"
+      ],
+      "source": "sigmaschool.co"
+    },
+    {
+      "num": 10,
+      "title": "Release notes | Anthropic Help Center - Claude Support",
+      "link": "https://support.claude.com/en/articles/12138966-release-notes",
+      "snippet": "We've upgraded Claude Opus to a new version. Claude Opus 4.8 shows improvements over Opus 4.7 in coding, agentic skills, reasoning, and ...",
+      "query": "Claude Code new features updates 2026",
+      "tags": [
+        "#AI-agent",
+        "#Claude"
+      ],
+      "source": "support.claude.com"
+    }
+  ]
+}
