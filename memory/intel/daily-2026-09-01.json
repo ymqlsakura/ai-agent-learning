@@ -1,0 +1,121 @@
+{
+  "date": "2026-09-01",
+  "generated_at": "2026-09-01 14:12",
+  "status": "pending",
+  "items": [
+    {
+      "num": 1,
+      "title": "AI (artificial intelligence)",
+      "link": "https://www.theguardian.com/technology/artificialintelligenceai",
+      "snippet": "'Superhuman' AI tool spots heart disease in less than 2 seconds. AI hallucinations are infiltrating Australia's. AI is hurting US politics. AI could cause ...",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [
+        "#new-tool"
+      ],
+      "source": "www.theguardian.com"
+    },
+    {
+      "num": 2,
+      "title": "The latest AI-powered martech news and releases",
+      "link": "https://martech.org/the-latest-ai-powered-martech-news-and-releases/",
+      "snippet": "Here are this week's other AI-powered martech releases and news: August 27, 2026 3CLogic released the AI Agent Evaluator software to evaluate and score ...",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "martech.org"
+    },
+    {
+      "num": 3,
+      "title": "Latest Agentic AI News Today | Trends, Predictions, & ...",
+      "link": "https://www.forbes.com/topics/agentic-ai/",
+      "snippet": "AI is moving beyond chatbots to autonomous agents that can execute complex workflows. Here's what you need to know about the new AI workforce.",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "www.forbes.com"
+    },
+    {
+      "num": 4,
+      "title": "Top AI Agent Frameworks in 2026: A Production-Ready ...",
+      "link": "https://pub.towardsai.net/top-ai-agent-frameworks-in-2026-a-production-ready-comparison-7ba5e39ad56d",
+      "snippet": "OpenAI, Anthropic, and Google all launched agent development kits in 2026. 120+ agentic AI tools across 11 categories, Google Agent Development ...",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent",
+        "#Claude",
+        "#new-tool"
+      ],
+      "source": "pub.towardsai.net"
+    },
+    {
+      "num": 5,
+      "title": "Top Agentic Frameworks for Building Applications 2026",
+      "link": "https://blog.jetbrains.com/pycharm/2026/06/top-agentic-frameworks-for-building-applications-2026/",
+      "snippet": "Haystack is an open-source AI orchestration framework created by deepset for building production-ready AI agents, retrieval-augmented generation ...",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "blog.jetbrains.com"
+    },
+    {
+      "num": 6,
+      "title": "The best AI agent frameworks in 2026",
+      "link": "https://www.langchain.com/resources/ai-agent-frameworks",
+      "snippet": "This guide compares seven frameworks: LangChain, CrewAI, Microsoft Agent Framework, LlamaIndex Workflows, Google ADK, OpenAI Agents SDK, and ...",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "www.langchain.com"
+    },
+    {
+      "num": 7,
+      "title": "Solo founders are using AI to do the work of entire teams ...",
+      "link": "https://fortune.com/2026/05/18/solo-founders-ai-automation-entire-teams-entrepreneurs/",
+      "snippet": "AI tools are letting founders launch products, serve hundreds of customers, and land big exits on their own, without having to hire any ...",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC",
+        "#new-tool"
+      ],
+      "source": "fortune.com"
+    },
+    {
+      "num": 8,
+      "title": "2026 - The year of the one person billion dollar startup",
+      "link": "https://www.reddit.com/r/Solopreneur/comments/1r2grc6/2026_the_year_of_the_one_person_billion_dollar/",
+      "snippet": "",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC"
+      ],
+      "source": "www.reddit.com"
+    },
+    {
+      "num": 9,
+      "title": "One person building a $1B company by 2026…wtf?",
+      "link": "https://www.reddit.com/r/SaaS/comments/1rdtjg8/one_person_building_a_1b_company_by_2026wtf/",
+      "snippet": "",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC"
+      ],
+      "source": "www.reddit.com"
+    },
+    {
+      "num": 10,
+      "title": "Release notes | Anthropic Help Center - Claude Support",
+      "link": "https://support.claude.com/en/articles/12138966-release-notes",
+      "snippet": "We've upgraded Claude Opus to a new version. Claude Opus 4.8 shows improvements over Opus 4.7 in coding, agentic skills, reasoning, and ...",
+      "query": "Claude Code new features updates 2026",
+      "tags": [
+        "#AI-agent",
+        "#Claude"
+      ],
+      "source": "support.claude.com"
+    }
+  ]
+}
