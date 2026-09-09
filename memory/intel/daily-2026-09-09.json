@@ -1,0 +1,116 @@
+{
+  "date": "2026-09-09",
+  "generated_at": "2026-09-09 13:55",
+  "status": "pending",
+  "items": [
+    {
+      "num": 1,
+      "title": "AI News Today, September 8: Top Stories | AI Weekly",
+      "link": "https://aiweekly.co/ai-news-today",
+      "snippet": "Mistral raises €3B in Europe's biggest tech round, led by Samsung · Meta approved hundreds of AI CSAM ads over nine months · Qualcomm and Amazon strike multi- ...",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [],
+      "source": "aiweekly.co"
+    },
+    {
+      "num": 2,
+      "title": "Artificial Intelligence (AI) News Updates - The Economic Times",
+      "link": "https://m.economictimes.com/tech/artificial-intelligence",
+      "snippet": "Meta launches AI agent that can access other apps to send emails, make payments · OpenAI offers AI for chip design, touts cost advantage over open-source, ...",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "m.economictimes.com"
+    },
+    {
+      "num": 3,
+      "title": "AI News: Artificial Intelligence Trends And Top AI Stocks To Watch",
+      "link": "https://www.investors.com/news/technology/ai-stocks-artificial-intelligence-trends-and-news/",
+      "snippet": "AI Champs Nvidia, AMD Lead 17 Top Performers Onto IBD. AI Stocks: Tech Giants, Cloud Titans, Chipmakers Battle For An Edge",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [],
+      "source": "www.investors.com"
+    },
+    {
+      "num": 4,
+      "title": "The Age of the One-Person Company - Linas's Newsletter",
+      "link": "https://linas.substack.com/p/one-person-company-ai-agents",
+      "snippet": "Stripe, Carta & CB Insights data on solo founders building million-dollar companies with AI agents instead of employees, and 2026's biggest ...",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#AI-agent",
+        "#OPC"
+      ],
+      "source": "linas.substack.com"
+    },
+    {
+      "num": 5,
+      "title": "Solo Founders Rise: 36% of Startups Led by One Person in ...",
+      "link": "https://www.linkedin.com/posts/guillermoflor_%F0%9D%9F%AE%F0%9D%9F%AC%F0%9D%9F%AE%F0%9D%9F%B2-%F0%9D%98%84%F0%9D%97%B6%F0%9D%97%B9%F0%9D%97%B9-%F0%9D%97%AF%F0%9D%97%B2-%F0%9D%98%81%F0%9D%97%B5%F0%9D%97%B2-%F0%9D%97%B3%F0%9D%97%B6%F0%9D%97%BF%F0%9D%98%80%F0%9D%98%81-activity-7406784696673656832-qpgE",
+      "snippet": "2026 will be the first year with a 1-person company worth $1 billion Sam Altman ...",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC"
+      ],
+      "source": "www.linkedin.com"
+    },
+    {
+      "num": 6,
+      "title": "2026 - The year of the one person billion dollar startup",
+      "link": "https://www.reddit.com/r/Solopreneur/comments/1r2grc6/2026_the_year_of_the_one_person_billion_dollar/",
+      "snippet": "",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC"
+      ],
+      "source": "www.reddit.com"
+    },
+    {
+      "num": 7,
+      "title": "Release notes | Claude Help Center",
+      "link": "https://support.claude.com/en/articles/12138966-release-notes",
+      "snippet": "July 9, 2026. A new way to reflect with Claude. Your monthly ... Two new cybersecurity features were added to Claude Code: /security ...",
+      "query": "Claude Code new features updates 2026",
+      "tags": [
+        "#Claude"
+      ],
+      "source": "support.claude.com"
+    },
+    {
+      "num": 8,
+      "title": "Every Claude Code Update From March 2026, Explained",
+      "link": "https://www.builder.io/blog/claude-code-updates",
+      "snippet": "Claude Code's March 2026 updates explained: computer use, auto mode, remote control, scheduled tasks, cloud fixes, visuals, and much much ...",
+      "query": "Claude Code new features updates 2026",
+      "tags": [
+        "#Claude"
+      ],
+      "source": "www.builder.io"
+    },
+    {
+      "num": 9,
+      "title": "Week 27 · June 29 – July 3, 2026 - Claude Code Docs",
+      "link": "https://code.claude.com/docs/en/whats-new/2026-w27",
+      "snippet": "Claude Sonnet 5 becomes the default model, Claude in Chrome reaches general availability, subagents run in the background by default, Claude Desktop arrives ...",
+      "query": "Claude Code new features updates 2026",
+      "tags": [
+        "#AI-agent",
+        "#Claude"
+      ],
+      "source": "code.claude.com"
+    },
+    {
+      "num": 10,
+      "title": "China's new AI rules: Ethics, AI agents and ...",
+      "link": "https://iapp.org/news/a/china-s-new-ai-rules-ethics-ai-agents-and-anthropomorphic-ai",
+      "snippet": "China introduced three new regulatory developments addressing AI ethics, AI agents and anthropomorphic AI ... July 2026 marked an important ...",
+      "query": "China AI policy regulation 2026",
+      "tags": [
+        "#AI-agent",
+        "#China-AI"
+      ],
+      "source": "iapp.org"
+    }
+  ]
+}
