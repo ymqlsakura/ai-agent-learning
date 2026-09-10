@@ -1,7 +1,7 @@
 {
   "date": "2026-09-10",
   "generated_at": "2026-09-10 13:53",
-  "status": "pending",
+  "status": "scored",
   "items": [
     {
       "num": 1,
@@ -110,5 +110,249 @@
       ],
       "source": "support.claude.com"
     }
-  ]
+  ],
+  "scored_at": "2026-09-10 13:56",
+  "scores": [
+    {
+      "num": 1,
+      "title": "Artificial Intelligence - The New York Times",
+      "link": "https://www.nytimes.com/spotlight/artificial-intelligence",
+      "relevance": 2,
+      "feasibility": 1,
+      "leverage": 0,
+      "total": 3,
+      "action": "[强制梯度 4→3] 跳过，聚合页无实质可行动信息",
+      "worker_scores": {
+        "deepseek": {
+          "relevance": 1,
+          "feasibility": 1,
+          "leverage": 0,
+          "total": 2
+        },
+        "glm": {
+          "relevance": 2,
+          "feasibility": 1,
+          "leverage": 2,
+          "total": 5
+        }
+      }
+    },
+    {
+      "num": 2,
+      "title": "AI (artificial intelligence) | The Guardian",
+      "link": "https://www.theguardian.com/technology/artificialintelligenceai",
+      "relevance": 2,
+      "feasibility": 1,
+      "leverage": 0,
+      "total": 3,
+      "action": "[强制梯度 4→3] 标记噪音，不投入阅读时间",
+      "worker_scores": {
+        "deepseek": {
+          "relevance": 2,
+          "feasibility": 1,
+          "leverage": 1,
+          "total": 4
+        },
+        "glm": {
+          "relevance": 3,
+          "feasibility": 1,
+          "leverage": 2,
+          "total": 6
+        }
+      }
+    },
+    {
+      "num": 3,
+      "title": "AI researcher warns companies are ignoring catastrophic risks",
+      "link": "https://www.youtube.com/watch?v=pGLWeE0S6k4",
+      "relevance": 2,
+      "feasibility": 1,
+      "leverage": 0,
+      "total": 3,
+      "action": "[强制梯度 4→3] 跳过，纯风险叙事无落地价值",
+      "worker_scores": {
+        "deepseek": {
+          "relevance": 1,
+          "feasibility": 1,
+          "leverage": 0,
+          "total": 2
+        },
+        "glm": {
+          "relevance": 2,
+          "feasibility": 1,
+          "leverage": 2,
+          "total": 5
+        }
+      }
+    },
+    {
+      "num": 4,
+      "title": "Top AI Agent Frameworks in 2026: A Production-Ready ...",
+      "link": "https://pub.towardsai.net/top-ai-agent-frameworks-in-2026-a-production-ready-comparison-7ba5e39ad56d",
+      "relevance": 3,
+      "feasibility": 2,
+      "leverage": 2,
+      "total": 7,
+      "action": "收藏做选型对比，暂不切换技术栈",
+      "worker_scores": {
+        "deepseek": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 2,
+          "total": 7
+        },
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        }
+      }
+    },
+    {
+      "num": 5,
+      "title": "The best AI agent frameworks in 2026",
+      "link": "https://www.langchain.com/resources/ai-agent-frameworks",
+      "relevance": 3,
+      "feasibility": 2,
+      "leverage": 1,
+      "total": 6,
+      "action": "[供应商降权] 对照官方与第三方评测核验，避免营销话术",
+      "worker_scores": {
+        "deepseek": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 1,
+          "total": 6
+        },
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        }
+      }
+    },
+    {
+      "num": 6,
+      "title": "Top Agentic Frameworks for Building Applications 2026",
+      "link": "https://blog.jetbrains.com/pycharm/2026/06/top-agentic-frameworks-for-building-applications-2026/",
+      "relevance": 3,
+      "feasibility": 2,
+      "leverage": 1,
+      "total": 6,
+      "action": "[供应商降权] 读一遍优劣，作为中长期选型参考",
+      "worker_scores": {
+        "deepseek": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        },
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        }
+      }
+    },
+    {
+      "num": 7,
+      "title": "Solo founders are using AI to do the work of entire teams ...",
+      "link": "https://fortune.com/2026/05/18/solo-founders-ai-automation-entire-teams-entrepreneurs/",
+      "relevance": 3,
+      "feasibility": 2,
+      "leverage": 3,
+      "total": 8,
+      "action": "精读提炼OPC自动化打法，照抄流程",
+      "worker_scores": {
+        "deepseek": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        },
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        }
+      }
+    },
+    {
+      "num": 8,
+      "title": "2026 - The year of the one person billion dollar startup",
+      "link": "https://www.reddit.com/r/Solopreneur/comments/1r2grc6/2026_the_year_of_the_one_person_billion_dollar/",
+      "relevance": 3,
+      "feasibility": 2,
+      "leverage": 2,
+      "total": 7,
+      "action": "仅作情绪参考，不据此决策",
+      "worker_scores": {
+        "deepseek": {
+          "relevance": 3,
+          "feasibility": 1,
+          "leverage": 1,
+          "total": 5
+        },
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        }
+      }
+    },
+    {
+      "num": 9,
+      "title": "Can a single person build a massive business with AI in 2026?",
+      "link": "https://www.reddit.com/r/SaaS/comments/1uqpdlj/can_a_single_person_build_a_massive_business_with/",
+      "relevance": 2,
+      "feasibility": 1,
+      "leverage": 1,
+      "total": 4,
+      "action": "跳过，无摘要无法判断可行动性",
+      "worker_scores": {
+        "deepseek": {
+          "relevance": 2,
+          "feasibility": 1,
+          "leverage": 0,
+          "total": 3
+        },
+        "glm": {
+          "relevance": 2,
+          "feasibility": 1,
+          "leverage": 2,
+          "total": 5
+        }
+      }
+    },
+    {
+      "num": 10,
+      "title": "Release notes | Claude Help Center",
+      "link": "https://support.claude.com/en/articles/12138966-release-notes",
+      "relevance": 3,
+      "feasibility": 2,
+      "leverage": 1,
+      "total": 6,
+      "action": "[硬约束降级: ≥7上限 7→6] 立刻启用Claude Memory整理跨会话项目上下文",
+      "worker_scores": {
+        "deepseek": {
+          "relevance": 3,
+          "feasibility": 3,
+          "leverage": 2,
+          "total": 8
+        },
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        }
+      }
+    }
+  ],
+  "conclusion": "研判时间：2026-09-10 13:55（北京时间）\n参与 Worker：deepseek, glm\n评分标准：OPC-CONFIG.md 三维评分（相关性/可行性/杠杆率 0-3）\n\n🔥 高优先级（≥7 分，3 条）：\n  - #4「Top AI Agent Frameworks in 2026: A Produ」总分 7 → 收藏做选型对比，暂不切换技术栈\n  - #7「Solo founders are using AI to do the wor」总分 8 → 精读提炼OPC自动化打法，照抄流程\n  - #8「2026 - The year of the one person billio」总分 7 → 仅作情绪参考，不据此决策\n\n📌 中优先级（5-6 分，3 条）：\n  - #5「The best AI agent frameworks in 2026」总分 6 → [供应商降权] 对照官方与第三方评测核验，避免营销话术\n  - #6「Top Agentic Frameworks for Building Appl」总分 6 → [供应商降权] 读一遍优劣，作为中长期选型参考\n  - #10「Release notes | Claude Help Center」总分 6 → [硬约束降级: ≥7上限 7→6] 立刻启用Claude Memory整理跨会话项目上下文\n\n💰 本次研判 Token 消耗：\n  - DeepSeek V4 Flash：5 次调用 / 输入 7,662 tokens / 输出 12,114 tokens / ≈ $0.0028\n  - GLM-4-Flash：5 次调用 / 输入 7,565 tokens / 输出 2,627 tokens / ≈ $0.0000\n  **合计 ≈ $0.0028**\n\n---\n\n📋 PM 审核 (warning):\n存在多个条目评分分歧和硬约束降级，需人工复核。\n建议: 关注分歧大的条目，复核硬约束降级的原因。\n⚠️ 建议人工复核——存在中度分歧和硬约束降级\n标记条目:\n  - #1 [分歧大]: 被硬约束降级\n  - #2 [分歧大]: 被硬约束降级\n  - #3 [分歧大]: 被硬约束降级\n  - #5 [分歧大]: 被硬约束降级\n  - #6 [分歧大]: 被硬约束降级\n  - #8 [分歧大]: 被硬约束降级\n  - #9 [分歧大]: 被硬约束降级\n  - #10 [分歧大]: 被硬约束降级\n"
 }
