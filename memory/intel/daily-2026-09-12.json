@@ -1,0 +1,118 @@
+{
+  "date": "2026-09-12",
+  "generated_at": "2026-09-12 13:40",
+  "status": "pending",
+  "items": [
+    {
+      "num": 1,
+      "title": "AI News Today, September 11: Top Stories | AI Weekly",
+      "link": "https://aiweekly.co/ai-news-today",
+      "snippet": "Shenzhen-based Kinetix AI disclosed more than RMB500 million (~$74.5M) across a series of Angel+ rounds to build a full-stack humanoid platform — hardware ( ...",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [
+        "#new-tool"
+      ],
+      "source": "aiweekly.co"
+    },
+    {
+      "num": 2,
+      "title": "US lawmakers seek new AI rules after warnings - Facebook",
+      "link": "https://www.facebook.com/Reuters/videos/us-lawmakers-seek-new-ai-rules-after-warnings/1774153166952942/",
+      "snippet": "US lawmakers this week called for new rules to govern AI, after an Anthropic researcher went public with his concerns about the technology escaping human...",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [
+        "#Claude"
+      ],
+      "source": "www.facebook.com"
+    },
+    {
+      "num": 3,
+      "title": "RWS AI news round-up for this week - Facebook",
+      "link": "https://www.facebook.com/TheRWSGroup/posts/time-for-our-news-round-up-%EF%B8%8Ffrom-apples-new-iphone-duo-to-veronica-hylaks-un-obs/1504218785072762/",
+      "snippet": "1. OpenAI acquires health-records startup Torch … 2. Google Gemini users generate 1 billion images with Nano Banana Pro — Rapid adoption of Google's AI image ...",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [],
+      "source": "www.facebook.com"
+    },
+    {
+      "num": 4,
+      "title": "Top AI Agent Frameworks in 2026: A Production-Ready ...",
+      "link": "https://pub.towardsai.net/top-ai-agent-frameworks-in-2026-a-production-ready-comparison-7ba5e39ad56d",
+      "snippet": "OpenAI, Anthropic, and Google all launched agent development kits in 2026. 120+ agentic AI tools across 11 categories, Google Agent Development ...",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent",
+        "#Claude",
+        "#new-tool"
+      ],
+      "source": "pub.towardsai.net"
+    },
+    {
+      "num": 5,
+      "title": "The best AI agent frameworks in 2026",
+      "link": "https://www.langchain.com/resources/ai-agent-frameworks",
+      "snippet": "This guide compares seven frameworks: LangChain, CrewAI, Microsoft Agent Framework, LlamaIndex Workflows, Google ADK, OpenAI Agents SDK, and ...",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "www.langchain.com"
+    },
+    {
+      "num": 6,
+      "title": "Top Agentic Frameworks for Building Applications 2026",
+      "link": "https://blog.jetbrains.com/pycharm/2026/06/top-agentic-frameworks-for-building-applications-2026/",
+      "snippet": "Let's compare the leading agentic AI frameworks in 2026 and explore what each framework does best – click here to find the right framework ...",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "blog.jetbrains.com"
+    },
+    {
+      "num": 7,
+      "title": "Solo founders are using AI to do the work of entire teams ...",
+      "link": "https://fortune.com/2026/05/18/solo-founders-ai-automation-entire-teams-entrepreneurs/",
+      "snippet": "AI tools are letting founders launch products, serve hundreds of customers, and land big exits on their own, without having to hire any ...",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC",
+        "#new-tool"
+      ],
+      "source": "fortune.com"
+    },
+    {
+      "num": 8,
+      "title": "The One-Person Unicorn: How Solo Founders Are Building ...",
+      "link": "https://fi.co/insight/the-one-person-unicorn-how-solo-founders-are-building-billion-dollar-companies-with-ai-in-2026",
+      "snippet": "... Solo Founders Are Building Billion-Dollar Companies With AI in 2026 ... AI-native company builder designed around the solo, AI-native founder.",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC"
+      ],
+      "source": "fi.co"
+    },
+    {
+      "num": 9,
+      "title": "2026 - The year of the one person billion dollar startup",
+      "link": "https://www.reddit.com/r/Solopreneur/comments/1r2grc6/2026_the_year_of_the_one_person_billion_dollar/",
+      "snippet": "",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC"
+      ],
+      "source": "www.reddit.com"
+    },
+    {
+      "num": 10,
+      "title": "Release notes | Claude Help Center",
+      "link": "https://support.claude.com/en/articles/12138966-release-notes",
+      "snippet": "May 28, 2026. Claude Opus 4.8 launch. We've upgraded Claude Opus to a new version. Claude Opus 4.8 shows improvements over Opus 4.7 ...",
+      "query": "Claude Code new features updates 2026",
+      "tags": [
+        "#Claude"
+      ],
+      "source": "support.claude.com"
+    }
+  ]
+}
