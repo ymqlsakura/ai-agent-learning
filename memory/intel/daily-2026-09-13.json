@@ -1,7 +1,7 @@
 {
   "date": "2026-09-13",
   "generated_at": "2026-09-13 14:01",
-  "status": "pending",
+  "status": "scored",
   "items": [
     {
       "num": 1,
@@ -114,5 +114,189 @@
       ],
       "source": "support.claude.com"
     }
-  ]
+  ],
+  "scored_at": "2026-09-13 14:03",
+  "scores": [
+    {
+      "num": 1,
+      "title": "AI News Today, September 12: Top Stories | AI Weekly",
+      "link": "https://aiweekly.co/ai-news-today",
+      "relevance": 2,
+      "feasibility": 1,
+      "leverage": 0,
+      "total": 3,
+      "action": "[强制梯度 5→3] 关注Amodei的建议，评估其对一人公司的影响。",
+      "worker_scores": {
+        "glm": {
+          "relevance": 2,
+          "feasibility": 1,
+          "leverage": 2,
+          "total": 5
+        }
+      }
+    },
+    {
+      "num": 2,
+      "title": "Artificial intelligence | Latest News & Updates - BBC",
+      "link": "https://www.bbc.co.uk/news/topics/ce1qrvleleqt",
+      "relevance": 2,
+      "feasibility": 1,
+      "leverage": 0,
+      "total": 3,
+      "action": "[强制梯度 5→3] 研究Anthropic的AI发展策略。",
+      "worker_scores": {
+        "glm": {
+          "relevance": 2,
+          "feasibility": 1,
+          "leverage": 2,
+          "total": 5
+        }
+      }
+    },
+    {
+      "num": 3,
+      "title": "US lawmakers seek new AI rules after warnings - Facebook",
+      "link": "https://www.facebook.com/Reuters/videos/us-lawmakers-seek-new-ai-rules-after-warnings/1774153166952942/",
+      "relevance": 2,
+      "feasibility": 1,
+      "leverage": 0,
+      "total": 3,
+      "action": "[强制梯度 5→3] 关注美国立法者对AI的新规讨论。",
+      "worker_scores": {
+        "glm": {
+          "relevance": 2,
+          "feasibility": 1,
+          "leverage": 2,
+          "total": 5
+        }
+      }
+    },
+    {
+      "num": 4,
+      "title": "Top AI Agent Frameworks in 2026: A Production-Ready ...",
+      "link": "https://pub.towardsai.net/top-ai-agent-frameworks-in-2026-a-production-ready-comparison-7ba5e39ad56d",
+      "relevance": 3,
+      "feasibility": 2,
+      "leverage": 3,
+      "total": 8,
+      "action": "评估这些框架对一人公司的适用性。",
+      "worker_scores": {
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        }
+      }
+    },
+    {
+      "num": 5,
+      "title": "The best AI agent frameworks in 2026",
+      "link": "https://www.langchain.com/resources/ai-agent-frameworks",
+      "relevance": 3,
+      "feasibility": 2,
+      "leverage": 1,
+      "total": 6,
+      "action": "[硬约束降级: ≥7上限 7→6] [供应商降权] 比较这些框架的功能，选择适合一人公司的工具。",
+      "worker_scores": {
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        }
+      }
+    },
+    {
+      "num": 6,
+      "title": "Top Agentic Frameworks for Building Applications 2026",
+      "link": "https://blog.jetbrains.com/pycharm/2026/06/top-agentic-frameworks-for-building-applications-2026/",
+      "relevance": 3,
+      "feasibility": 2,
+      "leverage": 1,
+      "total": 6,
+      "action": "[硬约束降级: ≥7上限 7→6] [供应商降权] 研究这些框架的最佳用途。",
+      "worker_scores": {
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        }
+      }
+    },
+    {
+      "num": 7,
+      "title": "Solo founders are using AI to do the work of entire teams ...",
+      "link": "https://fortune.com/2026/05/18/solo-founders-ai-automation-entire-teams-entrepreneurs/",
+      "relevance": 3,
+      "feasibility": 2,
+      "leverage": 3,
+      "total": 8,
+      "action": "探索AI工具如何帮助一人公司。",
+      "worker_scores": {
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        }
+      }
+    },
+    {
+      "num": 8,
+      "title": "2026 - The year of the one person billion dollar startup",
+      "link": "https://www.reddit.com/r/Solopreneur/comments/1r2grc6/2026_the_year_of_the_one_person_billion_dollar/",
+      "relevance": 3,
+      "feasibility": 2,
+      "leverage": 3,
+      "total": 8,
+      "action": "分析一人公司的发展趋势。",
+      "worker_scores": {
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        }
+      }
+    },
+    {
+      "num": 9,
+      "title": "Can a single person build a massive business with AI in 2026?",
+      "link": "https://www.reddit.com/r/SaaS/comments/1uqpdlj/can_a_single_person_build_a_massive_business_with/",
+      "relevance": 3,
+      "feasibility": 2,
+      "leverage": 1,
+      "total": 6,
+      "action": "[硬约束降级: ≥7上限 8→6] 评估AI在一人公司中的应用潜力。",
+      "worker_scores": {
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        }
+      }
+    },
+    {
+      "num": 10,
+      "title": "Release notes | Claude Help Center",
+      "link": "https://support.claude.com/en/articles/12138966-release-notes",
+      "relevance": 2,
+      "feasibility": 2,
+      "leverage": 2,
+      "total": 6,
+      "action": "[硬约束降级: ≥7上限 7→6] 更新Claude的使用方法。",
+      "worker_scores": {
+        "glm": {
+          "relevance": 2,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 7
+        }
+      }
+    }
+  ],
+  "conclusion": "研判时间：2026-09-13 14:02（北京时间）\n参与 Worker：deepseek, glm\n评分标准：OPC-CONFIG.md 三维评分（相关性/可行性/杠杆率 0-3）\n\n🔥 高优先级（≥7 分，3 条）：\n  - #4「Top AI Agent Frameworks in 2026: A Produ」总分 8 → 评估这些框架对一人公司的适用性。\n  - #7「Solo founders are using AI to do the wor」总分 8 → 探索AI工具如何帮助一人公司。\n  - #8「2026 - The year of the one person billio」总分 8 → 分析一人公司的发展趋势。\n\n📌 中优先级（5-6 分，4 条）：\n  - #5「The best AI agent frameworks in 2026」总分 6 → [硬约束降级: ≥7上限 7→6] [供应商降权] 比较这些框架的功能，选择适合一人公司的工具。\n  - #6「Top Agentic Frameworks for Building Appl」总分 6 → [硬约束降级: ≥7上限 7→6] [供应商降权] 研究这些框架的最佳用途。\n  - #9「Can a single person build a massive busi」总分 6 → [硬约束降级: ≥7上限 8→6] 评估AI在一人公司中的应用潜力。\n  - #10「Release notes | Claude Help Center」总分 6 → [硬约束降级: ≥7上限 7→6] 更新Claude的使用方法。\n\n💰 本次研判 Token 消耗：\n  - DeepSeek V4 Flash：2 次调用 / 输入 3,600 tokens / 输出 6,144 tokens / ≈ $0.0014\n  - GLM-4-Flash：2 次调用 / 输入 3,563 tokens / 输出 1,089 tokens / ≈ $0.0000\n  **合计 ≈ $0.0014**\n\n---\n\n📋 PM 审核 (warning):\n存在分歧和硬约束降级，需人工复核\n建议: 复核分歧大和硬约束降级的条目\n⚠️ 建议人工复核——存在中度分歧和硬约束降级\n标记条目:\n  - #4 [分歧大]: 评分不一致\n  - #5 [分歧大]: 评分不一致\n  - #6 [分歧大]: 评分不一致\n  - #9 [分歧大]: 评分不一致\n  - #10 [被降级]: 硬约束降级\n"
 }
