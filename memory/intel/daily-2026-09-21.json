@@ -1,0 +1,113 @@
+{
+  "date": "2026-09-21",
+  "generated_at": "2026-09-21 14:12",
+  "status": "pending",
+  "items": [
+    {
+      "num": 1,
+      "title": "Artificial Intelligence - The New York Times",
+      "link": "https://www.nytimes.com/spotlight/artificial-intelligence",
+      "snippet": "Google Says Its A.I. Hacked Three Companies in Testing Breakout. A third-party test company inadvertently gave internet access to Google's Gemini and other ...",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [],
+      "source": "www.nytimes.com"
+    },
+    {
+      "num": 2,
+      "title": "AI (artificial intelligence) | The Guardian",
+      "link": "https://www.theguardian.com/technology/artificialintelligenceai",
+      "snippet": "Google said the hacks highlighted the importance of training its AI models to 'act responsibly. Google says its Gemini AI model hacked three other companies.",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [],
+      "source": "www.theguardian.com"
+    },
+    {
+      "num": 3,
+      "title": "Artificial intelligence | Latest News & Updates - BBC",
+      "link": "https://www.bbc.co.uk/news/topics/ce1qrvleleqt",
+      "snippet": "US President Donald Trump delivers remarks at the \"Winning the AI Race\" AI Summit. Google's Gemini AI hacked three companies in security test. Attribution.",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [],
+      "source": "www.bbc.co.uk"
+    },
+    {
+      "num": 4,
+      "title": "Top AI Agent Frameworks in 2026: A Production-Ready ...",
+      "link": "https://pub.towardsai.net/top-ai-agent-frameworks-in-2026-a-production-ready-comparison-7ba5e39ad56d",
+      "snippet": "OpenAI, Anthropic, and Google all launched agent development kits in 2026. 120+ agentic AI tools across 11 categories, Google Agent Development ...",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent",
+        "#Claude",
+        "#new-tool"
+      ],
+      "source": "pub.towardsai.net"
+    },
+    {
+      "num": 5,
+      "title": "The best AI agent frameworks in 2026",
+      "link": "https://www.langchain.com/resources/ai-agent-frameworks",
+      "snippet": "This guide compares seven frameworks: LangChain, CrewAI, Microsoft Agent Framework, LlamaIndex Workflows, Google ADK, OpenAI Agents SDK, and ...",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "www.langchain.com"
+    },
+    {
+      "num": 6,
+      "title": "Top Agentic Frameworks for Building Applications 2026",
+      "link": "https://blog.jetbrains.com/pycharm/2026/06/top-agentic-frameworks-for-building-applications-2026/",
+      "snippet": "Let's compare the leading agentic AI frameworks in 2026 and explore what each framework does best – click here to find the right framework ...",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "blog.jetbrains.com"
+    },
+    {
+      "num": 7,
+      "title": "The One-Person Unicorn: How Solo Founders Are Building ...",
+      "link": "https://fi.co/insight/the-one-person-unicorn-how-solo-founders-are-building-billion-dollar-companies-with-ai-in-2026",
+      "snippet": "... Solo Founders Are Building Billion-Dollar Companies With AI in 2026 ... AI-native company builder designed around the solo, AI-native founder.",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC"
+      ],
+      "source": "fi.co"
+    },
+    {
+      "num": 8,
+      "title": "2026 - The year of the one person billion dollar startup",
+      "link": "https://www.reddit.com/r/Solopreneur/comments/1r2grc6/2026_the_year_of_the_one_person_billion_dollar/",
+      "snippet": "",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC"
+      ],
+      "source": "www.reddit.com"
+    },
+    {
+      "num": 9,
+      "title": "Can a solo founder realistically build a $1B company in the AI era?",
+      "link": "https://www.reddit.com/r/SaaS/comments/1rlodwv/can_a_solo_founder_realistically_build_a_1b/",
+      "snippet": "",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC"
+      ],
+      "source": "www.reddit.com"
+    },
+    {
+      "num": 10,
+      "title": "Release notes | Claude Help Center",
+      "link": "https://support.claude.com/en/articles/12138966-release-notes",
+      "snippet": "July 10, 2026 Updated memory for Claude Memory on Claude now works as a set of individual, categorized entries that Claude reads and updates ...",
+      "query": "Claude Code new features updates 2026",
+      "tags": [
+        "#Claude"
+      ],
+      "source": "support.claude.com"
+    }
+  ]
+}
