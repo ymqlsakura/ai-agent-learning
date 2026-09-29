@@ -1,7 +1,7 @@
 {
   "date": "2026-09-29",
   "generated_at": "2026-09-29 14:48",
-  "status": "pending",
+  "status": "scored",
   "items": [
     {
       "num": 1,
@@ -115,5 +115,189 @@
       ],
       "source": "support.claude.com"
     }
-  ]
+  ],
+  "scored_at": "2026-09-29 14:51",
+  "scores": [
+    {
+      "num": 1,
+      "title": "Artificial intelligence - BBC News",
+      "link": "https://www.bbc.com/news/topics/ce1qrvleleqt",
+      "relevance": 2,
+      "feasibility": 1,
+      "leverage": 0,
+      "total": 3,
+      "action": "[强制梯度 5→3] 关注 OpenAI 的安全问题和模型更新",
+      "worker_scores": {
+        "glm": {
+          "relevance": 2,
+          "feasibility": 1,
+          "leverage": 2,
+          "total": 5
+        }
+      }
+    },
+    {
+      "num": 2,
+      "title": "AI News Today, September 29: Top Stories",
+      "link": "https://aiweekly.co/ai-news-today",
+      "relevance": 2,
+      "feasibility": 1,
+      "leverage": 0,
+      "total": 3,
+      "action": "[强制梯度 5→3] 研究 AMD 收购 World Labs 的细节",
+      "worker_scores": {
+        "glm": {
+          "relevance": 2,
+          "feasibility": 1,
+          "leverage": 2,
+          "total": 5
+        }
+      }
+    },
+    {
+      "num": 3,
+      "title": "AI (artificial intelligence)",
+      "link": "https://www.theguardian.com/technology/artificialintelligenceai",
+      "relevance": 2,
+      "feasibility": 1,
+      "leverage": 0,
+      "total": 3,
+      "action": "[强制梯度 5→3] 评估 Meta AI 代理 Muse 的隐私风险",
+      "worker_scores": {
+        "glm": {
+          "relevance": 2,
+          "feasibility": 1,
+          "leverage": 2,
+          "total": 5
+        }
+      }
+    },
+    {
+      "num": 4,
+      "title": "Top AI Agent Frameworks in 2026: A Production-Ready ...",
+      "link": "https://pub.towardsai.net/top-ai-agent-frameworks-in-2026-a-production-ready-comparison-7ba5e39ad56d",
+      "relevance": 3,
+      "feasibility": 2,
+      "leverage": 3,
+      "total": 8,
+      "action": "评估 OpenAI Agents SDK 的适用性",
+      "worker_scores": {
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        }
+      }
+    },
+    {
+      "num": 5,
+      "title": "The best AI agent frameworks in 2026",
+      "link": "https://www.langchain.com/resources/ai-agent-frameworks",
+      "relevance": 3,
+      "feasibility": 2,
+      "leverage": 1,
+      "total": 6,
+      "action": "[硬约束降级: ≥7上限 7→6] [供应商降权] 比较不同 AI 代理框架的特点",
+      "worker_scores": {
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        }
+      }
+    },
+    {
+      "num": 6,
+      "title": "My guide on what tools to use to build AI agents in 2026 (if ...",
+      "link": "https://www.reddit.com/r/AI_Agents/comments/1rdf5v7/my_guide_on_what_tools_to_use_to_build_ai_agents/",
+      "relevance": 2,
+      "feasibility": 2,
+      "leverage": 2,
+      "total": 6,
+      "action": "了解 Reddit 上推荐的 AI 代理工具",
+      "worker_scores": {
+        "glm": {
+          "relevance": 2,
+          "feasibility": 2,
+          "leverage": 2,
+          "total": 6
+        }
+      }
+    },
+    {
+      "num": 7,
+      "title": "The One-Person Unicorn: How Solo Founders Are Building ...",
+      "link": "https://fi.co/insight/the-one-person-unicorn-how-solo-founders-are-building-billion-dollar-companies-with-ai-in-2026",
+      "relevance": 3,
+      "feasibility": 2,
+      "leverage": 3,
+      "total": 8,
+      "action": "研究一人公司如何利用 AI 创造价值",
+      "worker_scores": {
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        }
+      }
+    },
+    {
+      "num": 8,
+      "title": "The Rise of the One Person Business: Solo Founders ...",
+      "link": "https://www.cipherprojects.com/blog/posts/rise-one-person-business-solo-founders-reshaping-entrepreneurship/",
+      "relevance": 3,
+      "feasibility": 2,
+      "leverage": 3,
+      "total": 8,
+      "action": "分析 AI 如何改变一人公司的运营模式",
+      "worker_scores": {
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        }
+      }
+    },
+    {
+      "num": 9,
+      "title": "Solo founders are using AI to do the work of entire teams ...",
+      "link": "https://fortune.com/2026/05/18/solo-founders-ai-automation-entire-teams-entrepreneurs/",
+      "relevance": 3,
+      "feasibility": 2,
+      "leverage": 1,
+      "total": 6,
+      "action": "[硬约束降级: ≥7上限 8→6] 了解 AI 工具如何帮助一人公司自动化工作",
+      "worker_scores": {
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        }
+      }
+    },
+    {
+      "num": 10,
+      "title": "Release notes | Claude Help Center",
+      "link": "https://support.claude.com/en/articles/12138966-release-notes",
+      "relevance": 2,
+      "feasibility": 2,
+      "leverage": 2,
+      "total": 6,
+      "action": "评估 Claude Code 的新安全功能",
+      "worker_scores": {
+        "glm": {
+          "relevance": 2,
+          "feasibility": 2,
+          "leverage": 2,
+          "total": 6
+        }
+      }
+    }
+  ],
+  "conclusion": "研判时间：2026-09-29 14:50（北京时间）\n参与 Worker：deepseek, glm\n评分标准：OPC-CONFIG.md 三维评分（相关性/可行性/杠杆率 0-3）\n\n🔥 高优先级（≥7 分，3 条）：\n  - #4「Top AI Agent Frameworks in 2026: A Produ」总分 8 → 评估 OpenAI Agents SDK 的适用性\n  - #7「The One-Person Unicorn: How Solo Founder」总分 8 → 研究一人公司如何利用 AI 创造价值\n  - #8「The Rise of the One Person Business: Sol」总分 8 → 分析 AI 如何改变一人公司的运营模式\n\n📌 中优先级（5-6 分，4 条）：\n  - #5「The best AI agent frameworks in 2026」总分 6 → [硬约束降级: ≥7上限 7→6] [供应商降权] 比较不同 AI 代理框架的特点\n  - #6「My guide on what tools to use to build A」总分 6 → 了解 Reddit 上推荐的 AI 代理工具\n  - #9「Solo founders are using AI to do the wor」总分 6 → [硬约束降级: ≥7上限 8→6] 了解 AI 工具如何帮助一人公司自动化工作\n  - #10「Release notes | Claude Help Center」总分 6 → 评估 Claude Code 的新安全功能\n\n💰 本次研判 Token 消耗：\n  - DeepSeek V4 Flash：2 次调用 / 输入 3,619 tokens / 输出 6,144 tokens / ≈ $0.0014\n  - GLM-4-Flash：2 次调用 / 输入 3,589 tokens / 输出 1,060 tokens / ≈ $0.0000\n  **合计 ≈ $0.0014**\n\n---\n\n📋 PM 审核 (warning):\n存在中度分歧和硬约束降级，整体质量尚可。\n建议: 关注分歧大的条目，确保信息准确性。\n标记条目:\n  - #4 [分歧大]: R=3 F=2 L=3\n  - #5 [分歧大]: R=3 F=2 L=1\n  - #6 [分歧大]: R=2 F=2 L=2\n  - #9 [分歧大]: R=3 F=2 L=1\n  - #5 [被降级]: 被硬约束降级\n  - #9 [被降级]: 被硬约束降级\n"
 }
