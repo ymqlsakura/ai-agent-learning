@@ -1,0 +1,114 @@
+{
+  "date": "2026-10-05",
+  "generated_at": "2026-10-05 14:55",
+  "status": "pending",
+  "items": [
+    {
+      "num": 1,
+      "title": "Artificial intelligence - BBC News",
+      "link": "https://www.bbc.com/news/topics/ce1qrvleleqt",
+      "snippet": "Trump unveils 'Super Intelligence Force' to oversee AI policy · Housing or data centre? · Are AI models the next big danger for body image? · OpenAI fires workers ...",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [],
+      "source": "www.bbc.com"
+    },
+    {
+      "num": 2,
+      "title": "AI (artificial intelligence)",
+      "link": "https://www.theguardian.com/technology/artificialintelligenceai",
+      "snippet": "The AI industry is booming. Women are getting left behind Oct 4 2026. AI company's culture is 'broken' costing $500,000 a day. OpenAI's Medicare attack has ...",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [],
+      "source": "www.theguardian.com"
+    },
+    {
+      "num": 3,
+      "title": "AI News Today, October 4: Top Stories",
+      "link": "https://aiweekly.co/ai-news-today",
+      "snippet": "Top AI Stories Today · Mythos-found Rejetto HFS flaw hit by China attacker in a day · Google freezes OSS bug bounty as AI slop drowns maintainers · Altman says ...",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [
+        "#China-AI"
+      ],
+      "source": "aiweekly.co"
+    },
+    {
+      "num": 4,
+      "title": "Top AI Agent Frameworks in 2026: A Production-Ready",
+      "link": "https://pub.towardsai.net/top-ai-agent-frameworks-in-2026-a-production-ready-comparison-7ba5e39ad56d",
+      "snippet": "OpenAI launched its Agents SDK in 2026, providing a native framework for building agent workflows on top of GPT models. The SDK abstracts tool ...",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent",
+        "#new-tool"
+      ],
+      "source": "pub.towardsai.net"
+    },
+    {
+      "num": 5,
+      "title": "The best AI agent frameworks in 2026",
+      "link": "https://www.langchain.com/resources/ai-agent-frameworks",
+      "snippet": "This guide compares seven frameworks: LangChain, CrewAI, Microsoft Agent Framework, LlamaIndex Workflows, Google ADK, OpenAI Agents SDK, and ...",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "www.langchain.com"
+    },
+    {
+      "num": 6,
+      "title": "Top Agentic Frameworks for Building Applications 2026",
+      "link": "https://blog.jetbrains.com/pycharm/2026/06/top-agentic-frameworks-for-building-applications-2026/",
+      "snippet": "Let's compare the leading agentic AI frameworks in 2026 and explore what each framework does best – click here to find the right framework ...",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "blog.jetbrains.com"
+    },
+    {
+      "num": 7,
+      "title": "The One-Person Unicorn: How Solo Founders Are Building ...",
+      "link": "https://fi.co/insight/the-one-person-unicorn-how-solo-founders-are-building-billion-dollar-companies-with-ai-in-2026",
+      "snippet": "A one-person unicorn is a startup valued at a billion dollars or more that is founded, built, and largely operated by a single person who uses ...",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC"
+      ],
+      "source": "fi.co"
+    },
+    {
+      "num": 8,
+      "title": "The Rise of the One Person Business: Solo Founders ...",
+      "link": "https://www.cipherprojects.com/blog/posts/rise-one-person-business-solo-founders-reshaping-entrepreneurship/",
+      "snippet": "The solo entrepreneur provides creative direction, strategic thinking, and human judgment, while AI handles execution, analysis, and repetitive ...",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC"
+      ],
+      "source": "www.cipherprojects.com"
+    },
+    {
+      "num": 9,
+      "title": "Solo Founders Rise: 36% of Startups Now Led by One ...",
+      "link": "https://www.linkedin.com/posts/guillermoflor_%F0%9D%9F%AE%F0%9D%9F%AC%F0%9D%9F%AE%F0%9D%9F%B2-%F0%9D%98%84%F0%9D%97%B6%F0%9D%97%B9%F0%9D%97%B9-%F0%9D%97%AF%F0%9D%97%B2-%F0%9D%98%81%F0%9D%97%B5%F0%9D%97%B2-%F0%9D%97%B3%F0%9D%97%B6%F0%9D%97%BF%F0%9D%98%80%F0%9D%98%81-activity-7406784696673656832-qpgE",
+      "snippet": "2026 will be the first year with a 1-person company worth $1 billion … 36% in 2024. only 16%-19% of VC-backed startups are led by solo founders ...",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC"
+      ],
+      "source": "www.linkedin.com"
+    },
+    {
+      "num": 10,
+      "title": "Release notes | Claude Help Center",
+      "link": "https://support.claude.com/en/articles/12138966-release-notes",
+      "snippet": "Two new cybersecurity features were added to Claude Code: /security-review command GitHub Actions See Automated Security Reviews in Claude Code.",
+      "query": "Claude Code new features updates 2026",
+      "tags": [
+        "#Claude"
+      ],
+      "source": "support.claude.com"
+    }
+  ]
+}
