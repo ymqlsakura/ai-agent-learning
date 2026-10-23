@@ -1,0 +1,116 @@
+{
+  "date": "2026-10-23",
+  "generated_at": "2026-10-23 13:58",
+  "status": "pending",
+  "items": [
+    {
+      "num": 1,
+      "title": "Sharp drops for AI stocks overwhelm markets worldwide as ...",
+      "link": "https://www.2news.com/news/national/sharp-drops-for-ai-stocks-overwhelm-markets-worldwide-as-oil-prices-jump/article_22910dc6-200a-5c9a-b81f-25aa8fb8b876.html",
+      "snippet": "artificial-intelligence industry pulled markets lower worldwide on Thursday, Nasdaq composite tumbled 2.6%. Tesla fell 3.1% dropped 10.1%.",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [],
+      "source": "www.2news.com"
+    },
+    {
+      "num": 2,
+      "title": "AI News Today, October 22: Top Stories",
+      "link": "https://aiweekly.co/ai-news-today",
+      "snippet": "DeepSeek raises ~$15B right after US federal ban · Mistral drops Large 4, 1T MoE with 52B active, open weights late Oct · Meta locks in $825B in future AI leases ...",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [],
+      "source": "aiweekly.co"
+    },
+    {
+      "num": 3,
+      "title": "Trump issues AI, data center position; Anthropic CEO ...",
+      "link": "https://www.foxnews.com/live-news/ai-artificial-super-intelligence-regulation-midterms-congress-october-21",
+      "snippet": "AI companies developing artificial superintelligence face scrutiny as Congress weighs regulation, public safety safeguards and ethical reviews",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [
+        "#Claude"
+      ],
+      "source": "www.foxnews.com"
+    },
+    {
+      "num": 4,
+      "title": "Top AI Agent Frameworks in 2026: A Production-Ready ...",
+      "link": "https://pub.towardsai.net/top-ai-agent-frameworks-in-2026-a-production-ready-comparison-7ba5e39ad56d",
+      "snippet": "OpenAI, Anthropic, and Google all launched agent development kits in 2026. 120+ agentic AI tools across 11 categories,",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent",
+        "#Claude",
+        "#new-tool"
+      ],
+      "source": "pub.towardsai.net"
+    },
+    {
+      "num": 5,
+      "title": "The best AI agent frameworks in 2026",
+      "link": "https://www.langchain.com/resources/ai-agent-frameworks",
+      "snippet": "This guide compares seven frameworks: LangChain, CrewAI, Microsoft Agent Framework, LlamaIndex Workflows, Google ADK, OpenAI Agents SDK, and ...",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "www.langchain.com"
+    },
+    {
+      "num": 6,
+      "title": "Top Agentic Frameworks for Building Applications 2026",
+      "link": "https://blog.jetbrains.com/pycharm/2026/06/top-agentic-frameworks-for-building-applications-2026/",
+      "snippet": "LangChain and AutoGen have risen to prominence, Haystack is an open-source AI orchestration framework building production-ready AI agents, ...",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "blog.jetbrains.com"
+    },
+    {
+      "num": 7,
+      "title": "The First Solo Unicorns Are Here: Meet the One-Person ...",
+      "link": "https://fi.co/insight/the-first-solo-unicorns-are-here-meet-the-one-person-companies-racing-to-1b-in-2026",
+      "snippet": "A solo unicorn is a startup on a path to a billion-dollar valuation that runs on one founder plus a stack of AI agents instead of a large team. The founder owns ...",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "fi.co"
+    },
+    {
+      "num": 8,
+      "title": "How Solo Founders Are Quietly Building $30M Companies ...",
+      "link": "https://www.youtube.com/watch?v=cPU8ZwtnDAI",
+      "snippet": "The Math Behind Building a Startup That Never Needs Funding · If You Don't Understand Funding, You Don't Understand Startups · How I'd Build a 1- ...",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC"
+      ],
+      "source": "www.youtube.com"
+    },
+    {
+      "num": 9,
+      "title": "The Rise of the One Person Business: Solo Founders ...",
+      "link": "https://www.cipherprojects.com/blog/posts/rise-one-person-business-solo-founders-reshaping-entrepreneurship/",
+      "snippet": "The solo founder who skillfully leverages AI and global talent demonstrates that entrepreneurial impact is increasingly decoupled from ...",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC"
+      ],
+      "source": "www.cipherprojects.com"
+    },
+    {
+      "num": 10,
+      "title": "Release notes - Claude Help Center",
+      "link": "https://support.claude.com/en/articles/12138966-release-notes",
+      "snippet": "We've upgraded Claude Opus to a new version. Claude Opus 4.8 shows improvements over Opus 4.7 in coding, agentic skills, reasoning, and ...",
+      "query": "Claude Code new features updates 2026",
+      "tags": [
+        "#AI-agent",
+        "#Claude"
+      ],
+      "source": "support.claude.com"
+    }
+  ]
+}
