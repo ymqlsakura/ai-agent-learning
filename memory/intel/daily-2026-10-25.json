@@ -1,0 +1,117 @@
+{
+  "date": "2026-10-25",
+  "generated_at": "2026-10-25 13:59",
+  "status": "pending",
+  "items": [
+    {
+      "num": 1,
+      "title": "Discover the latest AI breakthroughs as they happen, so ...",
+      "link": "https://www.facebook.com/snowflakedb/videos/discover-whats-new-in-ai/1619704816287156/",
+      "snippet": "This video summarizes major developments in artificial intelligence from the past week. Key topics include NVIDIA's new video generation capabilities, ...",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [],
+      "source": "www.facebook.com"
+    },
+    {
+      "num": 2,
+      "title": "Artificial Intelligence - The New York ...",
+      "link": "https://www.nytimes.com/spotlight/artificial-intelligence",
+      "snippet": "Latest · C.E.O.s Say the A.I. · My Landlord Replaced Our Doormen With A.I. · There May Be More Peril in the U.S. Markets Than Meets the Eye · A Tech Rotation Roils ...",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [],
+      "source": "www.nytimes.com"
+    },
+    {
+      "num": 3,
+      "title": "NBC News - Breaking Headlines and Video Reports on World ...",
+      "link": "https://www.nbcnews.com/",
+      "snippet": "Senator says China benefits if U.S. won't regulate A.I. An AI-generated digital advertisement featuring Louisiana ・ es are using AI in political ads ・ ...",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [
+        "#China-AI"
+      ],
+      "source": "www.nbcnews.com"
+    },
+    {
+      "num": 4,
+      "title": "Top AI Agent Frameworks in 2026: A Production-Ready ...",
+      "link": "https://pub.towardsai.net/top-ai-agent-frameworks-in-2026-a-production-ready-comparison-7ba5e39ad56d",
+      "snippet": "OpenAI, Anthropic, and Google all launched agent development kits in 2026. Microsoft rebuilt AutoGen from scratch. LangGraph crossed 37,000 ...",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent",
+        "#Claude"
+      ],
+      "source": "pub.towardsai.net"
+    },
+    {
+      "num": 5,
+      "title": "The best AI agent frameworks in 2026",
+      "link": "https://www.langchain.com/resources/ai-agent-frameworks",
+      "snippet": "This guide compares seven frameworks: LangChain, CrewAI, Microsoft Agent Framework, LlamaIndex Workflows, Google ADK, OpenAI Agents SDK, and ...",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "www.langchain.com"
+    },
+    {
+      "num": 6,
+      "title": "The 9 Best AI Agent Frameworks in 2026 (We Tested Every ...",
+      "link": "https://www.agentmail.to/blog/best-ai-agent-frameworks-2026",
+      "snippet": "We built an identical agent in all nine major frameworks (Mastra, LangGraph, OpenAI Agents SDK, Vercel AI SDK, Pydantic AI, CrewAI, ...",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "www.agentmail.to"
+    },
+    {
+      "num": 7,
+      "title": "The One-Person Unicorn: How Solo Founders Are Building ...",
+      "link": "https://fi.co/insight/the-one-person-unicorn-how-solo-founders-are-building-billion-dollar-companies-with-ai-in-2026",
+      "snippet": "A one-person unicorn is a startup valued at a billion dollars or more that is founded, built, and largely operated by a single person who uses ...",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC"
+      ],
+      "source": "fi.co"
+    },
+    {
+      "num": 8,
+      "title": "The Rise of the One Person Business: Solo Founders ...",
+      "link": "https://www.cipherprojects.com/blog/posts/rise-one-person-business-solo-founders-reshaping-entrepreneurship/",
+      "snippet": "The rise of the solo founder: how one-person businesses and one-man startups leverage AI, Hermes-class agents, fractional CTO partners, ...",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#AI-agent",
+        "#OPC"
+      ],
+      "source": "www.cipherprojects.com"
+    },
+    {
+      "num": 9,
+      "title": "Solo founders are using AI to do the work of entire teams ...",
+      "link": "https://fortune.com/2026/05/18/solo-founders-ai-automation-entire-teams-entrepreneurs/",
+      "snippet": "AI tools are letting founders launch products, serve hundreds of customers, and land big exits on their own, without having to hire any ...",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC",
+        "#new-tool"
+      ],
+      "source": "fortune.com"
+    },
+    {
+      "num": 10,
+      "title": "Release notes | Claude Help Center",
+      "link": "https://support.claude.com/en/articles/12138966-release-notes",
+      "snippet": "We've upgraded Claude Opus to a new version. Claude Opus 4.8 shows improvements over Opus 4.7 in coding, agentic skills, reasoning, and ...",
+      "query": "Claude Code new features updates 2026",
+      "tags": [
+        "#AI-agent",
+        "#Claude"
+      ],
+      "source": "support.claude.com"
+    }
+  ]
+}
