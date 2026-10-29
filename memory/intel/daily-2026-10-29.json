@@ -1,0 +1,120 @@
+{
+  "date": "2026-10-29",
+  "generated_at": "2026-10-29 14:58",
+  "status": "pending",
+  "items": [
+    {
+      "num": 1,
+      "title": "Artificial Intelligence - Latest AI News and Analysis",
+      "link": "https://www.wsj.com/tech/ai",
+      "snippet": "The latest artificial intelligence news coverage focusing on the technology, tools and the companies building AI technology. Google Pushed AI Into Schools. AI ...",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [
+        "#new-tool"
+      ],
+      "source": "www.wsj.com"
+    },
+    {
+      "num": 2,
+      "title": "Open AI Reveals 700 AI Agents Coordinated a Cyberattack on ...",
+      "link": "https://thermtide.com/30279/science-tech/open-ai-reveals-700-ai-agents-coordinated-a-cyberattack-on-a-company/",
+      "snippet": "After years of rapid growth in AI technology, a recent study reveals how unreleased ChatGPT models escaped testing and hacked the company Hugging Face in July,",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "thermtide.com"
+    },
+    {
+      "num": 3,
+      "title": "AI giants' funding ambitions test Wall Street's appetite for risk",
+      "link": "https://www.reuters.com/legal/transactional/ai-giants-funding-ambitions-test-wall-streets-appetite-risk-2026-10-28/",
+      "snippet": "The heavyweights of the AI industry are facing a reckoning on Wall Street, reflecting concerns over who will bear the cost of the artificial intelligence ...",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [],
+      "source": "www.reuters.com"
+    },
+    {
+      "num": 4,
+      "title": "Top AI Agent Frameworks in 2026: A Production-Ready ...",
+      "link": "https://pub.towardsai.net/top-ai-agent-frameworks-in-2026-a-production-ready-comparison-7ba5e39ad56d",
+      "snippet": "OpenAI, Anthropic, and Google all launched agent development kits in 2026. 120+ agentic AI tools across 11 categories,",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent",
+        "#Claude",
+        "#new-tool"
+      ],
+      "source": "pub.towardsai.net"
+    },
+    {
+      "num": 5,
+      "title": "The best AI agent frameworks in 2026",
+      "link": "https://www.langchain.com/resources/ai-agent-frameworks",
+      "snippet": "This guide compares seven frameworks: LangChain, CrewAI, Microsoft Agent Framework, LlamaIndex Workflows, Google ADK, OpenAI Agents SDK, and ...",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "www.langchain.com"
+    },
+    {
+      "num": 6,
+      "title": "Best agent framework in 2026? There isn't one. Here's my ...",
+      "link": "https://www.reddit.com/r/aiagents/comments/1uv3gxc/best_agent_framework_in_2026_there_isnt_one_heres/",
+      "snippet": "Python: PydanticAI · Complex, durable orchestration: LangGraph · OpenAI-native apps: OpenAI Agents SDK · Claude coding agents: Claude Agent SDK.",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent",
+        "#Claude"
+      ],
+      "source": "www.reddit.com"
+    },
+    {
+      "num": 7,
+      "title": "The One-Person Unicorn: How Solo Founders Are Building ...",
+      "link": "https://fi.co/insight/the-one-person-unicorn-how-solo-founders-are-building-billion-dollar-companies-with-ai-in-2026",
+      "snippet": "A one-person unicorn is a startup valued at a billion dollars or more that is founded, built, and largely operated by a single person who uses ...",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC"
+      ],
+      "source": "fi.co"
+    },
+    {
+      "num": 8,
+      "title": "The Rise of the One Person Business: Solo Founders ...",
+      "link": "https://www.cipherprojects.com/blog/posts/rise-one-person-business-solo-founders-reshaping-entrepreneurship/",
+      "snippet": "The rise of the solo founder: how one-person businesses and one-man startups leverage AI, Hermes-class agents, fractional CTO partners, ...",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#AI-agent",
+        "#OPC"
+      ],
+      "source": "www.cipherprojects.com"
+    },
+    {
+      "num": 9,
+      "title": "Solo Founders Rise: 36% of Startups Now Led by One ...",
+      "link": "https://www.linkedin.com/posts/guillermoflor_%F0%9D%9F%AE%F0%9D%9F%AC%F0%9D%9F%AE%F0%9D%9F%B2-%F0%9D%98%84%F0%9D%97%B6%F0%9D%97%B9%F0%9D%97%B9-%F0%9D%97%AF%F0%9D%97%B2-%F0%9D%98%81%F0%9D%97%B5%F0%9D%97%B2-%F0%9D%97%B3%F0%9D%97%B6%F0%9D%97%BF%F0%9D%98%80%F0%9D%98%81-activity-7406784696673656832-qpgE",
+      "snippet": "2026 will be the first year with a 1-person company worth $1 billion Sam Altman ...",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC"
+      ],
+      "source": "www.linkedin.com"
+    },
+    {
+      "num": 10,
+      "title": "Release notes | Claude Help Center",
+      "link": "https://support.claude.com/en/articles/12138966-release-notes",
+      "snippet": "We've upgraded Claude Opus to a new version. Claude Opus 4.8 shows improvements over Opus 4.7 in coding, agentic skills, reasoning, and ...",
+      "query": "Claude Code new features updates 2026",
+      "tags": [
+        "#AI-agent",
+        "#Claude"
+      ],
+      "source": "support.claude.com"
+    }
+  ]
+}
