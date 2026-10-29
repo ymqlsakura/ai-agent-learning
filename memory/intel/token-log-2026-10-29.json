@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-29",
+  "goal": "intel-review",
+  "rounds": 5,
+  "workers": {
+    "deepseek": {
+      "calls": 5,
+      "prompt_tokens": 7741,
+      "completion_tokens": 7975,
+      "cost_estimate_usd": 0.0022
+    },
+    "glm": {
+      "calls": 5,
+      "prompt_tokens": 7718,
+      "completion_tokens": 1756,
+      "cost_estimate_usd": 0.0
+    }
+  },
+  "total_cost_estimate_usd": 0.0022,
+  "timestamp": "2026-10-29 15:00"
+}
