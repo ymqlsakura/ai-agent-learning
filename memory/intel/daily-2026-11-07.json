@@ -1,0 +1,113 @@
+{
+  "date": "2026-11-07",
+  "generated_at": "2026-11-07 15:01",
+  "status": "pending",
+  "items": [
+    {
+      "num": 1,
+      "title": "Artificial intelligence | Latest News & Updates",
+      "link": "https://www.bbc.co.uk/news/topics/ce1qrvleleqt",
+      "snippet": "AI stocks climb after trillions wiped from market values · Why the US midterms sparked an AI stock selloff · Multi-million pound project to detect dementia · What ...",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [],
+      "source": "www.bbc.co.uk"
+    },
+    {
+      "num": 2,
+      "title": "AI News | Latest News | Insights Powering AI-Driven Business Growth",
+      "link": "https://www.artificialintelligence-news.com/",
+      "snippet": "UPS explores AI to find alternative aircraft parts amid maintenance shortages · Thailand becomes one of the first in Asia to get the Sora app · Malaysia launches ...",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [],
+      "source": "www.artificialintelligence-news.com"
+    },
+    {
+      "num": 3,
+      "title": "AI (artificial intelligence)",
+      "link": "https://www.theguardian.com/technology/artificialintelligenceai",
+      "snippet": "Global stocks fall amid 'big worries over AI' after Democrats' midterms. Fearing AI disruption, white-collar workers are quitting their jobs … to using AI Nov 5",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [],
+      "source": "www.theguardian.com"
+    },
+    {
+      "num": 4,
+      "title": "The best AI agent frameworks in 2026",
+      "link": "https://www.langchain.com/resources/ai-agent-frameworks",
+      "snippet": "This guide compares seven frameworks: LangChain, CrewAI, Microsoft Agent Framework, LlamaIndex Workflows, Google ADK, OpenAI Agents SDK, and ...",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "www.langchain.com"
+    },
+    {
+      "num": 5,
+      "title": "Top AI Agent Frameworks in 2026: A Production-Ready Comparison",
+      "link": "https://pub.towardsai.net/top-ai-agent-frameworks-in-2026-a-production-ready-comparison-7ba5e39ad56d",
+      "snippet": "OpenAI, Anthropic, and Google all launched agent development kits in 2026. 120+ agentic AI tools across 11 categories,",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent",
+        "#Claude",
+        "#new-tool"
+      ],
+      "source": "pub.towardsai.net"
+    },
+    {
+      "num": 6,
+      "title": "The 9 Best AI Agent Frameworks in 2026 (We Tested Every Single One)",
+      "link": "https://www.agentmail.to/blog/best-ai-agent-frameworks-2026",
+      "snippet": "We built an identical agent in all nine major frameworks (Mastra, LangGraph, OpenAI Agents SDK, Vercel AI SDK, Pydantic AI, CrewAI, ...",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "www.agentmail.to"
+    },
+    {
+      "num": 7,
+      "title": "The One-Person Unicorn: How Solo Founders Are Building Billion-Dollar ...",
+      "link": "https://fi.co/insight/the-one-person-unicorn-how-solo-founders-are-building-billion-dollar-companies-with-ai-in-2026",
+      "snippet": "A one-person unicorn is a startup valued at a billion dollars or more that is founded, built, and largely operated by a single person who uses ...",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC"
+      ],
+      "source": "fi.co"
+    },
+    {
+      "num": 8,
+      "title": "The Rise of the One Person Business: Solo Founders Reshaping ...",
+      "link": "https://www.cipherprojects.com/blog/posts/rise-one-person-business-solo-founders-reshaping-entrepreneurship/",
+      "snippet": "How solo founders and one-man startups build multi-million dollar companies with AI, global talent, and lean operations.",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC"
+      ],
+      "source": "www.cipherprojects.com"
+    },
+    {
+      "num": 9,
+      "title": "How Solo Founders Are Quietly Building $30M Companies Without ...",
+      "link": "https://www.youtube.com/watch?v=cPU8ZwtnDAI",
+      "snippet": "Two AI startups can hit the same revenue and look identical from the outside. The New Way AI Startups Are Raising Millions in 2026 Rho•32K. Can ...",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC"
+      ],
+      "source": "www.youtube.com"
+    },
+    {
+      "num": 10,
+      "title": "Release notes | Claude Help Center",
+      "link": "https://support.claude.com/en/articles/12138966-release-notes",
+      "snippet": "November 5, 2026. New security and admin controls for Enterprise plans. Claude Enterprise has new security and admin features, including a ...",
+      "query": "Claude Code new features updates 2026",
+      "tags": [
+        "#Claude"
+      ],
+      "source": "support.claude.com"
+    }
+  ]
+}
