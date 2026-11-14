@@ -1,7 +1,7 @@
 {
   "date": "2026-11-14",
   "generated_at": "2026-11-14 15:32",
-  "status": "pending",
+  "status": "scored",
   "items": [
     {
       "num": 1,
@@ -112,5 +112,189 @@
       ],
       "source": "code.claude.com"
     }
-  ]
+  ],
+  "scored_at": "2026-11-14 15:34",
+  "scores": [
+    {
+      "num": 1,
+      "title": "Artificial intelligence | Latest News & Updates",
+      "link": "https://www.bbc.co.uk/news/topics/ce1qrvleleqt",
+      "relevance": 1,
+      "feasibility": 1,
+      "leverage": 1,
+      "total": 3,
+      "action": "[强制梯度 4→3] 关注AI领域最新动态",
+      "worker_scores": {
+        "glm": {
+          "relevance": 1,
+          "feasibility": 1,
+          "leverage": 2,
+          "total": 4
+        }
+      }
+    },
+    {
+      "num": 2,
+      "title": "AI Stocks Close Lower Friday As Markets Absorb Jensen ...",
+      "link": "https://www.forbes.com/sites/fionariley/2026/11/13/ai-and-chip-stocks-finish-down-on-friday-as-markets-digest-nvidia-turmoil/",
+      "relevance": 1,
+      "feasibility": 1,
+      "leverage": 1,
+      "total": 3,
+      "action": "[强制梯度 4→3] 关注AI股票市场动态",
+      "worker_scores": {
+        "glm": {
+          "relevance": 1,
+          "feasibility": 1,
+          "leverage": 2,
+          "total": 4
+        }
+      }
+    },
+    {
+      "num": 3,
+      "title": "The AI industry faces intense strain as lawsuits, protests ...",
+      "link": "https://mashable.com/tech/ai-industry-terrible-november-nvidia-lawsuits-protests",
+      "relevance": 2,
+      "feasibility": 2,
+      "leverage": 3,
+      "total": 7,
+      "action": "关注AI安全风险和法规",
+      "worker_scores": {
+        "glm": {
+          "relevance": 2,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 7
+        }
+      }
+    },
+    {
+      "num": 4,
+      "title": "The 10 Best AI Agent Frameworks in 2026 (We Tested ...",
+      "link": "https://www.agentmail.to/blog/best-ai-agent-frameworks-2026",
+      "relevance": 2,
+      "feasibility": 1,
+      "leverage": 0,
+      "total": 3,
+      "action": "[强制梯度 6→3] [硬约束降级: ≥7上限 7→6] 评估AI代理框架的适用性",
+      "worker_scores": {
+        "glm": {
+          "relevance": 2,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 7
+        }
+      }
+    },
+    {
+      "num": 5,
+      "title": "Top AI Agent Frameworks in 2026: A Production-Ready ...",
+      "link": "https://pub.towardsai.net/top-ai-agent-frameworks-in-2026-a-production-ready-comparison-7ba5e39ad56d",
+      "relevance": 2,
+      "feasibility": 2,
+      "leverage": 2,
+      "total": 6,
+      "action": "[硬约束降级: ≥7上限 7→6] 了解最新AI代理开发工具",
+      "worker_scores": {
+        "glm": {
+          "relevance": 2,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 7
+        }
+      }
+    },
+    {
+      "num": 6,
+      "title": "The best AI agent frameworks in 2026",
+      "link": "https://www.langchain.com/resources/ai-agent-frameworks",
+      "relevance": 2,
+      "feasibility": 2,
+      "leverage": 2,
+      "total": 6,
+      "action": "[供应商降权] 比较不同AI代理框架的特点",
+      "worker_scores": {
+        "glm": {
+          "relevance": 2,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 7
+        }
+      }
+    },
+    {
+      "num": 7,
+      "title": "The One-Person Unicorn: How Solo Founders Are Building Billion-Dollar ...",
+      "link": "https://fi.co/insight/the-one-person-unicorn-how-solo-founders-are-building-billion-dollar-companies-with-ai-in-2026",
+      "relevance": 3,
+      "feasibility": 2,
+      "leverage": 3,
+      "total": 8,
+      "action": "学习一人公司成功案例",
+      "worker_scores": {
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        }
+      }
+    },
+    {
+      "num": 8,
+      "title": "7 AI SaaS Startups Built by Solo Founders (2026)",
+      "link": "https://sigmaschool.co/blog/7-ai-saas-startups-built-by-solo-founders-and-how-you-can-do-it-too",
+      "relevance": 3,
+      "feasibility": 2,
+      "leverage": 3,
+      "total": 8,
+      "action": "了解AI SaaS产品案例",
+      "worker_scores": {
+        "glm": {
+          "relevance": 3,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 8
+        }
+      }
+    },
+    {
+      "num": 9,
+      "title": "How Solo Founders Are Quietly Building $30M Companies Without ...",
+      "link": "https://www.youtube.com/watch?v=cPU8ZwtnDAI",
+      "relevance": 3,
+      "feasibility": 1,
+      "leverage": 2,
+      "total": 6,
+      "action": "[硬约束降级: ≥7上限 7→6] 观看一人公司成功案例视频",
+      "worker_scores": {
+        "glm": {
+          "relevance": 3,
+          "feasibility": 1,
+          "leverage": 3,
+          "total": 7
+        }
+      }
+    },
+    {
+      "num": 10,
+      "title": "What's new - Claude Code Docs",
+      "link": "https://code.claude.com/docs/en/whats-new",
+      "relevance": 2,
+      "feasibility": 2,
+      "leverage": 2,
+      "total": 6,
+      "action": "[供应商降权] 关注Claude Code新功能",
+      "worker_scores": {
+        "glm": {
+          "relevance": 2,
+          "feasibility": 2,
+          "leverage": 3,
+          "total": 7
+        }
+      }
+    }
+  ],
+  "conclusion": "研判时间：2026-11-14 15:33（北京时间）\n参与 Worker：deepseek, glm\n评分标准：OPC-CONFIG.md 三维评分（相关性/可行性/杠杆率 0-3）\n\n🔥 高优先级（≥7 分，3 条）：\n  - #3「The AI industry faces intense strain as 」总分 7 → 关注AI安全风险和法规\n  - #7「The One-Person Unicorn: How Solo Founder」总分 8 → 学习一人公司成功案例\n  - #8「7 AI SaaS Startups Built by Solo Founder」总分 8 → 了解AI SaaS产品案例\n\n📌 中优先级（5-6 分，4 条）：\n  - #5「Top AI Agent Frameworks in 2026: A Produ」总分 6 → [硬约束降级: ≥7上限 7→6] 了解最新AI代理开发工具\n  - #6「The best AI agent frameworks in 2026」总分 6 → [供应商降权] 比较不同AI代理框架的特点\n  - #9「How Solo Founders Are Quietly Building $」总分 6 → [硬约束降级: ≥7上限 7→6] 观看一人公司成功案例视频\n  - #10「What's new - Claude Code Docs」总分 6 → [供应商降权] 关注Claude Code新功能\n\n💰 本次研判 Token 消耗：\n  - DeepSeek V4 Flash：2 次调用 / 输入 3,632 tokens / 输出 6,144 tokens / ≈ $0.0014\n  - GLM-4-Flash：2 次调用 / 输入 3,614 tokens / 输出 1,066 tokens / ≈ $0.0000\n  **合计 ≈ $0.0014**\n\n---\n\n📋 PM 审核 (warning):\n存在分歧和硬约束降级，需人工复核\n建议: 关注分歧大和硬约束降级的条目\n⚠️ 建议人工复核——存在中度分歧和硬约束降级\n标记条目:\n  - #3 [分歧大]: 评分差3分\n  - #4 [被降级]: 硬约束降级\n  - #5 [被降级]: 硬约束降级\n  - #6 [被降级]: 硬约束降级\n  - #9 [被降级]: 硬约束降级\n  - #10 [被降级]: 硬约束降级\n"
 }
