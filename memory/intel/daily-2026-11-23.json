@@ -1,0 +1,115 @@
+{
+  "date": "2026-11-23",
+  "generated_at": "2026-11-23 16:55",
+  "status": "pending",
+  "items": [
+    {
+      "num": 1,
+      "title": "Artificial intelligence | Latest News & Updates",
+      "link": "https://www.bbc.co.uk/news/topics/ce1qrvleleqt",
+      "snippet": "Latest Updates · AI helps us spot possible lung cancer, says medic · Inside the heated debate over Scotland's data centres · San Francisco is enjoying an AI boom, ...",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [],
+      "source": "www.bbc.co.uk"
+    },
+    {
+      "num": 2,
+      "title": "As AI detects flaws in computer systems, is it causing more tech ...",
+      "link": "https://www.pbs.org/newshour/nation/as-ai-detects-flaws-in-computer-systems-is-it-causing-more-tech-outages-and-disruptions",
+      "snippet": "Experts say AI is boosting companies' ability to detect weaknesses in their systems, and therefore requiring more fixes, which could lead to outages.",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [],
+      "source": "www.pbs.org"
+    },
+    {
+      "num": 3,
+      "title": "AI",
+      "link": "https://www.bloomberg.com/ai",
+      "snippet": "One flagship AI data center in Norway is six months behind schedule, with workers set to be housed in a floating hotel to get it over the finish line.",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [],
+      "source": "www.bloomberg.com"
+    },
+    {
+      "num": 4,
+      "title": "Top AI Agent Frameworks in 2026: A Production-Ready Comparison",
+      "link": "https://pub.towardsai.net/top-ai-agent-frameworks-in-2026-a-production-ready-comparison-7ba5e39ad56d",
+      "snippet": "OpenAI, Anthropic, and Google all launched agent development kits in 2026. 120+ agentic AI tools across 11 categories,",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent",
+        "#Claude",
+        "#new-tool"
+      ],
+      "source": "pub.towardsai.net"
+    },
+    {
+      "num": 5,
+      "title": "The 10 Best AI Agent Frameworks in 2026 (We Tested Every Single One)",
+      "link": "https://www.agentmail.to/blog/best-ai-agent-frameworks-2026",
+      "snippet": "ten major frameworks (Mastra, Eve, LangGraph, OpenAI Agents SDK, Vercel AI SDK, Pydantic AI, CrewAI, Claude Agent SDK, Google ADK, AutoGen/AG2)",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent",
+        "#Claude"
+      ],
+      "source": "www.agentmail.to"
+    },
+    {
+      "num": 6,
+      "title": "The best AI agent frameworks in 2026",
+      "link": "https://www.langchain.com/resources/ai-agent-frameworks",
+      "snippet": "This guide compares seven frameworks: LangChain, CrewAI, Microsoft Agent Framework, LlamaIndex Workflows, Google ADK, OpenAI Agents SDK, and ...",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "www.langchain.com"
+    },
+    {
+      "num": 7,
+      "title": "The One-Person Unicorn: How Solo Founders Are Building Billion-Dollar ...",
+      "link": "https://fi.co/insight/the-one-person-unicorn-how-solo-founders-are-building-billion-dollar-companies-with-ai-in-2026",
+      "snippet": "A one-person unicorn is a startup valued at a billion dollars or more. Founder Institute rebuilt its program as an AI-native company builder ...",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC"
+      ],
+      "source": "fi.co"
+    },
+    {
+      "num": 8,
+      "title": "7 AI SaaS Startups Built by Solo Founders (and How You Can Do It Too)",
+      "link": "https://sigmaschool.co/blog/7-ai-saas-startups-built-by-solo-founders-and-how-you-can-do-it-too",
+      "snippet": "Seven AI SaaS products built by solo founders, including Photo AI, HeadshotPro and TypingMind: what they sell, what they earn, and the playbook to copy.",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC"
+      ],
+      "source": "sigmaschool.co"
+    },
+    {
+      "num": 9,
+      "title": "Can a solo founder realistically build a $1B company in the AI era? : r/SaaS",
+      "link": "https://www.reddit.com/r/SaaS/comments/1rlodwv/can_a_solo_founder_realistically_build_a_1b/",
+      "snippet": "Solo founder builds to $1M–$10M ARR. Proves strong product + distribution. Then decides whether to stay small or build a team to scale further.",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC"
+      ],
+      "source": "www.reddit.com"
+    },
+    {
+      "num": 10,
+      "title": "Week 25 · June 15–19, 2026 - Claude Code Docs",
+      "link": "https://code.claude.com/docs/en/whats-new/2026-w25",
+      "snippet": "Publish a live, shareable page from your session with Artifacts, match tool parameters in deny and ask rules, and set any setting from the prompt with /config.",
+      "query": "Claude Code new features updates 2026",
+      "tags": [
+        "#Claude",
+        "#new-tool"
+      ],
+      "source": "code.claude.com"
+    }
+  ]
+}
