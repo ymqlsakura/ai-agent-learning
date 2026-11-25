@@ -1,0 +1,113 @@
+{
+  "date": "2026-11-25",
+  "generated_at": "2026-11-25 17:45",
+  "status": "pending",
+  "items": [
+    {
+      "num": 1,
+      "title": "AI (artificial intelligence)",
+      "link": "https://www.theguardian.com/technology/artificialintelligenceai",
+      "snippet": "Nvidia drama shows stock market is overly dependent on AI Nov 24. AI advances 'Produce a good result by any means': how AI is testing South Korea's exam ...",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [],
+      "source": "www.theguardian.com"
+    },
+    {
+      "num": 2,
+      "title": "Artificial intelligence",
+      "link": "https://www.nbcnews.com/artificial-intelligence",
+      "snippet": "The latest news and top stories on artificial intelligence, including ChatGPT, AI Chatbot and Bard. Gov. Hochul signs AI-powered toy ban into law Hallie ...",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [],
+      "source": "www.nbcnews.com"
+    },
+    {
+      "num": 3,
+      "title": "AI News Today, November 25: Top Stories",
+      "link": "https://aiweekly.co/ai-news-today",
+      "snippet": "The top AI stories and live updates for Wednesday, November. AI's net US employment impact in 2026 is near zero, companies report AI-related layoffs between 1- ...",
+      "query": "AI industry breaking news highlights this week",
+      "tags": [],
+      "source": "aiweekly.co"
+    },
+    {
+      "num": 4,
+      "title": "Top AI Agent Frameworks in 2026: A Production-Ready Comparison",
+      "link": "https://pub.towardsai.net/top-ai-agent-frameworks-in-2026-a-production-ready-comparison-7ba5e39ad56d",
+      "snippet": "OpenAI launched its Agents SDK in 2026, providing a native framework for building agent workflows on top of GPT models. The SDK abstracts tool ...",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent",
+        "#new-tool"
+      ],
+      "source": "pub.towardsai.net"
+    },
+    {
+      "num": 5,
+      "title": "The 10 Best AI Agent Frameworks in 2026 (We Tested Every Single One)",
+      "link": "https://www.agentmail.to/blog/best-ai-agent-frameworks-2026",
+      "snippet": "We built an identical agent in all ten major frameworks (Mastra, Eve, LangGraph, OpenAI Agents SDK, Vercel AI SDK, Pydantic AI, CrewAI, ...",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "www.agentmail.to"
+    },
+    {
+      "num": 6,
+      "title": "The best AI agent frameworks in 2026",
+      "link": "https://www.langchain.com/resources/ai-agent-frameworks",
+      "snippet": "This guide compares seven frameworks: LangChain, CrewAI, Microsoft Agent Framework, LlamaIndex Workflows, Google ADK, OpenAI Agents SDK, and ...",
+      "query": "new AI agent tools frameworks released 2026",
+      "tags": [
+        "#AI-agent"
+      ],
+      "source": "www.langchain.com"
+    },
+    {
+      "num": 7,
+      "title": "The One-Person Unicorn: How Solo Founders Are Building Billion-Dollar Companies With AI in 2026",
+      "link": "https://fi.co/insight/the-one-person-unicorn-how-solo-founders-are-building-billion-dollar-companies-with-ai-in-2026",
+      "snippet": "A one-person unicorn is a startup valued at a billion dollars or more that is founded, built, and largely operated by a single person who uses ...",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC"
+      ],
+      "source": "fi.co"
+    },
+    {
+      "num": 8,
+      "title": "7 AI SaaS Startups Built by Solo Founders (and How You Can Do It Too)",
+      "link": "https://sigmaschool.co/blog/7-ai-saas-startups-built-by-solo-founders-and-how-you-can-do-it-too",
+      "snippet": "Seven AI SaaS products built by solo founders, including Photo AI, HeadshotPro and TypingMind: what they sell, what they earn, and the playbook to copy.",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC"
+      ],
+      "source": "sigmaschool.co"
+    },
+    {
+      "num": 9,
+      "title": "The solo founder AI stack in 2026 — what tools actually save time vs. what's hype",
+      "link": "https://www.reddit.com/r/SideProject/comments/1s87qnp/the_solo_founder_ai_stack_in_2026_what_tools/",
+      "snippet": "I've been building as a solo founder and wanted to share what's actually working in the AI-assisted startup toolkit space right now.\n\nWhat's genuinely ...",
+      "query": "solo founder one person business AI startup 2026",
+      "tags": [
+        "#OPC",
+        "#new-tool"
+      ],
+      "source": "www.reddit.com"
+    },
+    {
+      "num": 10,
+      "title": "What's new - Claude Code Docs",
+      "link": "https://code.claude.com/docs/en/whats-new",
+      "snippet": "2026 claude plugin ・ 2026 Claude Fable 5.1: available in Claude Code with a 1M-token context window.Also ・ 2026 Resume terminal sessions",
+      "query": "Claude Code new features updates 2026",
+      "tags": [
+        "#Claude"
+      ],
+      "source": "code.claude.com"
+    }
+  ]
+}
